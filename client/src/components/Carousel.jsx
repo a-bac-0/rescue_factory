@@ -45,7 +45,7 @@ const Carousel = () => {
             <div className="container w-full">
                 {/* Contenedor principal */}
                 <div className="flex flex-col md:flex-row bg-white w-[90%] ">
-                    {/* Sección de texto */}
+                    {/* Sección texto */}
                     <div className="p-6 flex flex-col justify-center w-full md:w-1/2 mx-4">
                         <h2 className="text-xl font-bold text-gray-700">
                             {slides[currentSlide].name}
