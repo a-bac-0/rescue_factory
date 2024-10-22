@@ -19,7 +19,7 @@ const Carousel = () => {
             sex: 'Macho',
             category: 'Perros',
             content:
-                'Firulais es un perro muy cariñoso y juguetón. Le encanta correr en el parque.',
+                'Firulais es un perro muy cariñoso y juguetón. Le encanta correr en el parque y jugar con otros perros. Siempre está listo para una aventura.',
             url_images:
                 'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?fit=crop&w=800&q=80',
             user_id: 1,
@@ -31,7 +31,7 @@ const Carousel = () => {
             sex: 'Macho',
             category: 'Gatos',
             content:
-                'Tom es un gato travieso que siempre está en busca de aventuras.',
+                'Tom es un gato travieso que siempre está en busca de aventuras. Le encanta escalar y jugar con sus juguetes favoritos. Es un gran compañero para todos.',
             url_images:
                 'https://gatogazzu.org/wp-content/uploads/2021/09/gato-negro-930x620.jpg',
             user_id: 112,
@@ -43,7 +43,7 @@ const Carousel = () => {
             sex: 'Hembra',
             category: 'Perros',
             content:
-                'Luna es una perrita tranquila que ama los paseos cortos y las siestas largas.',
+                'Luna es una perrita tranquila que ama los paseos cortos y las siestas largas. Disfruta de la compañía de su dueño y siempre está lista para un abrazo.',
             url_images:
                 'https://content.nationalgeographic.com.es/medio/2024/09/23/perro-triste-istock-kerkez_94902f27_240923142256_1280x855.jpg',
             user_id: 2,
@@ -55,7 +55,7 @@ const Carousel = () => {
             sex: 'Macho',
             category: 'Perros',
             content:
-                'Max es muy inteligente y le encanta aprender trucos nuevos.',
+                'Max es muy inteligente y le encanta aprender trucos nuevos. Siempre está buscando maneras de entretenerse y también de entretener a su familia. Es un gran amigo.',
             url_images:
                 'https://images.unsplash.com/photo-1560807707-8cc77767d783?fit=crop&w=800&q=80',
             user_id: 3,
@@ -67,12 +67,33 @@ const Carousel = () => {
             sex: 'Hembra',
             category: 'Gatos',
             content:
-                'Misu es una gatita tierna que le encanta dormir en lugares cálidos.',
+                'Misu es una gatita tierna que le encanta dormir en lugares cálidos. Es muy juguetona y siempre busca compañía para jugar y divertirse.',
             url_images:
                 'https://images.unsplash.com/photo-1574158622682-e40e69881006?fit=crop&w=800&q=80',
             user_id: 223,
         },
     ]
+
+    // Limite de caracteres para la descripción
+    const CHAR_LIMIT = 100
+
+    // Función para recortar el texto sin cortar palabras
+    const truncateContent = (text) => {
+        if (text.length <= CHAR_LIMIT) {
+            return text
+        }
+
+        const words = text.split(' ')
+        let truncatedText = ''
+        for (let word of words) {
+            if ((truncatedText + word).length > CHAR_LIMIT) {
+                break
+            }
+            truncatedText += word + ' '
+        }
+
+        return truncatedText.trim() + '...'
+    }
 
     const handlePrev = () => {
         setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
@@ -98,7 +119,7 @@ const Carousel = () => {
         gsap.fromTo(
             '.slide-img',
             { opacity: 0, x: 100 },
-            { opacity: 1, x: 0, duration: 0.5 }
+            { opacity: 1, x: 0, duration: 1 }
         )
     }, [currentSlide])
 
@@ -141,7 +162,7 @@ const Carousel = () => {
                         {slides[currentSlide].age}
                     </div>
                     <p className="mt-4 text-sm text-gray-500">
-                        {slides[currentSlide].content}
+                        {truncateContent(slides[currentSlide].content)}
                     </p>
                     <button className="mt-3 bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
                         Leer más
