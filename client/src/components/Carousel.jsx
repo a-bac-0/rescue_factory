@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import Arrow1 from '../assets/images/Arrow 1.svg'
 import Arrow2 from '../assets/images/Arrow 2.svg'
 
 const Carousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const slideRef = useRef(null) // Referencia al slide actual
 
     const slides = [
         {
@@ -32,13 +34,39 @@ const Carousel = () => {
         },
     ]
 
+    // Función para mostrar el slide anterior
     const handlePrev = () => {
         setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
     }
 
+    // Función para mostrar el siguiente slide
     const handleNext = () => {
         setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
     }
+
+    // Animación con GSAP al cambiar de slide
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Aparece el nuevo slide desde la derecha
+            gsap.fromTo(
+                slideRef.current,
+                { x: 300, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+            )
+        }, [currentSlide])
+
+        return () => ctx.revert() // Limpieza de la animación
+    }, [currentSlide])
+
+    // Configurar intervalo para avanzar automáticamente cada 5 segundos
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleNext()
+        }, 5000) // Cambia cada 5 segundos (5000 milisegundos)
+
+        // Limpiar el intervalo cuando el componente se desmonte
+        return () => clearInterval(interval)
+    }, [currentSlide])
 
     return (
         <div className="container w-full px-4 md:px-1">
@@ -60,7 +88,7 @@ const Carousel = () => {
                         {slides[currentSlide].description}
                     </p>
                     {/* Ajuste del margen del botón */}
-                    <button className="mt-3 bg-[#D1B85E] text-black px-4 py-2 rounded-lg w-32">
+                    <button className="mt-3 bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
                         Leer más
                     </button>
                 </div>
@@ -68,7 +96,7 @@ const Carousel = () => {
                 {/* Contenedor de imagen y flechas */}
                 <div className="relative flex-1 flex flex-col items-center md:items-start justify-center pr-7 pl-7 md:h-[650px] lg:h-[600px]">
                     {/* Contenedor de imagen con proporciones diferentes según dispositivo */}
-                    <div className="relative w-full h-auto">
+                    <div className="relative w-full h-auto" ref={slideRef}>
                         <div className="aspect-[5/8] md:aspect-[16/10] w-full">
                             <img
                                 className="w-full h-full object-cover rounded-lg"
