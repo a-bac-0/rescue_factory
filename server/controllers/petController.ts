@@ -5,14 +5,27 @@ import { Request, Response } from "supertest";
 
 //Get del los post
 
-export const getAllPets = async (req: Request, res: Response) => {
-    try {
-      const pets = await petsModel.findAll(); 
-      res.json(pets);
+// export const getAllPets = async (req: Request, res: Response) => {
+//     try {
+//       const pets = await petsModel.findAll(); 
+//       res.json(pets);
       
-} catch (error) {
+// } catch (error) {
+//       res.status(500).json({ message: error.message });
+//     }
+//   };
+
+//get oone id de los post
+
+export const getPet = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const pet = await petsModel.findByPk(id);
+      if (!pet) {
+        return res.status(404).json({ message: "Pet not found" });
+      }
+      res.json(pet);
+    } catch (error) {
       res.status(500).json({ message: error.message });
     }
   };
-
-
