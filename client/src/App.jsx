@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import Carousel from './components/Carousel.jsx'
+import Adoptions from './pages/Adoptions.jsx'
 
 function App() {
     const [count, setCount] = useState(0)
 
     return (
         <>
-            <Carousel />
+            <Adoptions />
         </>
     )
 }
