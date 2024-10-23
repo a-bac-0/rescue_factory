@@ -1,6 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '../layout/Layout'
 import Adopciones from '../pages/Adopciones.jsx'
+import Home from '../pages/Home.jsx'
+import Noticias from '../pages/Noticias.jsx'
+import Contacto from '../pages/Contacto.jsx'
+import Registro from '../pages/Registro.jsx'
+import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -13,7 +18,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <Login />,
+                element: <Registro />,
             },
             {
                 path: 'adopciones',
@@ -33,7 +38,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'historiasDeAdopcion',
-                element: <HistoriasDeAdopción />,
+                element: <HistoriasDeAdopciones />,
             },
         ],
     },

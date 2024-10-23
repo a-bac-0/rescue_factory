@@ -1,6 +1,5 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
-import Carousel from '../components/Carousel'
 
 const Adopciones = () => {
     return (
@@ -21,7 +20,6 @@ const Adopciones = () => {
                     de tu hogar. Adopta y dale una segunda oportunidad a un ser
                     lleno de cariño.
                 </p>
-                <Carousel />
             </div>
         </div>
     )
