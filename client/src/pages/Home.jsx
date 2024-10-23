@@ -1,7 +1,10 @@
 import React from 'react'
 import HeaderHomeImg from '../assets/images/Header_home.svg'
 
+
+
 const Home = () => {
+
     return (
         <div className="min-h-screen w-full  object-cover m-0 bg-[#76816A]">
             <img
