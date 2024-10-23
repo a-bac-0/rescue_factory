@@ -48,6 +48,9 @@ const Home = () => {
         </p>
         <i>En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
       </section>
+      <section className="min-h-dvh	 bg-[#31442C]">
+
+      </section>
     </main>
   );
 };
