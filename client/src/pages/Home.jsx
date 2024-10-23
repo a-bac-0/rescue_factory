@@ -9,8 +9,8 @@ const Home = () => {
         alt="Header Home"
         className="w-full h-auto object-cover"
       />
-      <section className="text-stone-50">
-        <h1 className="font-bold text-7xl">EL REFUGIO</h1>
+      <section className="text-[#F5F5F5]">
+        <h1 className="font-bold text-4xl">EL REFUGIO</h1>
         <p>
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
           faro de esperanza para aquellos amigos de cuatro patas que más lo
@@ -18,7 +18,7 @@ const Home = () => {
           a transformar vidas, tanto de animales como de personas, a través del
           amor incondicional y el compromiso inquebrantable.
         </p>
-        <h2 className="font-bold text-4xl">Lo Que Hacemos</h2>
+        <h2 className="font-bold text-2xl">Lo Que Hacemos</h2>
         <ul>
           <li>Rescatamos a perros y gatos en situación de vulnerabilidad</li>
           <li>Proporcionamos atención veterinaria completa</li>
@@ -34,7 +34,7 @@ const Home = () => {
             match entre mascotas y familias
           </li>
         </ul>
-        <h2 className="font-bold text-4xl">Únete a Nuestra Causa</h2>
+        <h2 className="font-bold text-2xl">Únete a Nuestra Causa</h2>
         <p>
           Rescue Factoría es más que un refugio; somos una comunidad de amantes
           de los animales comprometidos con hacer del mundo un lugar mejor para
@@ -48,7 +48,14 @@ const Home = () => {
         </p>
         <i>En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
       </section>
+
+      <h1 className="font-bold text-5xl text-[#31442C]">ADOPCIONES
+
+</h1>
       <section className="min-h-dvh	 bg-[#31442C]">
+        {/* <h1 className="font-bold text-5xl text-[#FFFFFF]">ADOPCIONES
+
+        </h1> */}
 
       </section>
     </main>
