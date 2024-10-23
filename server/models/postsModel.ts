@@ -1,29 +1,35 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connection_db from "../database/db";
+
+// Definimos los valores posibles para category y status
+type Category = 'noticias' | 'cuidado_animal' | 'adopcion';
+type Status = 'active' | 'inactive';
 
 // Definimos una interfaz para los atributos del modelo
 interface PostAttributes {
+    id: number; // Campo ID agregado
     title: string;
     content: string;
     user_id: number;
-    category: string; // Tipo ENUM, puedes definir los valores posibles en un tipo si lo prefieres
-    status: string; // Tipo ENUM, también puedes definir los valores específicos si lo prefieres
+    category: Category; // Tipo ENUM
+    status: Status; // Tipo ENUM
     like_count: number;
     url_images: string;
 }
 
 // Opcional: si se crea un nuevo post, algunos campos pueden ser opcionales (e.g. ID autogenerado)
-interface PostCreationAttributes extends Omit<PostAttributes, 'like_count'> {
+interface PostCreationAttributes extends Omit<PostAttributes, 'id' | 'like_count'> {
     like_count?: number;
 }
 
 // Definimos el modelo utilizando `Model` de Sequelize con atributos tipados
 class PostModel extends Model<PostAttributes, PostCreationAttributes> implements PostAttributes {
+    public id!: number; // Campo ID agregado
     public title!: string;
     public content!: string;
     public user_id!: number;
-    public category!: string;
-    public status!: string;
+    public category!: Category; // Campo category tipado
+    public status!: Status; // Campo status tipado
     public like_count!: number;
     public url_images!: string;
 }
@@ -32,6 +38,11 @@ class PostModel extends Model<PostAttributes, PostCreationAttributes> implements
 const postModel = connection_db.define<PostModel>(
     'Posts',
     {
+        id: {
+            type: DataTypes.BIGINT,
+            primaryKey: true,
+            autoIncrement: true, // Habilita el autoincremento
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -51,12 +62,12 @@ const postModel = connection_db.define<PostModel>(
         status: {
             type: DataTypes.ENUM('active', 'inactive'), // Define los valores posibles para el ENUM
             allowNull: false,
-            defaultValue: 'inactive'
+            defaultValue: 'inactive', // Valor por defecto
         },
         like_count: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            defaultValue: 0, // Es buena práctica inicializar contadores con un valor por defecto
+            defaultValue: 0, // Valor por defecto para el contador de "likes"
         },
         url_images: {
             type: DataTypes.STRING,
@@ -70,4 +81,3 @@ const postModel = connection_db.define<PostModel>(
 );
 
 export default postModel;
-
