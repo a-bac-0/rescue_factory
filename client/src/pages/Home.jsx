@@ -58,6 +58,15 @@ const Home = () => {
         </h1> */}
 
       </section>
+      <h1 className="font-bold text-5xl text-[#77633D]">LO ÚLTIMO
+        EN NOTICIAS
+        </h1>
+      <section className="min-h-dvh	 bg-[#77633D]">
+        {/* <h1 className="font-bold text-5xl text-[#FFFFFF]">ADOPCIONES
+
+        </h1> */}
+
+      </section>
     </main>
   );
 };
