@@ -1,7 +1,8 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
+import Carousel from '../components/Carousel'
 
-const Adoptions = () => {
+const Adopciones = () => {
     return (
         <div className="min-h-screen w-full  object-cover m-0 bg-[#76816A]">
             <img
@@ -20,9 +21,10 @@ const Adoptions = () => {
                     de tu hogar. Adopta y dale una segunda oportunidad a un ser
                     lleno de cariño.
                 </p>
+                <Carousel />
             </div>
         </div>
     )
 }
 
-export default Adoptions
+export default Adopciones
