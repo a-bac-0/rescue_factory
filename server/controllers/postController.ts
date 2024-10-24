@@ -15,7 +15,7 @@ export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINE
     }
   };
 
-// Get one id de los post
+// Get one id de un post
 
 export const getPostById = async (req: Request, res: Response) => {
     try {
@@ -37,7 +37,7 @@ export const getPostById = async (req: Request, res: Response) => {
 
   };
 
-// Delete de los post
+// Delete de los posts
 
 export const deletePost = async (req: Request, res: Response) => {
 
@@ -57,3 +57,18 @@ export const deletePost = async (req: Request, res: Response) => {
     }   
 }
 
+// Post de los posts
+
+// export const createPost = async (req: Request, res: Response) => {
+
+//    try {
+//         const { title, content, user_id,  category, status, like_count, url_images } = req.body
+//         const post = await postModel.create({
+//           title,
+//           content,
+
+//         })
+//       } catch {
+
+// }
+// }
