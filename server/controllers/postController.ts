@@ -5,9 +5,11 @@ import  postModel  from "../models/postsModel";
 // Get de los posts
 
 export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINEA EL req SE UTILIZA PARA LA SOLICITUD HTTP Y EL res PARA LA RESPUESTA✅
+    
     try {
       const posts = await postModel.findAll(); // EN ESTE LINEA SE ESTA LLAMANDO A LA FUNCION findAll() DEL MODELO postModel PARA OBTENER TODOS LOS POSTS DE LA BASE DE DATOS 🔍
       res.json(posts); 
+
     } catch (error) {
       res.status(500).json({ error: "Error al obtener los posts" });
     }
@@ -25,7 +27,7 @@ export const getPostById = async (req: Request, res: Response) => {
         return res.status(400).json({ error: "ID inválido" });  // ENTONCES SI EL ID NO ES UN NUMERO CON EL (isNaN) SE LE DICE: is not a number❌
       }
 
-      if (post) {                   // AQUI LO QUE SE HACE ES QUE SI EL POST SE ENCONTRO LA INFORMACION LA ENVIA EN FORMATO JSON📖
+      if (post) {    // AQUI LO QUE SE HACE ES QUE SI EL POST SE ENCONTRO LA INFORMACION LA ENVIA EN FORMATO JSON 📖
         res.json(post);
       } 
 
@@ -35,5 +37,23 @@ export const getPostById = async (req: Request, res: Response) => {
 
   };
 
+// Delete de los post
 
+export const deletePost = async (req: Request, res: Response) => {
+
+    const { id } = req.params;  // AQUI SE TRAE EL PARAMETRO id  DE LA URL PARA ELIMINAR EL POST QUE SE QUIERE ELIMINAR
+
+    try {
+        const post = await postModel.findByPk(id);  // AQUI SE BUSCA EL POST EN LA BASE DE DATOS POR EL ID 🆔
+
+        if (!post)    // AQUI ESPECIFICA QUE SI NO ENCONTRO EL POST DEVOLVERA ESO↙️
+            return res.status(404).json({ error: "El post no existe" });
+
+        await post?.destroy(); // Y AQUI SI EXITE SE ELIMINA EL POST ✅
+        res.json({ message: "Post eliminado correctamente" });
+   
+   } catch (error) {
+        res.status(500).json({ error: "Error al eliminar el post" });
+    }   
+}
 
