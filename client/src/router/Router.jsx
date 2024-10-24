@@ -6,6 +6,8 @@ import Noticias from '../pages/Noticias.jsx'
 import Contacto from '../pages/Contacto.jsx'
 import Registro from '../pages/Registro.jsx'
 import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
+import Navbar from '../components/Navbar.jsx'
+import Footer from '../components/Footer.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -39,6 +41,13 @@ export const router = createBrowserRouter([
             {
                 path: 'historiasDeAdopcion',
                 element: <HistoriasDeAdopciones />,
+            },
+            {   path:'nav',
+                element: <Navbar/>
+            },
+            {
+                path:'footer',
+                element: <Footer/>
             },
         ],
     },
