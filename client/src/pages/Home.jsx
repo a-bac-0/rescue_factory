@@ -9,8 +9,8 @@ const Home = () => {
         alt="Header Home"
         className="w-full h-auto object-cover"
       />
-      <section className="w-[314px] mx-14 mb-36 text-[#F5F5F5]">
-        <h1 className="font-bold my-10 text-4xl">EL REFUGIO</h1>
+      <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-4 md:px-14 mb-36 text-[#F5F5F5]">
+        <h1 className="font-bold my-6 md:my-10 text-4xl">EL REFUGIO</h1>
         <p className="my-8 text-justify">
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
           faro de esperanza para aquellos amigos de cuatro patas que más lo
@@ -54,19 +54,13 @@ const Home = () => {
 
       </section>
 
-      <section className="relative min-h-dvh bg-[#7D7633]">
+      <section className="relative min-h-dvh bg-[#77633d]">
       <div className="absolute -top-[5.5rem] left-0 w-full h-full flex justify-center">
-        <h1 className="font-black text-5xl text-[#7D7633]">LO ÚLTIMO<br />
+        <h1 className="font-black text-5xl text-[#77633d]">LO ÚLTIMO<br />
         EN NOTICIAS
         </h1>
         </div>
-      </section>
-      
-      <section className="min-h-dvh	 bg-[#77633D]">
-        {/* <h1 className="font-bold text-5xl text-[#FFFFFF]">ADOPCIONES
-
-        </h1> */}
-
+       
       </section>
     </main>
   );
