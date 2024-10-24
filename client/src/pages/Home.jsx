@@ -9,9 +9,9 @@ const Home = () => {
         alt="Header Home"
         className="w-full h-auto object-cover"
       />
-      <section className="text-[#F5F5F5]">
+      <section className="w-[314px] mx-14 text-[#F5F5F5]">
         <h1 className="font-bold text-4xl">EL REFUGIO</h1>
-        <p>
+        <p className="text-justify">
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
           faro de esperanza para aquellos amigos de cuatro patas que más lo
           necesitan. Somos más que un simple refugio; somos una familia dedicada
@@ -35,7 +35,7 @@ const Home = () => {
           </li>
         </ul>
         
-        <p>
+        <p className="text-justify">
           Porque creemos que cada vida peluda merece una segunda oportunidad, y
           cada hogar se hace más feliz con el amor incondicional de una mascota
           rescatada.
