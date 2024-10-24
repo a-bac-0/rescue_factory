@@ -32,17 +32,17 @@ import { Request, Response } from "supertest";
 
 // delete de los post
 
-export const deletePet = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const pet = await petsModel.findByPk(id);
-      if (!pet) {
-        return res.status(404).json({ message: "Pet not found" });
-      }
-      await pet.destroy();
-      res.json({ message: "Pet deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+// export const deletePet = async (req: Request, res: Response) => {
+//     try {
+//       const { id } = req.params;
+//       const pet = await petsModel.findByPk(id);
+//       if (!pet) {
+//         return res.status(404).json({ message: "Pet not found" });
+//       }
+//       await pet.destroy();
+//       res.json({ message: "Pet deleted successfully" });
+//     } catch (error) {
+//       res.status(500).json({ message: error.message });
+//     }
+//   };
 
