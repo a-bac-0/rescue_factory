@@ -149,22 +149,22 @@ const Carousel = () => {
     return (
         <div className="container w-full px-4 md:px-1">
             {/* Contenedor principal con dimensiones fijas pero responsivas */}
-            <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
+            <div className="  flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
                 {/* Sección de texto */}
-                <div className="w-full md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
-                    <h2 className="text-xl font-bold text-gray-700">
+                <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
+                    <h2 className="text-xl font-inter font-bold text-gray-700">
                         {slides[currentSlide].name}
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm font-inter text-gray-500">
                         {slides[currentSlide].sex}
                     </p>
-                    <div className="text-sm text-gray-500 text-left">
+                    <div className="text-sm font-inter text-gray-500 text-left">
                         {slides[currentSlide].age}
                     </div>
-                    <p className="mt-4 text-sm text-gray-500">
+                    <p className="mt-4 text-sm font-inter text-gray-500">
                         {truncateContent(slides[currentSlide].content)}
                     </p>
-                    <button className="mt-3 bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
+                    <button className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
                         Leer más
                     </button>
                 </div>

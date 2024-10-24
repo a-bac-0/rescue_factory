@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
+import Carousel from '../components/Carousel'
 
 const Adopciones = () => {
     return (
@@ -10,7 +11,7 @@ const Adopciones = () => {
                 className="w-full h-auto"
             />
             <div>
-                <h1 className="font-i">RESCATA</h1>
+                <h1 className="font-inter">RESCATA</h1>
                 <p>
                     En nuestra protectora, estamos comprometidos con brindarte
                     la oportunidad de cambiar una vida. Cada perro y gato que
@@ -21,6 +22,11 @@ const Adopciones = () => {
                     lleno de cariño.
                 </p>
             </div>
+            <h1>
+                Nuestros
+                <br />
+                Peludos
+            </h1>
         </div>
     )
 }
