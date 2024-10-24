@@ -29,7 +29,7 @@ const Home = () => {
             Trabajamos incansablemente en encontrar hogares perfectos para cada
             uno de nuestros residentes
           </li>
-          <li className="pb-4">
+          <li>
             Realizamos un cuidadoso proceso de adopción para asegurar el mejor
             match entre mascotas y familias
           </li>
@@ -45,7 +45,7 @@ const Home = () => {
 
       
       <section className="relative min-h-dvh bg-[#31442C]">
-        <div className="absolute -top-10 left-0 w-full h-full flex">
+        <div className="absolute -top-[2.5rem] left-0 w-full h-full flex justify-center ">
           <h1 className="font-black text-5xl text-[#31442C]">ADOPCIONES
 
           </h1>
@@ -55,8 +55,8 @@ const Home = () => {
       </section>
 
       <section className="relative min-h-dvh bg-[#7D7633]">
-      <div className="absolute -top-24 left-0 w-full h-full flex">
-      <h1 className="font-black text-5xl text-[#7D7633]">LO ÚLTIMO
+      <div className="absolute -top-[5.5rem] left-0 w-full h-full flex justify-center">
+        <h1 className="font-black text-5xl text-[#7D7633]">LO ÚLTIMO<br />
         EN NOTICIAS
         </h1>
         </div>
