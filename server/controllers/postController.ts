@@ -4,13 +4,36 @@ import  postModel  from "../models/postsModel";
 
 // Get de los posts
 
-export const getPosts = async (req: Request, res: Response) => {
+export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINEA EL req SE UTILIZA PARA LA SOLICITUD HTTP Y EL res PARA LA RESPUESTA✅
     try {
-      const posts = await postModel.findAll();
-      res.json(posts);
+      const posts = await postModel.findAll(); // EN ESTE LINEA SE ESTA LLAMANDO A LA FUNCION findAll() DEL MODELO postModel PARA OBTENER TODOS LOS POSTS DE LA BASE DE DATOS 🔍
+      res.json(posts); 
     } catch (error) {
       res.status(500).json({ error: "Error al obtener los posts" });
     }
   };
+
+// Get one id de los post
+
+export const getPostById = async (req: Request, res: Response) => {
+    try {
+
+      const { id } = req.params;      // AQUI EXTRAE EL PARAMETRO id  DE LA URL DONE req.params CONTIENE ↙️
+      const post = await postModel.findByPk(id); //  LOS PARAMETROS DINAMICOS DEL id DONDE ESTE ES EL IDENTIFICADOR DEL POST
+
+      if (isNaN(Number(id))) {       // EN ESTE LINEA SE ESTA VALIDANDO EL ID, QUE SIGNIFICA, SIGNIFICA QUE SE LE ESTA DANDO UN VALOR DE NUMERO AL ID
+        return res.status(400).json({ error: "ID inválido" });  // ENTONCES SI EL ID NO ES UN NUMERO CON EL (isNaN) SE LE DICE: is not a number❌
+      }
+
+      if (post) {                   // AQUI LO QUE SE HACE ES QUE SI EL POST SE ENCONTRO LA INFORMACION LA ENVIA EN FORMATO JSON📖
+        res.json(post);
+      } 
+
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener el post" });
+    }
+
+  };
+
 
 
