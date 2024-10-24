@@ -9,17 +9,17 @@ const Home = () => {
         alt="Header Home"
         className="w-full h-auto object-cover"
       />
-      <section className="w-[314px] mx-14 mb-24 text-[#F5F5F5]">
-        <h1 className="font-bold text-4xl">EL REFUGIO</h1>
-        <p className="text-justify">
+      <section className="w-[314px] mx-14 mb-36 text-[#F5F5F5]">
+        <h1 className="font-bold my-10 text-4xl">EL REFUGIO</h1>
+        <p className="my-8 text-justify">
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
           faro de esperanza para aquellos amigos de cuatro patas que más lo
           necesitan. Somos más que un simple refugio; somos una familia dedicada
           a transformar vidas, tanto de animales como de personas, a través del
           amor incondicional y el compromiso inquebrantable.
         </p>
-        <h2 className="font-bold text-2xl">Lo Que Hacemos</h2>
-        <ul>
+        <h2 className="my-8 font-bold text-2xl">Lo Que Hacemos</h2>
+        <ul className="list-disc">
           <li>Rescatamos a perros y gatos en situación de vulnerabilidad</li>
           <li>Proporcionamos atención veterinaria completa</li>
           <li>
@@ -35,12 +35,12 @@ const Home = () => {
           </li>
         </ul>
         
-        <p className="text-justify">
+        <p className="my-4 text-justify">
           Porque creemos que cada vida peluda merece una segunda oportunidad, y
           cada hogar se hace más feliz con el amor incondicional de una mascota
           rescatada.
         </p>
-        <i>En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
+        <i className="text-[#31442C]">En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
       </section>
 
       
