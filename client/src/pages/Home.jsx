@@ -19,7 +19,7 @@ const Home = () => {
           amor incondicional y el compromiso inquebrantable.
         </p>
         <h2 className="my-8 font-bold text-2xl">Lo Que Hacemos</h2>
-        <ul className="list-disc">
+        <ul className="list-inside list-disc">
           <li>Rescatamos a perros y gatos en situación de vulnerabilidad</li>
           <li>Proporcionamos atención veterinaria completa</li>
           <li>
