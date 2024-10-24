@@ -34,13 +34,7 @@ const Home = () => {
             match entre mascotas y familias
           </li>
         </ul>
-        <h2 className="font-bold text-2xl">Únete a Nuestra Causa</h2>
-        <p>
-          Rescue Factoría es más que un refugio; somos una comunidad de amantes
-          de los animales comprometidos con hacer del mundo un lugar mejor para
-          nuestros amigos peludos. Ya sea como adoptante, voluntario o donante,
-          hay muchas formas de ser parte de esta hermosa misión.
-        </p>
+        
         <p>
           Porque creemos que cada vida peluda merece una segunda oportunidad, y
           cada hogar se hace más feliz con el amor incondicional de una mascota
@@ -49,18 +43,25 @@ const Home = () => {
         <i>En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
       </section>
 
-      <h1 className="font-bold text-5xl text-[#31442C]">ADOPCIONES
+      
+      <section className="relative min-h-dvh bg-[#31442C]">
+        <div className="absolute -top-10 left-0 w-full h-full flex">
+          <h1 className="font-bold text-5xl text-[#31442C]">ADOPCIONES
 
-</h1>
-      <section className="min-h-dvh	 bg-[#31442C]">
-        {/* <h1 className="font-bold text-5xl text-[#FFFFFF]">ADOPCIONES
-
-        </h1> */}
+          </h1>
+        </div>
+      
 
       </section>
-      <h1 className="font-bold text-5xl text-[#77633D]">LO ÚLTIMO
+
+      <section className="relative min-h-dvh bg-[#7D7633]">
+      <div className="absolute -top-24 left-0 w-full h-full flex">
+      <h1 className="font-bold text-5xl text-[#7D7633]">LO ÚLTIMO
         EN NOTICIAS
         </h1>
+        </div>
+      </section>
+      
       <section className="min-h-dvh	 bg-[#77633D]">
         {/* <h1 className="font-bold text-5xl text-[#FFFFFF]">ADOPCIONES
 
