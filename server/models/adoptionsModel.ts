@@ -1,7 +1,7 @@
 import connection_db from "../database/db.ts"
 import { DataTypes } from "sequelize";
 
-const bookModel = connection_db.define(
+const adoptionModel = connection_db.define(
     'Adoptions',
     {
         // Model attributes are defined here
@@ -44,4 +44,4 @@ const bookModel = connection_db.define(
     timestamps: false, // Esto es opcional, según tu modelo
 });
 
-export default bookModel;
+export default adoptionModel;
