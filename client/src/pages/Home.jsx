@@ -9,7 +9,7 @@ const Home = () => {
         alt="Header Home"
         className="w-full h-auto object-cover"
       />
-      <section className="w-[314px] mx-14 text-[#F5F5F5]">
+      <section className="w-[314px] mx-14 mb-24 text-[#F5F5F5]">
         <h1 className="font-bold text-4xl">EL REFUGIO</h1>
         <p className="text-justify">
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
