@@ -20,16 +20,16 @@ const Home = () => {
         </p>
         <h2 className="my-8 font-bold text-2xl">Lo Que Hacemos</h2>
         <ul className="list-inside list-disc">
-          <li>Rescatamos a perros y gatos en situación de vulnerabilidad</li>
-          <li>Proporcionamos atención veterinaria completa</li>
-          <li>
+          <li className="pb-4">Rescatamos a perros y gatos en situación de vulnerabilidad</li>
+          <li className="pb-4">Proporcionamos atención veterinaria completa</li>
+          <li className="pb-4">
             Ofrecemos un ambiente seguro y amoroso durante su recuperación
           </li>
-          <li>
+          <li className="pb-4">
             Trabajamos incansablemente en encontrar hogares perfectos para cada
             uno de nuestros residentes
           </li>
-          <li>
+          <li className="pb-4">
             Realizamos un cuidadoso proceso de adopción para asegurar el mejor
             match entre mascotas y familias
           </li>
@@ -40,7 +40,7 @@ const Home = () => {
           cada hogar se hace más feliz con el amor incondicional de una mascota
           rescatada.
         </p>
-        <i className="text-[#31442C]">En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
+        <i className="font-serif text-[#31442C]">En Rescue Factoría, no solo salvamos vidas, creamos familias.</i>
       </section>
 
       
