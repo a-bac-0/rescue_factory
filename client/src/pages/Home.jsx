@@ -3,7 +3,7 @@ import HeaderHomeImg from "../assets/images/Header_home.svg";
 
 const Home = () => {
   return (
-    <main className="min-h-screen w-full m-0 bg-[#76816A]">
+    <main className="min-h-screen w-full m-0 bg-[#76816A] font-['Inter']">
       <img
         src={HeaderHomeImg}
         alt="Header Home"
@@ -46,7 +46,7 @@ const Home = () => {
       
       <section className="relative min-h-dvh bg-[#31442C]">
         <div className="absolute -top-10 left-0 w-full h-full flex">
-          <h1 className="font-bold text-5xl text-[#31442C]">ADOPCIONES
+          <h1 className="font-black text-5xl text-[#31442C]">ADOPCIONES
 
           </h1>
         </div>
@@ -56,7 +56,7 @@ const Home = () => {
 
       <section className="relative min-h-dvh bg-[#7D7633]">
       <div className="absolute -top-24 left-0 w-full h-full flex">
-      <h1 className="font-bold text-5xl text-[#7D7633]">LO ÚLTIMO
+      <h1 className="font-black text-5xl text-[#7D7633]">LO ÚLTIMO
         EN NOTICIAS
         </h1>
         </div>
