@@ -2,6 +2,7 @@ import React from "react";
 import HeaderHomeImg from "../assets/images/Header_home.svg";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -59,10 +60,10 @@ const Home = () => {
         <div className="absolute -top-[2.5rem] sm:-top-[2.5rem] left-0 w-full h-full flex justify-center ">
           <h1 className="font-black text-5xl text-[#31442C]">ADOPCIONES</h1>
         </div>
-        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-30">
+        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel />
           <section className="pt-[38px] flex justify-center">
-        <MyButton />
+        <MyButton label="MÁS ADOPCIONES" onClick={() => navigate('/Adopciones')} />
         </section>
         </section>
         
@@ -76,6 +77,9 @@ const Home = () => {
             EN NOTICIAS
           </h1>
         </div>
+        <section className="pt-[38px] flex justify-center">
+        <MyButton label="MÁS NOTICIAS" onClick={() => navigate('/Noticias')} />
+        </section>
       </section>
     </main>
   );
