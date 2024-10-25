@@ -59,10 +59,13 @@ const Home = () => {
         <div className="absolute -top-[2.5rem] sm:-top-[2.5rem] left-0 w-full h-full flex justify-center ">
           <h1 className="font-black text-5xl text-[#31442C]">ADOPCIONES</h1>
         </div>
-        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
+        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-30">
           <Carousel />
-          <MyButton />
+          <section className="pt-[38px] flex justify-center">
+        <MyButton />
         </section>
+        </section>
+        
       </section>
 
       <section className="relative min-h-dvh bg-[#77633d]">
