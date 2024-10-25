@@ -1,5 +1,6 @@
 import React from "react";
 import HeaderHomeImg from "../assets/images/Header_home.svg";
+import Carousel from "../components/Carousel";
 
 const Home = () => {
   return (
@@ -50,6 +51,8 @@ const Home = () => {
 
           </h1>
         </div>
+
+        <Carousel />
       
 
       </section>
