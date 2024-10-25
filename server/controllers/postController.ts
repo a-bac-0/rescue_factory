@@ -20,6 +20,7 @@ export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINE
 // Get one id de un post
 
 export const getPostById = async (req: Request, res: Response) => {
+
     try {
 
       const { id } = req.params;      // AQUI EXTRAE EL PARAMETRO id  DE LA URL DONE req.params CONTIENE ↙️
@@ -43,14 +44,13 @@ export const getPostById = async (req: Request, res: Response) => {
 
 export const deletePost = async (req: Request, res: Response) => {
 
-    const { id } = req.params;  // AQUI SE TRAE EL PARAMETRO id  DE LA URL PARA ELIMINAR EL POST QUE SE QUIERE ELIMINAR
-
     try {
+        const { id } = req.params;  // AQUI SE TRAE EL PARAMETRO id  DE LA URL PARA ELIMINAR EL POST QUE SE QUIERE ELIMINAR
         const post = await postModel.findByPk(id);  // AQUI SE BUSCA EL POST EN LA BASE DE DATOS POR EL ID 🆔
 
-        if (!post)    // AQUI ESPECIFICA QUE SI NO ENCONTRO EL POST DEVOLVERA ESO↙️
+        if (!post) {   // AQUI ESPECIFICA QUE SI NO ENCONTRO EL POST DEVOLVERA ESO↙️
             return res.status(404).json({ error: "El post no existe" });
-
+          }
         await post?.destroy(); // Y AQUI SI EXITE SE ELIMINA EL POST ✅
         res.json({ message: "Post eliminado correctamente" });
    
@@ -85,11 +85,12 @@ export const createPost = async (req: Request, res: Response) => {
 // Put de un post
 
 export const updatePost = async( req: Request, res: Response ) =>{
+
   try {
 
     const { id } = req.params  // HACEMOS UNA CONSTANTE ID PARA EXTRAER LOS PARAMETROS QUE TIENE EL POST
     const {  title, content, user_id,  category, status, like_count, url_images } = req.body
-    const update= await postModel.findByPk(id); // HACEMOS UNA CONSTANTE PARA ESPECIFICARLE QUE VA A EXTRAER UN ID ESPECIFICO
+    const update = await postModel.findByPk(id); // HACEMOS UNA CONSTANTE PARA ESPECIFICARLE QUE VA A EXTRAER UN ID ESPECIFICO
     
     await update?.update({ // Y AQUI LE PASAMOS LO QUE PODRA ACTUALIZAR 🔄️
       title,                                 

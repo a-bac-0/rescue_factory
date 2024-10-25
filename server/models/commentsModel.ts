@@ -7,7 +7,7 @@ interface CommentAttributes {
     content: string;
     post_id: number;
     user_id: number;
-    create_at: Date; // El tipo Date para manejar timestamps
+    createAd: Date; // El tipo Date para manejar timestamps
 }
 
 // Opcional: si se crea un nuevo comentario, el `id` y `create_at` son generados automáticamente
@@ -19,7 +19,7 @@ class CommentModel extends Model<CommentAttributes, CommentCreationAttributes> i
     public content!: string;
     public post_id!: number;
     public user_id!: number;
-    public create_at!: Date;
+    public createAd!: Date;
 }
 
 // Definir el modelo utilizando el método `define` de Sequelize
@@ -51,7 +51,7 @@ const commentModel = connection_db.define<CommentModel>(
                 key: 'id',
             },
         },
-        create_at: {
+        createAd: {
             type: DataTypes.DATE, // Usamos DATE para manejar timestamps
             allowNull: false,
             defaultValue: DataTypes.NOW, // El valor por defecto será la fecha actual
