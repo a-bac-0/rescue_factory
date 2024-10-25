@@ -2,6 +2,8 @@
 import { Request, Response } from "express";
 import  postModel  from "../models/postsModel";
 
+
+
 // Get de los posts
 
 export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINEA EL req SE UTILIZA PARA LA SOLICITUD HTTP Y EL res PARA LA RESPUESTA✅
@@ -59,16 +61,23 @@ export const deletePost = async (req: Request, res: Response) => {
 
 // Post de los posts
 
-// export const createPost = async (req: Request, res: Response) => {
+export const createPost = async (req: Request, res: Response) => {
 
-//    try {
-//         const { title, content, user_id,  category, status, like_count, url_images } = req.body
-//         const post = await postModel.create({
-//           title,
-//           content,
+   try {
+        const { title, content, user_id,  category, status, like_count, url_images } = req.body // EN ESTA PARTE EXTRAIMOS LAS PROPIEDADES DEL req.body QUE CONTIENE LA SOLICITUD HTTP👤
+        const post = await postModel.create({
+          title,                                 
+          content,                               
+          user_id,           // Y EN ESTAS LINEAS 
+          category,         // CREAMOS EL POST CON
+          status,          // EL METODO create DE SEQUELIZE
+          like_count,
+          url_images,
 
-//         })
-//       } catch {
+        })
+        res.json(post) // Y LE ENVIAMOS LA RESPUETA EN FORMATO JSON
 
-// }
-// }
+      } catch(error) { 
+          console.log('No se ha subir la publicacion', error)
+}
+}
