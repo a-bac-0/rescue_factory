@@ -64,7 +64,7 @@ const Home = () => {
           <section className="pt-[38px] flex justify-center">
             <MyButton
               label="MÁS ADOPCIONES"
-              onClick={() => useNavigate("/Adopciones")}
+              onClick={() => useNavigate('/Adopciones')}
             />
           </section>
         </section>
@@ -81,7 +81,7 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="MÁS NOTICIAS"
-            onClick={() => useNavigate("/Noticias")}
+            onClick={() => useNavigate('/Noticias')}
           />
         </section>
       </section>
