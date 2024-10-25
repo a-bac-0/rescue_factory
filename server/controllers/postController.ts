@@ -15,7 +15,7 @@ export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINE
     } catch (error) {
       res.status(500).json({ error: "Error al obtener los posts" });
     }
-  };
+};
 
 // Get one id de un post
 
@@ -37,7 +37,7 @@ export const getPostById = async (req: Request, res: Response) => {
       res.status(500).json({ error: "Error al obtener el post" });
     }
 
-  };
+};
 
 // Delete de los posts
 
@@ -79,5 +79,30 @@ export const createPost = async (req: Request, res: Response) => {
 
       } catch(error) { 
           console.log('No se ha subir la publicacion', error)
+   }
 }
+
+// Put de un post
+
+export const updatePost = async( req: Request, res: Response ) =>{
+  try {
+
+    const { id } = req.params  // HACEMOS UNA CONSTANTE ID PARA EXTRAER LOS PARAMETROS QUE TIENE EL POST
+    const {  title, content, user_id,  category, status, like_count, url_images } = req.body
+    const update= await postModel.findByPk(id); // HACEMOS UNA CONSTANTE PARA ESPECIFICARLE QUE VA A EXTRAER UN ID ESPECIFICO
+    
+    await update?.update({ // Y AQUI LE PASAMOS LO QUE PODRA ACTUALIZAR 🔄️
+      title,                                 
+          content,                               
+          user_id,         
+          category,      
+          status,          
+          like_count,
+          url_images,
+    })
+      res.json(update)
+
+  } catch(error) {
+      console.log('No se ha podido actualizar', error)
+  }
 }
