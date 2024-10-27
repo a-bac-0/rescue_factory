@@ -10,8 +10,8 @@ const Carousel = () => {
     const diffX = useRef(0)
     const intervalRef = useRef(null)
 
-    // Simulación base de datos de slides hasta que esté lista la base de datos real
-    const slides = [
+    // Simulación base de datos de adoptions hasta que esté lista la base de datos real
+    const adoptions = [
         {
             id: 1,
             name: 'Firulais',
@@ -90,14 +90,18 @@ const Carousel = () => {
     }
 
     const handlePrev = () => {
-        setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
+        setCurrentSlide((prev) =>
+            prev === 0 ? adoptions.length - 1 : prev - 1
+        )
     }
 
     const handleNext = () => {
-        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+        setCurrentSlide((prev) =>
+            prev === adoptions.length - 1 ? 0 : prev + 1
+        )
     }
 
-    // Temporizador automático para cambiar de slide en 5 segundos
+    // Temporizador automático para cambiar de adoptions en 5 segundos
     useEffect(() => {
         resetTimer()
         return () => clearInterval(intervalRef.current)
@@ -108,7 +112,7 @@ const Carousel = () => {
         intervalRef.current = setInterval(handleNext, 5000)
     }
 
-    // Animación. Transición de slides (imágenes)
+    // Animación. Transición de adoptions (imágenes)
     useEffect(() => {
         gsap.fromTo(
             '.slide-img',
@@ -117,7 +121,7 @@ const Carousel = () => {
         )
     }, [currentSlide])
 
-    // Deslizamiento de slides con eventos táctiles
+    // Deslizamiento de adoptions con eventos táctiles
     const handleTouchStart = (e) => {
         setIsSwiping(true)
         startX.current = e.touches ? e.touches[0].clientX : e.clientX
@@ -144,16 +148,16 @@ const Carousel = () => {
                 {/* Sección de texto */}
                 <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
                     <h2 className="text-xl font-inter font-bold text-gray-700">
-                        {slides[currentSlide].name}
+                        {adoptions[currentSlide].name}
                     </h2>
                     <p className="text-sm font-inter text-gray-500">
-                        {slides[currentSlide].sex}
+                        {adoptions[currentSlide].sex}
                     </p>
                     <div className="text-sm font-inter text-gray-500 text-left">
-                        {slides[currentSlide].age}
+                        {adoptions[currentSlide].age}
                     </div>
                     <p className="mt-4 text-sm font-inter text-gray-500">
-                        {truncateContent(slides[currentSlide].content)}
+                        {truncateContent(adoptions[currentSlide].content)}
                     </p>
                     <button className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
                         Leer más
@@ -176,8 +180,8 @@ const Carousel = () => {
                         <div className="aspect-[5/8] md:aspect-[16/10] w-full">
                             <img
                                 className="slide-img w-full h-full object-cover rounded-lg"
-                                src={slides[currentSlide].url_images}
-                                alt={slides[currentSlide].name}
+                                src={adoptions[currentSlide].url_images}
+                                alt={adoptions[currentSlide].name}
                             />
                         </div>
                     </div>
