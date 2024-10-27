@@ -25,8 +25,16 @@ const Card = () => {
         return truncatedText.trim() + '...'
     }
 
+    // Función para redirigir a la página con el anuncio completo
+    const handleCardClick = () => {
+        window.location.href = `/adoptions/${adoptions.id}`
+    }
+
     return (
-        <div className="bg-white items-center w-[314px] h-[435px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300">
+        <div
+            onClick={handleCardClick}
+            className="bg-white items-center w-[314px] h-[435px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300"
+        >
             <div className="flex flex-col justify-center items-center w-[85%]">
                 <h1 className="w-full h-[18px] text-left pt-8 pb-4 font-inter font-bold text-[18px] ">
                     {adoptions.name}

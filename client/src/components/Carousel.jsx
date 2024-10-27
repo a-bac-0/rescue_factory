@@ -141,6 +141,11 @@ const Carousel = () => {
         diffX.current = 0
     }
 
+    // Función para redirigir a la página con el anuncio completo
+    const handleCardClick = () => {
+        window.location.href = `/adoptions/${adoptions.id}`
+    }
+
     return (
         <div className="container w-full px-4 md:px-1">
             {/* Contenedor principal con dimensiones fijas pero responsivas */}
@@ -159,7 +164,10 @@ const Carousel = () => {
                     <p className="mt-4 text-sm font-inter text-gray-500">
                         {truncateContent(adoptions[currentSlide].content)}
                     </p>
-                    <button className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32">
+                    <button
+                        onClick={handleCardClick}
+                        className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32"
+                    >
                         Leer más
                     </button>
                 </div>
