@@ -39,6 +39,11 @@ const Card = () => {
                     )}
                 </p>
             </div>
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwyXeKDN29AmZgZPLS7n0Bepe8QmVappBwZCeA3XWEbWNdiDFB"
+                alt="Dog"
+                className="w-[85%] h-[200px] object-cover rounded-md mt-4"
+            />
         </div>
     )
 }

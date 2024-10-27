@@ -1,6 +1,7 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
+import Carousel from '../components/Carousel'
 
 const Adopciones = () => {
     return (
@@ -26,15 +27,21 @@ const Adopciones = () => {
                     </p>
                 </div>
                 <div className="flex justify-start w-[80%]">
-                    <h1 className="font-inter relative top-[1.5vh] font-black text-7xl font-bold  text-left text-customGreen mb-0 lg:text-9xl lg:top-[2.5vh]">
+                    <h1 className="font-inter relative top-[1.5vh] text-7xl font-bold text-left text-customGreen mb-0 lg:text-9xl lg:top-[2.5vh]">
                         NUESTROS
                         <br />
                         PELUDOS
                     </h1>
                 </div>
             </div>
-            <div className="h-auto pt-10 pb-10 bg-customGreen mt-0 pt-0 pb-0 grid-flow-col flex i justify-center">
-                <Card />
+            <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
+                <div className="max-w-[1400px] mx-auto px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 justify-items-center">
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+                </div>
             </div>
         </div>
     )
