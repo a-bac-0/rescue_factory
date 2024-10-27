@@ -37,12 +37,13 @@ const Adopciones = () => {
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 justify-items-center">
-                        <Card />
-                        <Card />
-                        <Card />
+                        <Card datatype="adoptions" />
+                        <Card datatype="posts" />
+                        <Card datatype="adoptions" />
+                        <Card datatype="posts" />
                     </div>
-                    <Carousel dataType="posts" />
-                    <Carousel dataType="adoptions" />
+                    {/* <Carousel dataType="posts" />
+                    <Carousel dataType="adoptions" /> */}
                 </div>
             </div>
         </div>
