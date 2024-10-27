@@ -79,19 +79,13 @@ const Carousel = () => {
 
     // Función para recortar el texto sin cortar palabras
     const truncateContent = (text) => {
-        if (text.length <= CHAR_LIMIT) {
-            return text
-        }
-
+        if (text.length <= CHAR_LIMIT) return text
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
-            if ((truncatedText + word).length > CHAR_LIMIT) {
-                break
-            }
+            if ((truncatedText + word).length > CHAR_LIMIT) break
             truncatedText += word + ' '
         }
-
         return truncatedText.trim() + '...'
     }
 
@@ -137,11 +131,8 @@ const Carousel = () => {
 
     const handleTouchEnd = () => {
         setIsSwiping(false)
-        if (diffX.current > 50) {
-            handleNext()
-        } else if (diffX.current < -50) {
-            handlePrev()
-        }
+        if (diffX.current > 50) handleNext()
+        else if (diffX.current < -50) handlePrev()
         resetTimer()
         diffX.current = 0
     }
@@ -149,7 +140,7 @@ const Carousel = () => {
     return (
         <div className="container w-full px-4 md:px-1">
             {/* Contenedor principal con dimensiones fijas pero responsivas */}
-            <div className="  flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
+            <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
                 {/* Sección de texto */}
                 <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
                     <h2 className="text-xl font-inter font-bold text-gray-700">

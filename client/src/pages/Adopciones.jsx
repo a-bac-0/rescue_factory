@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
+import Card from '../components/Card'
 
 const Adopciones = () => {
     return (
@@ -32,9 +33,8 @@ const Adopciones = () => {
                     </h1>
                 </div>
             </div>
-            <div className="text-white h-7 bg-customGreen mt-0 pt-0 pb-0">
-                {' '}
-                Filtrado y posts
+            <div className="h-auto pt-10 pb-10 bg-customGreen mt-0 pt-0 pb-0 grid-flow-col flex i justify-center">
+                <Card />
             </div>
         </div>
     )
