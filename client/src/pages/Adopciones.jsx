@@ -27,7 +27,7 @@ const Adopciones = () => {
                     </p>
                 </div>
                 <div className="flex justify-start w-[80%]">
-                    <h1 className="font-inter relative top-[1.5vh] text-7xl font-bold text-left text-customGreen mb-0 lg:text-9xl lg:top-[2.5vh]">
+                    <h1 className="font-inter relative top-[1.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-9xl lg:top-[2.5vh]">
                         NUESTROS
                         <br />
                         PELUDOS
@@ -41,6 +41,8 @@ const Adopciones = () => {
                         <Card />
                         <Card />
                     </div>
+                    <Carousel dataType="posts" />
+                    <Carousel dataType="adoptions" />
                 </div>
             </div>
         </div>

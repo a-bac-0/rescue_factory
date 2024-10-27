@@ -142,7 +142,7 @@ const Carousel = () => {
     }
 
     // Función para redirigir a la página con el anuncio completo
-    const handleCardClick = () => {
+    const handleCarouselClick = () => {
         window.location.href = `/adoptions/${adoptions.id}`
     }
 
@@ -165,7 +165,7 @@ const Carousel = () => {
                         {truncateContent(adoptions[currentSlide].content)}
                     </p>
                     <button
-                        onClick={handleCardClick}
+                        onClick={handleCarouselClick}
                         className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32"
                     >
                         Leer más
@@ -185,7 +185,7 @@ const Carousel = () => {
                         onMouseUp={handleTouchEnd}
                         onMouseLeave={handleTouchEnd}
                     >
-                        <div className="aspect-[5/8] md:aspect-[16/10] w-full">
+                        <div className="aspect-[4/5] md:aspect-[16/10] w-full">
                             <img
                                 className="slide-img w-full h-full object-cover rounded-lg"
                                 src={adoptions[currentSlide].url_images}
