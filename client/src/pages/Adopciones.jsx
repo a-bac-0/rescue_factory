@@ -14,7 +14,7 @@ const Adopciones = () => {
             <div className="flex items-center flex-col mb-26 mt-6 w-full lg:mt-0">
                 <div className="w-[80%] mb-28">
                     <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
-                        RESCATA
+                        ADOPTA
                     </h1>
                     <p className="font-inter text-lg text-white lg:text-2xl">
                         En nuestra protectora, estamos comprometidos con
@@ -37,10 +37,10 @@ const Adopciones = () => {
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 justify-items-center">
-                        <Card datatype="adoptions" />
+                        {/* <Card datatype="adoptions" />
                         <Card datatype="posts" />
                         <Card datatype="adoptions" />
-                        <Card datatype="posts" />
+                        <Card datatype="posts" /> */}
                     </div>
                     {/* <Carousel dataType="posts" />
                     <Carousel dataType="adoptions" /> */}

@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import Arrow1 from '../assets/images/Arrow 1.svg'
 import Arrow2 from '../assets/images/Arrow 2.svg'
 
-const Carousel = () => {
+const Carousel = ({ dataType }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isSwiping, setIsSwiping] = useState(false)
     const startX = useRef(0)
@@ -73,6 +73,29 @@ const Carousel = () => {
             user_id: 223,
         },
     ]
+    const posts = [
+        {
+            id: '101',
+            title: 'Noticias del día',
+            date: '2024-10-27',
+            content:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.',
+            url_images:
+                'https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/15665/production/_107435678_perro1.jpg.webp',
+        },
+        {
+            id: '102',
+            title: 'Día del perro',
+            date: '2024-10-27',
+            content:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.',
+            url_images:
+                ' https://i.blogs.es/0fd60e/golden-retriever/500_333.jpeg',
+        },
+    ]
+
+    // Elección de la base de datos según el tipo de datos
+    const data = dataType === 'adoptions' ? adoptions : posts
 
     // Limite de caracteres para la descripción
     const CHAR_LIMIT = 100
@@ -90,18 +113,14 @@ const Carousel = () => {
     }
 
     const handlePrev = () => {
-        setCurrentSlide((prev) =>
-            prev === 0 ? adoptions.length - 1 : prev - 1
-        )
+        setCurrentSlide((prev) => (prev === 0 ? data.length - 1 : prev - 1))
     }
 
     const handleNext = () => {
-        setCurrentSlide((prev) =>
-            prev === adoptions.length - 1 ? 0 : prev + 1
-        )
+        setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1))
     }
 
-    // Temporizador automático para cambiar de adoptions en 5 segundos
+    // Temporizador automático para cambiar de slide en 5 segundos
     useEffect(() => {
         resetTimer()
         return () => clearInterval(intervalRef.current)
@@ -112,7 +131,7 @@ const Carousel = () => {
         intervalRef.current = setInterval(handleNext, 5000)
     }
 
-    // Animación. Transición de adoptions (imágenes)
+    // Animación de transiciones entre slides
     useEffect(() => {
         gsap.fromTo(
             '.slide-img',
@@ -121,7 +140,7 @@ const Carousel = () => {
         )
     }, [currentSlide])
 
-    // Deslizamiento de adoptions con eventos táctiles
+    // Eventos táctiles para deslizamiento
     const handleTouchStart = (e) => {
         setIsSwiping(true)
         startX.current = e.touches ? e.touches[0].clientX : e.clientX
@@ -141,28 +160,32 @@ const Carousel = () => {
         diffX.current = 0
     }
 
-    // Función para redirigir a la página con el anuncio completo
     const handleCarouselClick = () => {
-        window.location.href = `/adoptions/${adoptions.id}`
+        const id = data[currentSlide].id
+        window.location.href = `/${dataType}/${id}`
     }
 
     return (
         <div className="container w-full px-4 md:px-1">
-            {/* Contenedor principal con dimensiones fijas pero responsivas */}
             <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
-                {/* Sección de texto */}
                 <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
                     <h2 className="text-xl font-inter font-bold text-gray-700">
-                        {adoptions[currentSlide].name}
+                        {dataType === 'adoptions'
+                            ? data[currentSlide].name
+                            : data[currentSlide].title}
                     </h2>
                     <p className="text-sm font-inter text-gray-500">
-                        {adoptions[currentSlide].sex}
+                        {dataType === 'adoptions'
+                            ? data[currentSlide].sex
+                            : data[currentSlide].date}
                     </p>
-                    <div className="text-sm font-inter text-gray-500 text-left">
-                        {adoptions[currentSlide].age}
-                    </div>
+                    {dataType === 'adoptions' && (
+                        <div className="text-sm font-inter text-gray-500 text-left">
+                            {data[currentSlide].age}
+                        </div>
+                    )}
                     <p className="mt-4 text-sm font-inter text-gray-500">
-                        {truncateContent(adoptions[currentSlide].content)}
+                        {truncateContent(data[currentSlide].content)}
                     </p>
                     <button
                         onClick={handleCarouselClick}
@@ -172,9 +195,7 @@ const Carousel = () => {
                     </button>
                 </div>
 
-                {/* Contenedor de imagen y flechas */}
                 <div className="relative flex-1 flex flex-col items-center md:items-start justify-center pr-7 pl-7 md:h-[650px] lg:h-[600px]">
-                    {/* Contenedor de imagen con deslizamiento de swipe */}
                     <div
                         className="relative w-full h-auto"
                         onTouchStart={handleTouchStart}
@@ -188,13 +209,15 @@ const Carousel = () => {
                         <div className="aspect-[4/5] md:aspect-[16/10] w-full">
                             <img
                                 className="slide-img w-full h-full object-cover rounded-lg"
-                                src={adoptions[currentSlide].url_images}
-                                alt={adoptions[currentSlide].name}
+                                src={data[currentSlide].url_images}
+                                alt={
+                                    data[currentSlide].name ||
+                                    data[currentSlide].title
+                                }
                             />
                         </div>
                     </div>
 
-                    {/* Contenedor para las flechas */}
                     <div className="flex flex-row gap-3 mb-5 md:mb-2 items-center justify-center md:justify-start mt-4">
                         <button
                             onClick={handlePrev}
