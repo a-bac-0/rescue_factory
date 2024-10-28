@@ -60,7 +60,15 @@ const Home = () => {
         <i className="font-serif text-[#31442C] block mb-10 sm:mb-4">
           En Rescue Factoría, no solo salvamos vidas, creamos familias.
         </i>
+
+        <section className="pt-[38px] flex justify-center">
+          <MyButton
+            label="¡HAZTE SOCIO!"
+            onClick={() => useNavigate('/**')}
+          />
+        </section>
       </section>
+     
 
       <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
         <div className="absolute -top-[2.5rem] sm:-top-[2.5rem] left-0 w-full h-full flex justify-center ">
