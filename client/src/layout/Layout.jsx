@@ -6,13 +6,11 @@ import { FilterProvider } from '../layout/FilterContext'
 
 const Layout = () => {
     return (
-        <>
-            <FilterProvider>
-                <Navbar />
-                <Outlet />
-                <Footer />
-            </FilterProvider>
-        </>
+        <FilterProvider>
+            <Navbar />
+            <Outlet />
+            <Footer />
+        </FilterProvider>
     )
 }
 

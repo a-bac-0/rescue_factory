@@ -2,33 +2,9 @@ import React from 'react'
 
 const CHAR_LIMIT = 80
 
-const Card = ({ datatype }) => {
-    const adoptions = {
-        id: '1',
-        name: 'Nube',
-        age: '2 años',
-        sex: 'Hembra',
-        content:
-            'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, dicta sunt explicabo.',
-        url_images:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwyXeKDN29AmZgZPLS7n0Bepe8QmVappBwZCeA3XWEbWNdiDFB',
-    }
-
-    const posts = {
-        id: '101',
-        title: 'Noticias del día',
-        date: '2024-10-27',
-        content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.',
-        url_images:
-            'https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/15665/production/_107435678_perro1.jpg.webp',
-    }
-
-    const data = datatype === 'adoptions' ? adoptions : posts
-
+const Card = ({ datatype = 'adoptions', data }) => {
     const truncateContent = (text) => {
         if (text.length <= CHAR_LIMIT) return text
-
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
@@ -38,7 +14,6 @@ const Card = ({ datatype }) => {
         return truncatedText.trim() + '...'
     }
 
-    // Función para redirigir a la página con el anuncio completo
     const handleCardClick = () => {
         window.location.href = `/${datatype}/${data.id}`
     }
@@ -53,7 +28,7 @@ const Card = ({ datatype }) => {
                     {datatype === 'adoptions' ? data.name : data.title}
                 </h1>
                 <h2 className="w-full text-left font-inter text-[15px]">
-                    {datatype === 'adoptions' ? data.age : data.date}
+                    {datatype === 'adoptions' ? `${data.age} años` : data.date}
                 </h2>
                 {datatype === 'adoptions' && (
                     <h2 className="w-full text-left font-inter text-[15px]">
