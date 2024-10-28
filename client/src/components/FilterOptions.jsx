@@ -27,12 +27,12 @@ const sexOptions = [
 const FilterOptions = () => {
     const { filters, handleSelectChange } = useFilter()
 
-    // Estilos selects
+    // Estilos para los selects
     const customStyles = {
         control: (provided) => ({
             ...provided,
-            backgroundColor: '#FFFFFF',
-            borderColor: '#e5e7eb',
+            backgroundColor: '#D1B85E',
+            borderColor: '#F5F5F5',
             borderRadius: '0.375rem',
             boxShadow: 'none',
             '&:hover': {
@@ -44,53 +44,55 @@ const FilterOptions = () => {
             backgroundColor: state.isSelected ? '#e2e8f0' : 'white',
             color: state.isSelected ? '#334155' : '#4b5563',
             '&:hover': {
-                backgroundColor: '#cbd5e1',
+                backgroundColor: '#76816A',
             },
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: '#4b5563',
+            color: '#31442C',
         }),
         menu: (provided) => ({
             ...provided,
-            backgroundColor: 'white',
+            backgroundColor: '#76816A',
             borderRadius: '0.375rem',
             boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
         }),
     }
 
     return (
-        <div className="p-4 w-[90%] mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Select
-                name="category"
-                value={filters.category}
-                options={categoryOptions}
-                onChange={(selectedOption) =>
-                    handleSelectChange('category', selectedOption)
-                }
-                styles={customStyles}
-                className="w-full sm:w-48"
-            />
-            <Select
-                name="age"
-                value={filters.age}
-                options={ageOptions}
-                onChange={(selectedOption) =>
-                    handleSelectChange('age', selectedOption)
-                }
-                styles={customStyles}
-                className="w-full sm:w-48"
-            />
-            <Select
-                name="sex"
-                value={filters.sex}
-                options={sexOptions}
-                onChange={(selectedOption) =>
-                    handleSelectChange('sex', selectedOption)
-                }
-                styles={customStyles}
-                className="w-full sm:w-48"
-            />
+        <div className="p-4 w-[95%] mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex justify-between w-full space-x-4">
+                <Select
+                    name="category"
+                    value={filters.category}
+                    options={categoryOptions}
+                    onChange={(selectedOption) =>
+                        handleSelectChange('category', selectedOption)
+                    }
+                    styles={customStyles}
+                    className="w-full"
+                />
+                <Select
+                    name="age"
+                    value={filters.age}
+                    options={ageOptions}
+                    onChange={(selectedOption) =>
+                        handleSelectChange('age', selectedOption)
+                    }
+                    styles={customStyles}
+                    className="w-full"
+                />
+                <Select
+                    name="sex"
+                    value={filters.sex}
+                    options={sexOptions}
+                    onChange={(selectedOption) =>
+                        handleSelectChange('sex', selectedOption)
+                    }
+                    styles={customStyles}
+                    className="w-full"
+                />
+            </div>
         </div>
     )
 }
