@@ -1,5 +1,6 @@
 import React from "react";
 import HeaderHomeImg from "../assets/images/Header_home.png";
+import HeaderHomeMobile from "../assets/images/Header_home_mobile.svg";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,13 @@ const Home = () => {
       <img
         src={HeaderHomeImg}
         alt="Header Home"
-        className="w-full h-auto object-cover"
+        className="w-full h-auto object-cover hidden md:block"
+      />
+
+      <img
+        src={HeaderHomeMobile}
+        alt="Header Home"
+        className="w-full h-auto object-cover block md:hidden"
       />
 
       <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
