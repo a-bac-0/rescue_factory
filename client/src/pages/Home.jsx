@@ -6,6 +6,9 @@ import MyButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   return (
     <main className="min-h-screen w-full m-0 bg-[#76816A] font-['Inter']">
       <img
@@ -64,7 +67,7 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="¡HAZTE SOCIO!"
-            onClick={() => useNavigate('/**')}
+            onClick={() => navigate('/**')}
           />
         </section>
       </section>
@@ -76,10 +79,11 @@ const Home = () => {
         </div>
         <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel />
+
           <section className="pt-[38px] flex justify-center">
             <MyButton
               label="MÁS ADOPCIONES"
-              onClick={() => useNavigate('/Adopciones')}
+              onClick={() => navigate('/Adopciones')}
             />
           </section>
         </section>
@@ -96,7 +100,7 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="MÁS NOTICIAS"
-            onClick={() => useNavigate('/Noticias')}
+            onClick={() => navigate('/Noticias')}
           />
         </section>
       </section>
