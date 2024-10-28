@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderHomeImg from "../assets/images/Header_home.svg";
+import HeaderHomeImg from "../assets/images/Header_home.png";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
