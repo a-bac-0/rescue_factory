@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-        './src/**/*.{js,jsx,ts,tsx}', // Asegúrate de que esta línea está presente
-    ],
+    content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+                customGreen: '#31442C',
+            },
+        },
     },
     plugins: [],
 }
