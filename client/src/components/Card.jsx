@@ -22,23 +22,23 @@ const Card = ({ datatype, data }) => {
 
     const adoptionsStyles = {
         cardContainer:
-            'bg-white items-center w-[314px] h-[435px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+            'bg-white items-center w-[314px] h-[410px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
         contentContainer: 'flex flex-col justify-center items-center w-[85%]',
         title: 'w-full h-[18px] text-left pt-8 pb-10 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
         additionalInfo: 'w-full text-left font-inter text-[15px]',
-        content: 'w-full text-left font-inter pt-1 text-[15px]',
-        image: 'w-[85%] h-[200px] object-cover rounded-md mt-4',
+        content: 'w-full text-left font-inter pt-1 text-[15px] mb-6',
+        image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
     }
 
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
         contentContainer: 'p-4 flex-col',
-        title: 'text-black  font-inter font-bold text-[20px]',
-        subtitle: 'text-black font-inter text-[15px]',
-        content: 'text-gray-800',
-        image: 'rounded-md w-[40%] ',
+        title: 'text-black  font-inter font-bold text-[14px]',
+        subtitle: 'text-black font-inter text-[12px]',
+        content: 'text-gray-800 text-[12px]',
+        image: 'rounded-md w-[55%] h-[90%] m-3 object-cover ',
     }
 
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles

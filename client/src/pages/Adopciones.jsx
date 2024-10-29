@@ -202,8 +202,6 @@ const Adopciones = () => {
                             </p>
                         )}
                     </div>
-                    <Carousel dataType="adoptions" />
-                    <Carousel dataType="posts" />
                 </div>
             </div>
         </div>

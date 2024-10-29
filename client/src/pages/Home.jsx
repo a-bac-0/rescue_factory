@@ -84,7 +84,7 @@ const Home = () => {
                     </h1>
                 </div>
                 <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
-                    <Carousel />
+                    <Carousel dataType="adoptions" />
 
                     <section className="pt-[38px] flex justify-center">
                         <MyButton
