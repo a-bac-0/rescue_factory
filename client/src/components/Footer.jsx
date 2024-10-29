@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 
 const Footer = () => {
@@ -12,9 +13,9 @@ const Footer = () => {
 
   const footerContentStyle = {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
     gap: '15px',
     alignItems: 'flex-start',
+    gridTemplateColumns: '1fr',
   };
 
   const logoStyle = {
@@ -43,28 +44,29 @@ const Footer = () => {
     color: '#31442C',
     fontSize: '0.9rem',
     textAlign: 'center',
-    gridColumn: '1 / -1', 
+    gridColumn: '1 / -1',
     marginTop: '20px',
   };
 
   return (
     <footer style={footerContainerStyle}>
-      <div style={footerContentStyle}>
-
+      <div style={{ ...footerContentStyle, ...(window.innerWidth >= 768 && { gridTemplateColumns: 'auto 1fr auto' }) }}>
+        
+      
         <div>
           <img src={logo} alt="Logo" style={logoStyle} />
         </div>
 
-
+        
         <ul style={sectionsContainerStyle}>
           <li style={sectionTitleStyle}>SECCIONES</li>
-          <li>Adopciones</li>
-          <li>Historias</li>
-          <li>Noticias</li>
-          <li>Registro</li>
-          <li>Voluntariado</li>
-          <li>Login</li>
-          <li>Contacto</li>
+          <li><Link to="/adopciones">Adopciones</Link></li>
+          <li><Link to="/historiasDeAdopcion">Historias</Link></li>
+          <li><Link to="/noticias">Noticias</Link></li>
+          <li><Link to="/registro">Registro</Link></li>
+          <li><Link to="/voluntariado">Voluntariado</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/contacto">Contacto</Link></li>
         </ul>
       </div>
 
