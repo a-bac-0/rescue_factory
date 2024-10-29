@@ -14,7 +14,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'Sed ut perspiciatis unde omnis iste natus...',
             url_images:
-                'https://images.unsplash.com/photo-1574158622688-7cb19a5d89e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '2',
@@ -24,7 +24,7 @@ const Adopciones = () => {
             category: 'Gatos',
             content: 'A friendly and playful cat waiting for a loving home.',
             url_images:
-                'https://images.unsplash.com/photo-1606314473727-4c9e2dc6b6b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
         {
             id: '3',
@@ -34,7 +34,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'An energetic dog looking for a family.',
             url_images:
-                'https://images.unsplash.com/photo-1555685812-3481b9531f90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '4',
@@ -44,7 +44,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'Loves playing fetch and cuddling.',
             url_images:
-                'https://images.unsplash.com/photo-1574158622688-7cb19a5d89e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '5',
@@ -54,7 +54,7 @@ const Adopciones = () => {
             category: 'Gatos',
             content: 'A playful kitten looking for a family.',
             url_images:
-                'https://images.unsplash.com/photo-1555685812-3481b9531f90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
         {
             id: '6',
@@ -64,7 +64,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'Loves to go for long walks.',
             url_images:
-                'https://images.unsplash.com/photo-1504221721070-59c8a8813b6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '7',
@@ -74,7 +74,7 @@ const Adopciones = () => {
             category: 'Gatos',
             content: 'A sweet cat who loves to be petted.',
             url_images:
-                'https://images.unsplash.com/photo-1595561101557-e3732266f4d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
         {
             id: '8',
@@ -84,7 +84,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'A loyal companion and friend.',
             url_images:
-                'https://images.unsplash.com/photo-1560807707-8cc77767d783?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '9',
@@ -94,7 +94,7 @@ const Adopciones = () => {
             category: 'Gatos',
             content: 'A fluffy cat who loves to nap.',
             url_images:
-                'https://images.unsplash.com/photo-1612479631824-32f15f59d45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
         {
             id: '10',
@@ -104,7 +104,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'Enjoys playing with children.',
             url_images:
-                'https://images.unsplash.com/photo-1607746885682-8d2ee3a7ef6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
         {
             id: '11',
@@ -114,7 +114,7 @@ const Adopciones = () => {
             category: 'Gatos',
             content: 'A curious cat who loves to explore.',
             url_images:
-                'https://images.unsplash.com/photo-1555685803-39c3b1a7ffb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
         {
             id: '12',
@@ -124,7 +124,7 @@ const Adopciones = () => {
             category: 'Perros',
             content: 'An old soul who enjoys quiet moments.',
             url_images:
-                'https://images.unsplash.com/photo-1508934048584-e0b53cf6aa8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+                'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
     ]
     const { filters } = useFilter()
