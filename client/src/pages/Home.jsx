@@ -87,7 +87,7 @@ const Home = () => {
      
 
       <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
-        <section className="absolute -top-[2.5rem] sm:-top-[3.5rem] md:-top-[2.5rem] lg:-top-[rem] left-0 w-full h-full flex justify-center">
+        <section className="absolute -top-[2.5rem] sm:-top-[2.5rem] md:-top-[2.5rem] lg:-top-[3.5rem] left-0 w-full h-full flex justify-center">
           <h1 className="font-bold text-5xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
         </section>
         <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
@@ -103,8 +103,8 @@ const Home = () => {
       </section>
 
       <section className="relative min-h-dvh bg-[#77633d]">
-        <section className="absolute -top-[5.5rem] sm:-top-[5.5rem] left-0 w-full h-full flex justify-center">
-          <h1 className="font-black text-5xl text-[#77633d]">
+        <section className="absolute -top-[5.5rem] sm:-top-[5.5rem] md:-top-[7rem] lg:-top-[8rem] left-0 w-full h-full flex justify-center">
+          <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl text-[#77633d]">
             LO ÚLTIMO
             <br />
             EN NOTICIAS
