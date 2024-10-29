@@ -43,19 +43,19 @@ const FilterOptions = () => {
         }),
         option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected ? '#e2e8f0' : 'white',
-            color: state.isSelected ? '#334155' : '#4b5563',
+            backgroundColor: state.isSelected ? '#FFF7E6' : '#FFF7E6',
+            color: '#31442C',
             '&:hover': {
-                backgroundColor: '#76816A',
+                backgroundColor: '#FFE8A1',
             },
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: '#D1B85E',
+            color: '#F5F5F5',
         }),
         menu: (provided) => ({
             ...provided,
-            backgroundColor: '#76816A',
+            backgroundColor: '#FFF7E6',
             borderRadius: '0.375rem',
             boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
         }),
@@ -68,7 +68,6 @@ const FilterOptions = () => {
             color: '#D1B85E',
         }),
     }
-
     return (
         <div className="p-4 w-[95%] mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <div className="flex mb-16 flex-col space-y-4 sm:space-y-0 sm:flex-row w-full sm:gap-7">
