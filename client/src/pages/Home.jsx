@@ -90,7 +90,7 @@ const Home = () => {
         <section className="absolute -top-[2.5rem] sm:-top-[3.5rem] md:-top-[2.5rem] lg:-top-[rem] left-0 w-full h-full flex justify-center">
           <h1 className="font-bold text-5xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
         </section>
-        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
+        <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel dataType="adoptions" />
 
           <section className="pt-[38px] flex justify-center">
