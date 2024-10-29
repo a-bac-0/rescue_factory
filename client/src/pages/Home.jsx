@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderHomeImg from "../assets/images/Header_home.png";
 import HeaderHomeMobile from "../assets/images/Header_home_mobile.svg";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 
 const Home = () => {
 
   const navigate = useNavigate();
+  const [adoptionData, setAdoptionData] = useState([]);
+
+  useEffect(() => {
+    const fetchAdoptions = async () => {
+      const response = await fetch('/api/adoptions'); //replace with my actual api endpoint
+      const data = await response.json();
+      setAdoptionData(data); // set the state with the fetched data
+    };
+
+    fetchAdoptions();
+
+  }, []);
 
   return (
     <main className="min-h-screen w-full m-0 bg-[#76816A] font-['Inter']">
@@ -24,7 +37,7 @@ const Home = () => {
       />
 
       <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
-        <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-4xl">
+        <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-5xl lg:text-7xl">
           EL REFUGIO
         </h1>
         <p className="mb-10 sm:my-8 text-justify">
@@ -74,9 +87,9 @@ const Home = () => {
      
 
       <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
-        <div className="absolute -top-[2.5rem] sm:-top-[2.5rem] left-0 w-full h-full flex justify-center ">
-          <h1 className="font-black text-5xl text-[#31442C]">ADOPCIONES</h1>
-        </div>
+        <section className="absolute -top-[2.5rem] sm:-top-[3.5rem] md:-top-[2.5rem] lg:-top-[3.5rem] left-0 w-full h-full flex justify-center">
+          <h1 className="font-bold text-5xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
+        </section>
         <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel />
 
@@ -90,20 +103,32 @@ const Home = () => {
       </section>
 
       <section className="relative min-h-dvh bg-[#77633d]">
-        <div className="absolute -top-[5.5rem] sm:-top-[5.5rem] left-0 w-full h-full flex justify-center">
+        <section className="absolute -top-[5.5rem] sm:-top-[5.5rem] left-0 w-full h-full flex justify-center">
           <h1 className="font-black text-5xl text-[#77633d]">
             LO ÚLTIMO
             <br />
             EN NOTICIAS
           </h1>
-        </div>
+        </section>
+       
+        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
+          {adoptionData.length > 0 ? (
+            adoptionData.map(item => (
+              <Card key={item.id} datatype="adoptions" data={item} />
+            ))
+          ) : (
+            <p>Cargando datos...</p> // Handle loading state
+          )}
+        </section>
+
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="MÁS NOTICIAS"
             onClick={() => navigate('/Noticias')}
           />
         </section>
-      </section>
+        </section>
+      
     </main>
   );
 };
