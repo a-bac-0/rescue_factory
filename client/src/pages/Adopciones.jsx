@@ -1,9 +1,156 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
-import Carousel from '../components/Carousel'
+import FilterOptions from '../components/FilterOptions'
+import { useFilter } from '../layout/FilterContext'
 
 const Adopciones = () => {
+    const adoptions = [
+        {
+            id: '1',
+            name: 'Nube',
+            age: '2',
+            sex: 'Hembra',
+            category: 'Perros',
+            content: 'Sed ut perspiciatis unde omnis iste natus...',
+            url_images:
+                'https://images.unsplash.com/photo-1574158622688-7cb19a5d89e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '2',
+            name: 'Firulais',
+            age: '5',
+            sex: 'Macho',
+            category: 'Gatos',
+            content: 'A friendly and playful cat waiting for a loving home.',
+            url_images:
+                'https://images.unsplash.com/photo-1606314473727-4c9e2dc6b6b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '3',
+            name: 'Luna',
+            age: '3',
+            sex: 'Hembra',
+            category: 'Perros',
+            content: 'An energetic dog looking for a family.',
+            url_images:
+                'https://images.unsplash.com/photo-1555685812-3481b9531f90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '4',
+            name: 'Toby',
+            age: '4',
+            sex: 'Macho',
+            category: 'Perros',
+            content: 'Loves playing fetch and cuddling.',
+            url_images:
+                'https://images.unsplash.com/photo-1574158622688-7cb19a5d89e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '5',
+            name: 'Mimi',
+            age: '1',
+            sex: 'Hembra',
+            category: 'Gatos',
+            content: 'A playful kitten looking for a family.',
+            url_images:
+                'https://images.unsplash.com/photo-1555685812-3481b9531f90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '6',
+            name: 'Rocco',
+            age: '6',
+            sex: 'Macho',
+            category: 'Perros',
+            content: 'Loves to go for long walks.',
+            url_images:
+                'https://images.unsplash.com/photo-1504221721070-59c8a8813b6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '7',
+            name: 'Pelusa',
+            age: '3',
+            sex: 'Hembra',
+            category: 'Gatos',
+            content: 'A sweet cat who loves to be petted.',
+            url_images:
+                'https://images.unsplash.com/photo-1595561101557-e3732266f4d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '8',
+            name: 'Max',
+            age: '7',
+            sex: 'Macho',
+            category: 'Perros',
+            content: 'A loyal companion and friend.',
+            url_images:
+                'https://images.unsplash.com/photo-1560807707-8cc77767d783?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '9',
+            name: 'Nina',
+            age: '4',
+            sex: 'Hembra',
+            category: 'Gatos',
+            content: 'A fluffy cat who loves to nap.',
+            url_images:
+                'https://images.unsplash.com/photo-1612479631824-32f15f59d45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '10',
+            name: 'Rocky',
+            age: '5',
+            sex: 'Macho',
+            category: 'Perros',
+            content: 'Enjoys playing with children.',
+            url_images:
+                'https://images.unsplash.com/photo-1607746885682-8d2ee3a7ef6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '11',
+            name: 'Mika',
+            age: '3',
+            sex: 'Hembra',
+            category: 'Gatos',
+            content: 'A curious cat who loves to explore.',
+            url_images:
+                'https://images.unsplash.com/photo-1555685803-39c3b1a7ffb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+        {
+            id: '12',
+            name: 'Charlie',
+            age: '8',
+            sex: 'Macho',
+            category: 'Perros',
+            content: 'An old soul who enjoys quiet moments.',
+            url_images:
+                'https://images.unsplash.com/photo-1508934048584-e0b53cf6aa8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=400',
+        },
+    ]
+    const { filters } = useFilter()
+
+    const filteredAdoptions = adoptions.filter((adoption) => {
+        const matchesCategory =
+            filters.category.value === 'Todas' ||
+            adoption.category === filters.category.value
+
+        const matchesSex =
+            filters.sex.value === 'Cualquiera' ||
+            adoption.sex === filters.sex.value
+
+        const matchesAge =
+            filters.age.value === 'Cualquiera' ||
+            (filters.age.value === '1 a 4 años' &&
+                adoption.age >= 1 &&
+                adoption.age <= 4) ||
+            (filters.age.value === '4 a 8 años' &&
+                adoption.age > 4 &&
+                adoption.age <= 8) ||
+            (filters.age.value === 'Más de 8 años' && adoption.age > 8)
+
+        return matchesCategory && matchesSex && matchesAge
+    })
+
     return (
         <div className="min-h-screen w-full object-cover m-0 bg-[#76816A]">
             <img
@@ -35,15 +182,25 @@ const Adopciones = () => {
                 </div>
             </div>
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
-                <div className="max-w-[1400px] mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28 justify-items-center">
-                        {/* <Card datatype="adoptions" />
-                        <Card datatype="posts" />
-                        <Card datatype="adoptions" />
-                        <Card datatype="posts" /> */}
+                <div className="max-w-[1400px] mx-auto w-[90%]">
+                    <FilterOptions />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                        {filteredAdoptions.length > 0 ? (
+                            filteredAdoptions.map((adoption) => (
+                                <Card
+                                    key={adoption.id}
+                                    datatype="adoptions"
+                                    data={adoption}
+                                    className="w-full"
+                                />
+                            ))
+                        ) : (
+                            <p className="text-gray-600 text-lg">
+                                No hay adopciones disponibles con los filtros
+                                seleccionados.
+                            </p>
+                        )}
                     </div>
-                    {/* <Carousel dataType="posts" />
-                    <Carousel dataType="adoptions" /> */}
                 </div>
             </div>
         </div>
