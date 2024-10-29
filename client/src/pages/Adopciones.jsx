@@ -1,8 +1,9 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
-import FilterOptions from '../components/FilterOptions'
+import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
+import Carousel from '../components/Carousel'
 
 const Adopciones = () => {
     const adoptions = [
@@ -183,7 +184,7 @@ const Adopciones = () => {
             </div>
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto w-[90%]">
-                    <FilterOptions />
+                    <FilterOptionsAdoptions />
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => (
@@ -201,6 +202,7 @@ const Adopciones = () => {
                             </p>
                         )}
                     </div>
+                    <Carousel datatype="adoptions" />
                 </div>
             </div>
         </div>

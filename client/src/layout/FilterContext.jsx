@@ -30,7 +30,7 @@ export const FilterProvider = ({ children }) => {
             )
         }
 
-        //  Edad
+        // Edad
         if (filters.age && filters.age.value !== 'Cualquiera') {
             filteredData = filteredData.filter((item) => {
                 const age = item.age
