@@ -36,19 +36,19 @@ const Home = () => {
         className="w-full h-auto object-cover block md:hidden"
       />
 
-      <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
+      <section className="w-full min-w-[314px] max-w-[1080px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
         <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-5xl lg:text-7xl">
           EL REFUGIO
         </h1>
-        <p className="mb-10 sm:my-8 text-justify">
+        <p className="mb-10 sm:my-8 lg:text-2xl text-justify">
           En el corazón de nuestra comunidad, Rescue Factory se alza como un
           faro de esperanza para aquellos amigos de cuatro patas que más lo
           necesitan. Somos más que un simple refugio; somos una familia dedicada
           a transformar vidas, tanto de animales como de personas, a través del
           amor incondicional y el compromiso inquebrantable.
         </p>
-        <h2 className="mb-10 sm:my-8 font-bold text-2xl">Lo Que Hacemos</h2>
-        <ul className="list-inside list-disc mb-10 sm:mb8">
+        <h2 className="mb-10 sm:my-8 font-bold text-4xl">Lo Que Hacemos</h2>
+        <ul className="list-inside list-disc lg:text-2xl mb-10 sm:mb8">
           <li className="pb-6 sm:pb-4">
             Rescatamos a perros y gatos en situación de vulnerabilidad
           </li>
@@ -73,7 +73,7 @@ const Home = () => {
           cada hogar se hace más feliz con el amor incondicional de una mascota
           rescatada.
         </p>
-        <i className="font-serif text-[#31442C] block mb-10 sm:mb-4">
+        <i className="font-serif lg:text-2xl text-[#31442C] block mb-10 sm:mb-4">
           En Rescue Factoría, no solo salvamos vidas, creamos familias.
         </i>
 
@@ -87,11 +87,11 @@ const Home = () => {
      
 
       <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
-        <section className="absolute -top-[2.5rem] sm:-top-[3.5rem] md:-top-[2.5rem] lg:-top-[3.5rem] left-0 w-full h-full flex justify-center">
+        <section className="absolute -top-[2.5rem] sm:-top-[3.5rem] md:-top-[2.5rem] lg:-top-[rem] left-0 w-full h-full flex justify-center">
           <h1 className="font-bold text-5xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
         </section>
         <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
-          <Carousel />
+          <Carousel dataType="adoptions" />
 
           <section className="pt-[38px] flex justify-center">
             <MyButton
