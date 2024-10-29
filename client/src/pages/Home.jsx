@@ -68,7 +68,7 @@ const Home = () => {
           </li>
         </ul>
 
-        <p className="mb-8 sm:my-4 text-justify">
+        <p className="mb-8 sm:my-4 lg:text-2xl text-justify">
           Porque creemos que cada vida peluda merece una segunda oportunidad, y
           cada hogar se hace más feliz con el amor incondicional de una mascota
           rescatada.
@@ -80,16 +80,16 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="¡HAZTE SOCIO!"
-            onClick={() => navigate('/**')}
+            onClick={() => navigate('/Registro')}
           />
         </section>
       </section>
      
-
-      <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
-        <section className="absolute -top-[2.5rem] sm:-top-[2.5rem] md:-top-[2.5rem] lg:-top-[3.5rem] left-0 w-full h-full flex justify-center">
-          <h1 className="font-bold text-5xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
+      <section className="relative top-[0.6rem] md:top-[0.7rem] lg:top-[1rem] left-0 w-full h-full flex justify-center">
+          <h1 className="font-bold text-5xl  md:text-6xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
         </section>
+      <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
+        
         <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel dataType="adoptions" />
 
@@ -103,7 +103,7 @@ const Home = () => {
       </section>
 
       <section className="relative min-h-dvh bg-[#77633d]">
-        <section className="absolute -top-[5.5rem] sm:-top-[5.5rem] md:-top-[7rem] lg:-top-[8rem] left-0 w-full h-full flex justify-center">
+        <section className="relative -top-[5.5rem] sm:-top-[5.5rem] md:-top-[7rem] lg:-top-[8rem] left-0 w-full h-full flex justify-center">
           <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl text-[#77633d]">
             LO ÚLTIMO
             <br />
@@ -117,7 +117,7 @@ const Home = () => {
               <Card key={item.id} datatype="adoptions" data={item} />
             ))
           ) : (
-            <p>Cargando datos...</p> // Handle loading state
+            <p className="pt-[2rem]">Cargando datos...</p> // Handle loading state
           )}
         </section>
 
