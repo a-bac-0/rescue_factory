@@ -52,8 +52,12 @@ const postModel = connection_db.define<PostModel>(
             allowNull: false,
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
+            references: {
+                model: 'users', // Debe coincidir con la tabla de usuarios
+                key: 'id',
+            },
         },
         category: {
             type: DataTypes.ENUM('noticias', 'cuidado_animal', 'adopcion'), // Define los valores posibles para el ENUM

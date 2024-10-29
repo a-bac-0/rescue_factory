@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 // Cargar variables de entorno desde el archivo .env
 dotenv.config();

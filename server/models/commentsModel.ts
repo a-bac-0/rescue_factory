@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import connection_db from "../database/db.ts";
+import connection_db from "../database/db";
 
 // Definimos una interfaz para los atributos del modelo
 interface CommentAttributes {
@@ -24,7 +24,7 @@ class CommentModel extends Model<CommentAttributes, CommentCreationAttributes> i
 
 // Definir el modelo utilizando el método `define` de Sequelize
 const commentModel = connection_db.define<CommentModel>(
-    'Comment',
+    'Comments',
     {
         id: {
             type: DataTypes.BIGINT,

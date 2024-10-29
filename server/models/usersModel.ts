@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import connection_db from "../database/db.ts";
+import connection_db from "../database/db";
 
 // Definimos una interfaz para los atributos del modelo
 interface UserAttributes {
@@ -24,7 +24,7 @@ class UserModel extends Model<UserAttributes, UserCreationAttributes> implements
 
 // Definir el modelo utilizando el método `define` de Sequelize
 const userModel = connection_db.define<UserModel>(
-  "User",
+  "Users",
   {
     id: {
       type: DataTypes.BIGINT,

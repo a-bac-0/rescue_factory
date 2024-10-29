@@ -1,39 +1,49 @@
-import connection_db from "./database/db";
-import commentModel from "./models/commentsModel";
+import express from 'express'; // Importa express como un módulo
+import connection_db from './database/db'; // Importación de la conexión a la base de datos
+import commentModel from './models/commentsModel'; // Importaciones de modelos
 import contactMessageModel from "./models/contactModel";
 import postModel from "./models/postsModel";
 import userModel from "./models/usersModel";
 import adoptionModel from "./models/adoptionsModel";
-import express from 'express';
 
+// Crea una instancia de la aplicación express
+export const app = express();
 
-export const app = express()
+// Función para inicializar la base de datos
+const initializeDatabase = async (): Promise<void> => {
+    try {
+        // Autenticación con la base de datos
+        await connection_db.authenticate();
+        console.log('The connection to the database has been successful 👍✅');
 
+        // Define los modelos en orden para manejar las dependencias
+        const models = [
+            { model: userModel, name: 'users' },
+            { model: adoptionModel, name: 'adoptions' },
+            { model: postModel, name: 'posts' },            
+            { model: commentModel, name: 'comments' },
+            { model: contactMessageModel, name: 'contact_message' },
+            
+        ];
 
+        // Sincroniza cada modelo
+        for (const { model, name } of models) {
+            await model.sync({ force: false });
+            console.log(`The ${name} table has been created successfully 👍✅`);
+        }
+    } catch (error) {
+        // Manejo de errores
+        if (error instanceof Error) {
+            console.error('Unable to connect to the database ❌:', error.message);
+        } else {
+            console.error('Unable to connect to the database ❌: An unknown error occurred');
+        }
+        throw error; // Lanza el error para manejarlo más arriba si es necesario
+    }
+};
 
-
-try {
-    await connection_db.authenticate();
-    console.log('The connection to the database has been successful 👍✅')
-
-    await adoptionModel.sync({force:false});
-    console.log('The users table has been created successfully 👍✅')
-
-    await postModel.sync({force:false});
-    console.log('The posts table has been created successfully 👍✅')
-
-    await commentModel.sync({force:false});
-    console.log('The comments table has been created successfully 👍✅')
-
-    await contactMessageModel.sync({force:false});
-    console.log('The contact table has been created successfully 👍✅')
-
-    await userModel.sync({force:false});
-    console.log('The users table has been created successfully 👍✅')
-} catch (error) {
-    console.error('Unable to connect to the database ❌:', error)
-}
-
-
-
-
+// Ejecuta la inicialización de la base de datos
+initializeDatabase().catch((error) => {
+    console.error('Failed to initialize database:', error);
+    process.exit(1); // Sale con un código de error si la inicialización falla
+});

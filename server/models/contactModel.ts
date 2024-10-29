@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import connection_db from "../database/db.ts";
+import connection_db from "../database/db";
 
 // Definimos una interfaz para los atributos del modelo
 interface ContactMessageAttributes {
@@ -24,7 +24,7 @@ class ContactMessageModel extends Model<ContactMessageAttributes, ContactMessage
 
 // Definir el modelo utilizando el método `define` de Sequelize
 const contactMessageModel = connection_db.define<ContactMessageModel>(
-  "ContactMessage",
+  "Contact_Message",
   {
     id: {
       type: DataTypes.BIGINT,
