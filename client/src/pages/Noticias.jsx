@@ -10,7 +10,8 @@ const Noticias = () => {
             date: '2021-10-01',
             content:
                 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium...',
-            url_images: 'https://via.placeholder.com/300',
+            url_images:
+                'https://s1.abcstatics.com/media/sociedad/2019/10/10/gatosperros1-k8mG--1248x698@abc.jpg',
         },
         {
             id: '2',
@@ -18,7 +19,8 @@ const Noticias = () => {
             date: '2021-10-02',
             content:
                 'Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo...',
-            url_images: 'https://via.placeholder.com/300',
+            url_images:
+                'https://s1.abcstatics.com/media/sociedad/2019/10/10/gatosperros1-k8mG--1248x698@abc.jpg',
         },
         {
             id: '3',
@@ -26,7 +28,8 @@ const Noticias = () => {
             date: '2021-10-02',
             content:
                 'Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo...',
-            url_images: 'https://via.placeholder.com/300',
+            url_images:
+                'https://s1.abcstatics.com/media/sociedad/2019/10/10/gatosperros1-k8mG--1248x698@abc.jpg',
         },
     ]
 
