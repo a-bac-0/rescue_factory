@@ -20,31 +20,49 @@ const Card = ({ datatype, data }) => {
         window.location.href = `/${datatype}/${data.id}`
     }
 
+    const adoptionsStyles = {
+        cardContainer:
+            'bg-white items-center w-[314px] h-[435px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+        contentContainer: 'flex flex-col justify-center items-center w-[85%]',
+        title: 'w-full h-[18px] text-left pt-8 pb-10 font-inter font-bold text-[18px]',
+        subtitle: 'w-full text-left font-inter text-[15px]',
+        additionalInfo: 'w-full text-left font-inter text-[15px]',
+        content: 'w-full text-left font-inter pt-1 text-[15px]',
+        image: 'w-[85%] h-[200px] object-cover rounded-md mt-4',
+    }
+
+    const postsStyles = {
+        cardContainer:
+            'bg-white shadow-lg items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+        contentContainer: 'p-4 flex-col',
+        title: 'text-black  font-inter font-bold text-[20px]',
+        subtitle: 'text-black font-inter text-[15px]',
+        content: 'text-gray-800',
+        image: 'rounded-md w-[40%] ',
+    }
+
+    const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
+
     return (
-        <div
-            onClick={handleCardClick}
-            className="bg-white items-center w-[314px] h-[435px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300"
-        >
-            <div className="flex flex-col justify-center items-center w-[85%]">
-                <h1 className="w-full h-[18px] text-left pt-8 pb-10 font-inter font-bold text-[18px]">
+        <div onClick={handleCardClick} className={`${styles.cardContainer}`}>
+            <div className={`${styles.contentContainer}`}>
+                <h1 className={`${styles.title}`}>
                     {datatype === 'adoptions' ? data.name : data.title}
                 </h1>
-                <h2 className="w-full text-left font-inter text-[15px]">
+                <h2 className={`${styles.subtitle}`}>
                     {datatype === 'adoptions' ? `${data.age} años` : data.date}
                 </h2>
                 {datatype === 'adoptions' && (
-                    <h2 className="w-full text-left font-inter text-[15px]">
-                        {data.sex}
-                    </h2>
+                    <h2 className={`${styles.additionalInfo}`}>{data.sex}</h2>
                 )}
-                <p className="w-full text-left font-inter pt-1 text-[15px]">
+                <p className={`${styles.content}`}>
                     {truncateContent(data.content)}
                 </p>
             </div>
             <img
                 src={data.url_images}
                 alt={datatype === 'adoptions' ? data.name : data.title}
-                className="w-[85%] h-[200px] object-cover rounded-md mt-4"
+                className={`${styles.image}`}
             />
         </div>
     )

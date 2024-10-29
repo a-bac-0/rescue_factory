@@ -142,7 +142,7 @@ const Noticias = () => {
                 </div>
                 <div className="max-w-[1400px] mx-auto w-[90%]">
                     <FilterOptionsNews />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 justify-items-center">
                         {sortedNews.map((post) => (
                             <Card
                                 key={post.id}

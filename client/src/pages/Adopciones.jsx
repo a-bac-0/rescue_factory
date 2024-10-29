@@ -202,7 +202,8 @@ const Adopciones = () => {
                             </p>
                         )}
                     </div>
-                    <Carousel datatype="adoptions" />
+                    <Carousel dataType="adoptions" />
+                    <Carousel dataType="posts" />
                 </div>
             </div>
         </div>
