@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import commentModel from "../models/commentsModel";
-import { error } from "console";
+
 
 
 // Get de los comentarios
