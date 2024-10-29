@@ -2,9 +2,11 @@ import React from 'react'
 
 const CHAR_LIMIT = 80
 
-const Card = ({ datatype = 'adoptions', data }) => {
+const Card = ({ datatype, data }) => {
+    // Límite de caracteres para el contenido
     const truncateContent = (text) => {
         if (text.length <= CHAR_LIMIT) return text
+
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
