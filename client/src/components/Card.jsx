@@ -33,7 +33,7 @@ const Card = ({ datatype, data }) => {
 
     const postsStyles = {
         cardContainer:
-            'bg-white shadow-lg items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+            'bg-white shadow-lg w-[91%] items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
         contentContainer: 'p-4 flex-col',
         title: 'text-black  font-inter font-bold text-[14px]',
         subtitle: 'text-black font-inter text-[12px]',

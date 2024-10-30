@@ -3,7 +3,6 @@ import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
 import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
-import Carousel from '../components/Carousel'
 
 const Adopciones = () => {
     const adoptions = [
