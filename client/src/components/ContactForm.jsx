@@ -29,6 +29,10 @@ const ContactForm = () => {
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
       </label>
       <label>
+        Apellido:
+        <input type="text" name="surname" value={formData.surname} onChange={handleChange} />
+      </label>
+      <label>
         Email:
         <input type="email" name="email" value={formData.email} onChange={handleChange} />
       </label>
