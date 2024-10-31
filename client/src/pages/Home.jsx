@@ -14,9 +14,7 @@ const Home = () => {
   useEffect(() => {
     const fetchAdoptions = async () => {
       const API_URL =
-          process.env.NODE_ENV === 'development'
-              ? 'http://localhost:3001/adoptions' // Solo en desarrollo local
-              : '/api/adoptions'; // Endpoint real del backend para dev y producción
+           '/api/adoptions'; // Endpoint fake
   
       try {
           const response = await fetch(API_URL);
@@ -45,7 +43,7 @@ const Home = () => {
         className="w-full h-auto object-cover block md:hidden"
       />
 
-      <section className="w-full min-w-[314px] max-w-[1080px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
+      <section className="w-[80%] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
         <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-5xl lg:text-7xl">
           EL REFUGIO
         </h1>
@@ -120,11 +118,11 @@ const Home = () => {
           </h1>
         </section>
        
-        <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
+        <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-1">
         <Carousel dataType="posts" />
         </section>
 
-        <section className="pt-[38px] flex justify-center">
+        <section className="pt-[38px] pb-[6rem] flex justify-center">
           <MyButton
             label="MÁS NOTICIAS"
             onClick={() => navigate('/Noticias')}
