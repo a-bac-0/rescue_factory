@@ -1,16 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import like_button from '../assets/images/like_button.svg'
 
-const CHAR_LIMIT = 80
+// Constantes para límites de caracteres
+const CHAR_LIMIT_SMALL = 70
+const CHAR_LIMIT_MEDIUM = 200
+const CHAR_LIMIT_LARGE = 320
 
 const Card = ({ datatype, data }) => {
-    // Límite de caracteres para el contenido
+    const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
+
+    useEffect(() => {
+        const updateCharLimit = () => {
+            if (window.innerWidth >= 1024) {
+                setCharLimit(CHAR_LIMIT_LARGE)
+            } else if (window.innerWidth >= 768) {
+                setCharLimit(CHAR_LIMIT_MEDIUM)
+            } else {
+                setCharLimit(CHAR_LIMIT_SMALL)
+            }
+        }
+
+        window.addEventListener('resize', updateCharLimit)
+        updateCharLimit()
+
+        return () => window.removeEventListener('resize', updateCharLimit)
+    }, [])
+
     const truncateContent = (text) => {
-        if (text.length <= CHAR_LIMIT) return text
+        if (text.length <= charLimit) return text
 
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
-            if ((truncatedText + word).length > CHAR_LIMIT) break
+            if ((truncatedText + word).length > charLimit) break
             truncatedText += word + ' '
         }
         return truncatedText.trim() + '...'
@@ -33,12 +55,15 @@ const Card = ({ datatype, data }) => {
 
     const postsStyles = {
         cardContainer:
-            'bg-white shadow-lg w-[91%] items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
-        contentContainer: 'p-4 flex-col',
-        title: 'text-black  font-inter font-bold text-[14px]',
-        subtitle: 'text-black font-inter text-[12px]',
-        content: 'text-gray-800 text-[12px]',
-        image: 'rounded-md w-[55%] h-[90%] m-3 object-cover ',
+            'bg-white shadow-lg w-[91%] h-[auto] items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+        contentContainer: 'p-4 flex-col w-[55%] md:w-[60%]',
+        title: 'text-black mb-2 font-inter font-bold text-[13px] md:text-[16px] lg:text-[18px]',
+        subtitle:
+            'text-black font-inter text-[10px] md:text-[12px] lg:text-[14px]',
+        content: ' mt-4 text-black text-[10px] md:text-[12px] lg:text-[14px]',
+        additionalInfo: 'text-black text-[10px] md:text-[12px] lg:text-[14px]',
+        image: 'rounded-md w-[45%] h-[90%] m-3 object-cover md:w-[50%] md:h-[300px] md:ml-auto',
+        likeCount: 'mt-2 flex items-center text-black text-[12px]',
     }
 
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
@@ -55,9 +80,24 @@ const Card = ({ datatype, data }) => {
                 {datatype === 'adoptions' && (
                     <h2 className={`${styles.additionalInfo}`}>{data.sex}</h2>
                 )}
+                {datatype === 'posts' && (
+                    <p className={`${styles.additionalInfo}`}>
+                        Autor: {data.user_name}
+                    </p>
+                )}
                 <p className={`${styles.content}`}>
                     {truncateContent(data.content)}
                 </p>
+                {datatype === 'posts' && (
+                    <div className={`${styles.likeCount}`}>
+                        <img
+                            src={like_button}
+                            alt="Like button"
+                            className="w-4 h-4 mr-1"
+                        />
+                        <span>{data.like_count}</span>
+                    </div>
+                )}
             </div>
             <img
                 src={data.url_images}
