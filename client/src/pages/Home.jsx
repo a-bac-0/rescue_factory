@@ -13,10 +13,19 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAdoptions = async () => {
-      const response = await fetch('/api/adoptions'); //replace with my actual api endpoint
-      const data = await response.json();
-      setAdoptionData(data); // set the state with the fetched data
-    };
+      const API_URL =
+          process.env.NODE_ENV === 'development'
+              ? 'http://localhost:3001/adoptions' // Solo en desarrollo local
+              : '/api/adoptions'; // Endpoint real del backend para dev y producción
+  
+      try {
+          const response = await fetch(API_URL);
+          const data = await response.json();
+          setAdoptionData(data);
+      } catch (error) {
+          console.error("Error al obtener datos:", error);
+      }
+  };
 
     fetchAdoptions();
 
