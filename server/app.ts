@@ -5,9 +5,18 @@ import contactMessageModel from "./models/contactModel";
 import postModel from "./models/postsModel";
 import userModel from "./models/usersModel";
 import adoptionModel from "./models/adoptionsModel";
+import userRouter from './routes/usersRoutes';
+import cors from 'cors';
 
 // Crea una instancia de la aplicación express
 export const app = express();
+
+//Middelewares
+app.use(cors())
+app.use(express.json())
+
+//Rutas
+app.use('/users', userRouter)
 
 // Función para inicializar la base de datos
 const initializeDatabase = async (): Promise<void> => {
@@ -47,3 +56,7 @@ initializeDatabase().catch((error) => {
     console.error('Failed to initialize database:', error);
     process.exit(1); // Sale con un código de error si la inicialización falla
 });
+
+export const server = app.listen(8000, ()=> {
+    console.log('Server is working, nice job :) http://localhost:8000')
+})

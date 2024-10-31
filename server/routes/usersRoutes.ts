@@ -1,11 +1,11 @@
 import { deleteUser, getAllUsers, getUserById, updateUser } from "../controllers/userController";
 import express from "express";
 
-const bookRouter = express.Router();
+const userRouter = express.Router();
 
-bookRouter.get('/users', getAllUsers);
-bookRouter.get('/users/:id', getUserById);
-bookRouter.delete('/users/:id', deleteUser);
-bookRouter.put('/users/:id', updateUser);
+userRouter.get('/', getAllUsers);
+userRouter.get('/:id', getUserById);
+userRouter.delete('/:id', deleteUser);
+userRouter.put('/:id', updateUser);
 
-export default bookRouter;
+export default userRouter;
