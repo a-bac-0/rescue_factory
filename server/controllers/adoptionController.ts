@@ -12,7 +12,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
     }
 }
 
-// Geto one de una adopcion
+// Get one de una adopcion
 
 export const getOneAdoption = async (req: Request, res: Response) => {
     try {
@@ -29,7 +29,7 @@ export const getOneAdoption = async (req: Request, res: Response) => {
     }
 }
 
-// Post de una adopcion 
+// Creacion de una adopcion 
 
 export const createAdoption = async (req: Request, res: Response) => {
     try {
@@ -49,3 +49,22 @@ export const createAdoption = async (req: Request, res: Response) => {
             console.log('Erro al subir la adopcion', error)
     }
 }
+
+// Delete de una adopcion
+
+export const deleteAdoption = async (req:Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const adoption = await adoptionModel.findByPk(id);
+
+        if (!adoption) {
+             return res.status(404).json({ message: "Adopción no encontrada" });
+        }
+
+        await adoption?.destroy()
+        res.json({ message: "Adoption  eliminado correctamente" });
+
+    } catch (error) {
+        console.log('No se pudo eliminar la adopcion', error)
+    }
+ };
