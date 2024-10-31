@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import like_button from '../assets/images/like_button.svg'
+import MyButton from '../components/Button'
 
 // Constantes para límites de caracteres
 const CHAR_LIMIT_SMALL = 70
@@ -29,21 +30,17 @@ const Card = ({ datatype, data }) => {
     }, [])
 
     const truncateContent = (text) => {
-        if (text.length <= charLimit) return text
+        const limit = datatype === 'adoptions' ? CHAR_LIMIT_SMALL : charLimit
+        if (text.length <= limit) return text
 
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
-            if ((truncatedText + word).length > charLimit) break
+            if ((truncatedText + word).length > limit) break
             truncatedText += word + ' '
         }
         return truncatedText.trim() + '...'
     }
-
-    const handleCardClick = () => {
-        window.location.href = `/${datatype}/${data.id}`
-    }
-
     const handleLikeClick = (e) => {
         e.stopPropagation()
         setIsLiked(!isLiked)
@@ -51,32 +48,37 @@ const Card = ({ datatype, data }) => {
 
     const adoptionsStyles = {
         cardContainer:
-            'bg-white items-center w-[314px] h-[410px] flex flex-col rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
-        contentContainer: 'flex flex-col justify-center items-center w-[85%]',
-        title: 'w-full h-[18px] text-left pt-8 pb-10 font-inter font-bold text-[18px]',
+            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col  shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
+        contentContainer: 'flex flex-col justify-center items-start w-[85%]',
+        title: 'w-full h-[18px] text-left pt-8 pb-6 mb-1 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
-        additionalInfo: 'w-full text-left font-inter text-[15px]',
-        content: 'w-full text-left font-inter pt-1 text-[15px] mb-6',
+        additionalInfo: 'w-full text-left mb-2 font-inter text-[15px]',
+        content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
+        showMoreButton:
+            'w-[90%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[15px] rounded-md mb-2', // Ajuste proporcional para adoptions
     }
 
     const postsStyles = {
         cardContainer:
-            'bg-white shadow-lg w-[91%] h-[auto] items-center flex flex-row hover:shadow-2xl w-full rounded-md shadow-md cursor-pointer hover:scale-105 transition-transform duration-300',
+            'bg-white shadow-lg w-[91%] h-[auto] items-center flex flex-row hover:scale-102 transition-transform duration-300',
         contentContainer: 'p-4 flex-col w-[55%] md:w-[60%]',
-        title: 'text-black mb-2 font-inter font-bold text-[13px] md:text-[16px] lg:text-[18px]',
+        title: 'text-black mb-2 font-inter font-bold text-[14px] md:text-[16px] lg:text-[19px]',
         subtitle:
-            'text-black font-inter text-[10px] md:text-[12px] lg:text-[14px]',
-        content: ' mt-4 text-black text-[10px] md:text-[12px] lg:text-[14px]',
-        additionalInfo: 'text-black text-[10px] md:text-[12px] lg:text-[14px]',
-        image: 'rounded-md w-[45%] h-[90%] m-3 object-cover md:w-[50%] md:h-[300px] md:ml-auto',
-        likeCount: 'mt-2 flex items-center text-black text-[12px]',
+            'text-black font-inter text-[14px] md:text-[12px] lg:text-[15px]',
+        content: 'mt-4 text-black text-[13px] md:text-[12px] lg:text-[15px]',
+        additionalInfo: 'text-black text-[13px] md:text-[12px] lg:text-[15px]',
+        image: 'rounded-md w-[50%] h-[90%] m-3 object-cover md:w-[50%] md:h-[300px] md:ml-auto',
+        likeCount:
+            'mt-2 flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]',
+        showMoreButton:
+            'w-[40%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[13px] rounded-md mt-2 lg:text-[16px]', // Ajuste proporcional para posts
     }
 
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
 
     return (
-        <div onClick={handleCardClick} className={`${styles.cardContainer}`}>
+        <div className={`${styles.cardContainer}`}>
             <div className={`${styles.contentContainer}`}>
                 <h1 className={`${styles.title}`}>
                     {datatype === 'adoptions' ? data.name : data.title}
@@ -95,6 +97,13 @@ const Card = ({ datatype, data }) => {
                 <p className={`${styles.content}`}>
                     {truncateContent(data.content)}
                 </p>
+                <MyButton
+                    label="Seguir leyendo"
+                    className={`${styles.showMoreButton}`} // Aquí se aplican los estilos específicos
+                    onClick={() =>
+                        (window.location.href = `/${datatype}/${data.id}`)
+                    }
+                />
                 {datatype === 'posts' && (
                     <div
                         className={`${styles.likeCount}`}

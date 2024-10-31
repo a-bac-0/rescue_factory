@@ -3,7 +3,6 @@ import newsHeader from '../assets/images/newsHeader.svg'
 import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
-import like_button from '../assets/images/like_button.svg'
 
 const Noticias = () => {
     const users = [
@@ -172,14 +171,14 @@ const Noticias = () => {
                 className="w-full h-auto"
             />
             <div className="flex flex-col items-center mt-6 w-full lg:mt-0">
-                <div className="w-[80%] mb-28">
+                <div className="w-[80%] mb-20">
                     <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
                         NOTICIAS
                     </h1>
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
-                    <div className="gap-6 grid grid-cols-1 w-[93%] justify-items-center">
+                    <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(
                                 (user) => user.name === post.user_name
