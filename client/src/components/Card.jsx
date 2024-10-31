@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import like_button from '../assets/images/like_button.svg'
 
 // Constantes para límites de caracteres
@@ -8,6 +9,7 @@ const CHAR_LIMIT_LARGE = 320
 
 const Card = ({ datatype, data }) => {
     const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
+    const [isLiked, setIsLiked] = useState(false)
 
     useEffect(() => {
         const updateCharLimit = () => {
@@ -40,6 +42,11 @@ const Card = ({ datatype, data }) => {
 
     const handleCardClick = () => {
         window.location.href = `/${datatype}/${data.id}`
+    }
+
+    const handleLikeClick = (e) => {
+        e.stopPropagation()
+        setIsLiked(!isLiked)
     }
 
     const adoptionsStyles = {
@@ -89,13 +96,26 @@ const Card = ({ datatype, data }) => {
                     {truncateContent(data.content)}
                 </p>
                 {datatype === 'posts' && (
-                    <div className={`${styles.likeCount}`}>
-                        <img
+                    <div
+                        className={`${styles.likeCount}`}
+                        onClick={handleLikeClick}
+                    >
+                        <motion.img
                             src={like_button}
                             alt="Like button"
-                            className="w-4 h-4 mr-1"
+                            className="w-4 h-4 mr-2"
+                            initial={{ scale: 1 }}
+                            animate={{
+                                scale: isLiked ? 1.2 : 1,
+                                filter: isLiked
+                                    ? 'invert(39%) sepia(100%) saturate(3909%) hue-rotate(350deg) brightness(91%) contrast(104%)'
+                                    : 'none',
+                            }}
+                            transition={{ duration: 0.6 }}
                         />
-                        <span>{data.like_count}</span>
+                        <span>
+                            {isLiked ? data.like_count + 1 : data.like_count}
+                        </span>
                     </div>
                 )}
             </div>
