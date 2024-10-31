@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
-  
   "scripts": {
     "start": "ts-node app.ts",
     "dev": "ts-node-dev app.ts",
@@ -13,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^5.0.0",
     "ts-node": "^10.9.2",
