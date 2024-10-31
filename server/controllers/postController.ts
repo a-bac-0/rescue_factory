@@ -26,10 +26,6 @@ export const getPostById = async (req: Request, res: Response) => {
       const { id } = req.params;      // AQUI EXTRAE EL PARAMETRO id  DE LA URL DONE req.params CONTIENE ↙️
       const post = await postModel.findByPk(id); //  LOS PARAMETROS DINAMICOS DEL id DONDE ESTE ES EL IDENTIFICADOR DEL POST
 
-      if (isNaN(Number(id))) {       // EN ESTE LINEA SE ESTA VALIDANDO EL ID, QUE SIGNIFICA, SIGNIFICA QUE SE LE ESTA DANDO UN VALOR DE NUMERO AL ID
-        return res.status(400).json({ error: "ID inválido" });  // ENTONCES SI EL ID NO ES UN NUMERO CON EL (isNaN) SE LE DICE: is not a number❌
-      }
-
       if (post) {    // AQUI LO QUE SE HACE ES QUE SI EL POST SE ENCONTRO LA INFORMACION LA ENVIA EN FORMATO JSON 📖
         res.json(post);
       } 
@@ -48,9 +44,6 @@ export const deletePost = async (req: Request, res: Response) => {
         const { id } = req.params;  // AQUI SE TRAE EL PARAMETRO id  DE LA URL PARA ELIMINAR EL POST QUE SE QUIERE ELIMINAR
         const post = await postModel.findByPk(id);  // AQUI SE BUSCA EL POST EN LA BASE DE DATOS POR EL ID 🆔
 
-        if (!post) {   // AQUI ESPECIFICA QUE SI NO ENCONTRO EL POST DEVOLVERA ESO↙️
-            return res.status(404).json({ error: "El post no existe" });
-          }
         await post?.destroy(); // Y AQUI SI EXITE SE ELIMINA EL POST ✅
         res.json({ message: "Post eliminado correctamente" });
    

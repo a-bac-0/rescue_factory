@@ -57,10 +57,6 @@ export const deleteAdoption = async (req:Request, res: Response) => {
         const { id } = req.params;
         const adoption = await adoptionModel.findByPk(id);
 
-        if (!adoption) {
-             return res.status(404).json({ message: "Adopción no encontrada" });
-        }
-
         await adoption?.destroy()
         res.json({ message: "Adoption  eliminado correctamente" });
 
@@ -68,3 +64,27 @@ export const deleteAdoption = async (req:Request, res: Response) => {
         console.log('No se pudo eliminar la adopcion', error)
     }
  };
+
+// Update de una adopcion
+
+export const updateAdoption = async (req:Request, res:Response) => {
+    try {
+        const {id} = req.params;
+        const {name, age, sex, category, content, url_images, user_id} = req.body;
+        const updateAdoption = await adoptionModel.findByPk(id)
+
+        await updateAdoption?.update({
+            name,
+            age, 
+            sex,
+            category,
+            content,
+            url_images,
+            user_id,
+        })
+            res.json(updateAdoption);
+
+    } catch (error) {
+        
+    }
+};
