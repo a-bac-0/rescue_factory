@@ -3,9 +3,14 @@ import { gsap } from 'gsap'
 import Arrow1 from '../assets/images/Arrow 1.svg'
 import Arrow2 from '../assets/images/Arrow 2.svg'
 
+// Constantes para límites de caracteres
+const CHAR_LIMIT_SMALL = 130
+const CHAR_LIMIT_MEDIUM = 260
+
 const Carousel = ({ dataType }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isSwiping, setIsSwiping] = useState(false)
+    const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
     const startX = useRef(0)
     const diffX = useRef(0)
     const intervalRef = useRef(null)
@@ -73,6 +78,9 @@ const Carousel = ({ dataType }) => {
             user_id: 223,
         },
     ]
+
+    // Simulación base de datos de posts hasta que esté lista la base de datos real
+
     const posts = [
         {
             id: '101',
@@ -97,19 +105,33 @@ const Carousel = ({ dataType }) => {
     // Elección de la base de datos según el tipo de datos
     const data = dataType === 'adoptions' ? adoptions : posts
 
-    // Limite de caracteres para la descripción
-    const CHAR_LIMIT = 100
+    // Función para actualizar el límite dependiendo del width
+    useEffect(() => {
+        const updateCharLimit = () => {
+            if (window.innerWidth >= 768) {
+                setCharLimit(CHAR_LIMIT_MEDIUM)
+            } else {
+                setCharLimit(CHAR_LIMIT_SMALL)
+            }
+        }
 
-    // Función para recortar el texto sin cortar palabras
+        // Event listener para que se actualice el límite de caracteres al cambiar el tamaño de la ventana
+        window.addEventListener('resize', updateCharLimit)
+        updateCharLimit()
+
+        // Actualización del límite de carácteres al cambiar el width
+        return () => window.removeEventListener('resize', updateCharLimit)
+    }, [])
+
+    // Función para limitar el contenido de texto
     const truncateContent = (text) => {
-        if (text.length <= CHAR_LIMIT) return text
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
-            if ((truncatedText + word).length > CHAR_LIMIT) break
+            if ((truncatedText + word).length > charLimit) break
             truncatedText += word + ' '
         }
-        return truncatedText.trim() + '...'
+        return truncatedText.trim() + ' (...)'
     }
 
     const handlePrev = () => {
@@ -169,29 +191,29 @@ const Carousel = ({ dataType }) => {
         <div className="container w-full px-4 md:px-1">
             <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[700px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
                 <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
-                    <h2 className="text-xl font-inter font-bold text-gray-700">
+                    <h2 className="text-xl font-inter font-bold text-black">
                         {dataType === 'adoptions'
                             ? data[currentSlide].name
                             : data[currentSlide].title}
                     </h2>
-                    <p className="text-sm font-inter text-gray-500">
+                    <p className="text-sm font-inter text-black">
                         {dataType === 'adoptions'
                             ? data[currentSlide].sex
                             : data[currentSlide].date}
                     </p>
                     {dataType === 'adoptions' && (
-                        <div className="text-sm font-inter text-gray-500 text-left">
+                        <div className="text-sm font-inter text-black text-left">
                             {data[currentSlide].age}
                         </div>
                     )}
-                    <p className="mt-4 text-sm font-inter text-gray-500">
+                    <p className="mt-4 text-sm font-inter text-black">
                         {truncateContent(data[currentSlide].content)}
                     </p>
                     <button
                         onClick={handleCarouselClick}
                         className="mt-3 font-inter bg-[#D0A24C] text-black  py-2 rounded-lg w-32"
                     >
-                        Leer más
+                        Seguir leyendo
                     </button>
                 </div>
 
