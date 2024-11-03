@@ -195,7 +195,8 @@ const Noticias = () => {
                         })}
                     </div>
                 </div>
-                <Carousel dataType="adoptions" />
+                <Carousel dataType="adoptions" />{' '}
+                {/* Insertamos Carousel para hacer pruebas de dimensiones. Eliminar cuando el equipo de el ok*/}
             </div>
         </div>
     )

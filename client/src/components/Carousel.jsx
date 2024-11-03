@@ -80,7 +80,6 @@ const Carousel = ({ dataType }) => {
     ]
 
     // Simulación base de datos de posts hasta que esté lista la base de datos real
-
     const posts = [
         {
             id: '101',
@@ -134,6 +133,7 @@ const Carousel = ({ dataType }) => {
         return truncatedText.trim() + ' (...)'
     }
 
+    //Establecemos la variable currentSlide para que inicie en 0 y dependiendo de la función handlePrev o handleNext se le sume o reste 1 para cambiar de slide
     const handlePrev = () => {
         setCurrentSlide((prev) => (prev === 0 ? data.length - 1 : prev - 1))
     }
@@ -148,12 +148,13 @@ const Carousel = ({ dataType }) => {
         return () => clearInterval(intervalRef.current)
     }, [currentSlide])
 
+    // Función para reiniciar el temporizador al cambiar de slide con los botones de navegación o táctiles
     const resetTimer = () => {
         clearInterval(intervalRef.current)
         intervalRef.current = setInterval(handleNext, 5000)
     }
 
-    // Animación de transiciones entre slides
+    // Animación de transiciones entre slides con GSAP
     useEffect(() => {
         gsap.fromTo(
             '.slide-img',
@@ -162,18 +163,20 @@ const Carousel = ({ dataType }) => {
         )
     }, [currentSlide])
 
-    // Eventos táctiles para deslizamiento
+    // Eventos táctiles para deslizamiento de slides en dispositivos móviles
     const handleTouchStart = (e) => {
         setIsSwiping(true)
         startX.current = e.touches ? e.touches[0].clientX : e.clientX
     }
 
+    // Función para detectar el movimiento del dedo y cambiar de slide
     const handleTouchMove = (e) => {
         if (!isSwiping) return
         diffX.current =
             startX.current - (e.touches ? e.touches[0].clientX : e.clientX)
     }
 
+    // Función para detectar el final del deslizamiento y cambiar de slide
     const handleTouchEnd = () => {
         setIsSwiping(false)
         if (diffX.current > 50) handleNext()
@@ -182,6 +185,7 @@ const Carousel = ({ dataType }) => {
         diffX.current = 0
     }
 
+    // Función para redirigir a la página de detalles al hacer clic en el botón "Seguir leyendo"
     const handleCarouselClick = () => {
         const id = data[currentSlide].id
         window.location.href = `/${dataType}/${id}`
