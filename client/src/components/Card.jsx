@@ -9,9 +9,12 @@ const CHAR_LIMIT_MEDIUM = 200
 const CHAR_LIMIT_LARGE = 320
 
 const Card = ({ datatype, data }) => {
+    // Estado inicial para manejar el límite de caracteres, mobile first
     const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
+    // Estado para  identificar si el usuario ha dado "me gusta"
     const [isLiked, setIsLiked] = useState(false)
 
+    // Función para actualizar el límite dependiendo del width
     useEffect(() => {
         const updateCharLimit = () => {
             if (window.innerWidth >= 1024) {
@@ -23,29 +26,40 @@ const Card = ({ datatype, data }) => {
             }
         }
 
+        // Event listener para que se actualice el límite de caracteres al cambiar el tamaño de la ventana
         window.addEventListener('resize', updateCharLimit)
+        // Llamada a la función para actualizar el límite de caracteres
         updateCharLimit()
 
+        // Actualización del límite de carácteres al cambiar el width
         return () => window.removeEventListener('resize', updateCharLimit)
     }, [])
 
+    // Función para limitar el contenido de texto
     const truncateContent = (text) => {
+        // Establecemos límite de caracteres dependiendo del tipo de dato
         const limit = datatype === 'adoptions' ? CHAR_LIMIT_SMALL : charLimit
-        if (text.length <= limit) return text
 
+        // Separar el texto en palabras y recorrerlas para encontrar el límite de caracteres sin cortar palabras completas
         const words = text.split(' ')
         let truncatedText = ''
         for (let word of words) {
             if ((truncatedText + word).length > limit) break
             truncatedText += word + ' '
         }
-        return truncatedText.trim() + '...'
+        // Texto con con puntos suspensivos al final para sugerir más contenido
+        return truncatedText.trim() + ' (...)'
     }
+
+    // Función para manejar el clic en el botón de "me gusta"
     const handleLikeClick = (e) => {
+        //Utilizamos stop propagation se utiliza para evitar que el evento se propague a su elemento padre, el contenedor principal
         e.stopPropagation()
+        // Si el usuario da click en el boton de like, se cambia el estado de isLiked a su valor contrario (true o false)  sumando o restando el like
         setIsLiked(!isLiked)
     }
 
+    // Estilos vinculados al tipo de datos "adoptions"
     const adoptionsStyles = {
         cardContainer:
             'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col  shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
@@ -56,9 +70,10 @@ const Card = ({ datatype, data }) => {
         content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
         showMoreButton:
-            'w-[90%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[15px] rounded-md mb-2', // Ajuste proporcional para adoptions
+            'w-[full] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[15px] rounded-md mb-2',
     }
 
+    // Estilos vinculados al tipo de datos "posts"
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg w-[91%] h-[auto] items-center flex flex-row hover:scale-102 transition-transform duration-300',
@@ -72,9 +87,10 @@ const Card = ({ datatype, data }) => {
         likeCount:
             'mt-2 flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]',
         showMoreButton:
-            'w-[40%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[13px] rounded-md mt-2 lg:text-[16px]', // Ajuste proporcional para posts
+            'w-[full] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[13px] rounded-md mt-2 lg:text-[16px]',
     }
 
+    // Si datatype es igual a 'adoptions' entonces se asignan los estilos de adoptionsStyles, de lo contrario se asignan los estilos de postsStyles
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
 
     return (
@@ -99,7 +115,7 @@ const Card = ({ datatype, data }) => {
                 </p>
                 <MyButton
                     label="Seguir leyendo"
-                    className={`${styles.showMoreButton}`} // Aquí se aplican los estilos específicos
+                    className={`${styles.showMoreButton}`}
                     onClick={() =>
                         (window.location.href = `/${datatype}/${data.id}`)
                     }

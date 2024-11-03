@@ -94,7 +94,7 @@ const Carousel = ({ dataType }) => {
         },
     ]
 
-    // Elección de la base de datos según el tipo de datos
+    // Si el tipo de datos es 'adoptions', se asigna la variable data a la lista de adopciones, de lo contrario se asigna la lista de posts
     const data = dataType === 'adoptions' ? adoptions : posts
 
     // Limite de caracteres para la descripción

@@ -197,7 +197,7 @@ const Adopciones = () => {
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto w-[90%]">
                     <FilterOptionsAdoptions />
-                    <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                    <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => (
                                 <Card
