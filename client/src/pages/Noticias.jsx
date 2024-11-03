@@ -3,6 +3,7 @@ import newsHeader from '../assets/images/newsHeader.svg'
 import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
+import Carousel from '../components/Carousel'
 
 const Noticias = () => {
     const users = [
@@ -194,6 +195,7 @@ const Noticias = () => {
                         })}
                     </div>
                 </div>
+                <Carousel dataType="adoptions" />
             </div>
         </div>
     )

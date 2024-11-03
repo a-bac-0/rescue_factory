@@ -94,7 +94,7 @@ const Carousel = ({ dataType }) => {
         },
     ]
 
-    // Si el tipo de datos es 'adoptions', se asigna la variable data a la lista de adopciones, de lo contrario se asigna la lista de posts
+    // Elección de la base de datos según el tipo de datos
     const data = dataType === 'adoptions' ? adoptions : posts
 
     // Limite de caracteres para la descripción
@@ -167,7 +167,7 @@ const Carousel = ({ dataType }) => {
 
     return (
         <div className="container w-full px-4 md:px-1">
-            <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[800px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
+            <div className="flex flex-col md:flex-row bg-white w-full max-w-6xl mx-auto h-[700px] md:h-[600px] shadow-lg rounded-lg overflow-hidden">
                 <div className="w-full font-inter md:w-[320px] p-8 flex flex-col justify-center items-start shrink-0">
                     <h2 className="text-xl font-inter font-bold text-gray-700">
                         {dataType === 'adoptions'
@@ -189,7 +189,7 @@ const Carousel = ({ dataType }) => {
                     </p>
                     <button
                         onClick={handleCarouselClick}
-                        className="mt-3 font-inter bg-[#D0A24C] text-black px-4 py-2 rounded-lg w-32"
+                        className="mt-3 font-inter bg-[#D0A24C] text-black  py-2 rounded-lg w-32"
                     >
                         Leer más
                     </button>
@@ -197,7 +197,7 @@ const Carousel = ({ dataType }) => {
 
                 <div className="relative flex-1 flex flex-col items-center md:items-start justify-center pr-7 pl-7 md:h-[650px] lg:h-[600px]">
                     <div
-                        className="relative w-full h-auto"
+                        className="relative w-full  h-auto"
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
@@ -206,7 +206,7 @@ const Carousel = ({ dataType }) => {
                         onMouseUp={handleTouchEnd}
                         onMouseLeave={handleTouchEnd}
                     >
-                        <div className="aspect-[4/5] md:aspect-[16/10] w-full">
+                        <div className="aspect-[5.4/6] xsss:aspect-[7.7/7] xss:aspect-7/5 xs:aspect-[6.4/5] sm:aspect-[7.2/5] md:aspect-[5/6] lg:aspect-[16/11.9] xl:aspect-[16/9.8] w-full">
                             <img
                                 className="slide-img w-full h-full object-cover rounded-lg"
                                 src={data[currentSlide].url_images}
@@ -218,7 +218,7 @@ const Carousel = ({ dataType }) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-row gap-3 mb-5 md:mb-2 items-center justify-center md:justify-start mt-4">
+                    <div className="flex flex-row gap-3  items-center justify-center md:justify-start mt-4">
                         <button
                             onClick={handlePrev}
                             className="bg-white border border-black hover:bg-gray-200 p-2 transition-all duration-300 rounded-md flex items-center justify-center w-16 h-12"
