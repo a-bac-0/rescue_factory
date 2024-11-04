@@ -37,6 +37,7 @@ export const loginController = async (req: Request, res: Response) => {
     } catch (error) {
         console.log(error);
         handleHttpError(res, "ERROR_LOGIN_USER");
+        res.status(403).json({ error: error });
     }
 };
 
