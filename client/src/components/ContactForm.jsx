@@ -17,6 +17,13 @@ const ContactForm = () => {
       return;
     }
   
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Por favor introducir un email válido.");
+      return;
+    }
+
+
     console.log("Data submitted:", formData);
     setError(null);
     setFormData({ name: '', surname: '', email: '', message: '' }); // Reset form data
@@ -51,7 +58,7 @@ const ContactForm = () => {
           type="text"
           id="lastname"
           name="lastname"
-          value={formData.name}
+          value={formData.lastname}
           onChange={handleChange}
           className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
