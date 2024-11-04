@@ -107,7 +107,8 @@ const Card = ({ datatype, data }) => {
                 )}
                 {datatype === 'posts' && (
                     <p className={`${styles.additionalInfo}`}>
-                        Autor: {data.user_name}
+                        Autor: {data.user_id}{' '}
+                        {/*Modifico aquí el user id, en principio el name de la tabla users se transforma en user_id*/}
                     </p>
                 )}
                 <p className={`${styles.content}`}>
