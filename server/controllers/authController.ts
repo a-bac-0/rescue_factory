@@ -59,8 +59,14 @@ export const registerController = async (req: Request, res: Response) => {
             email,
             password: passwordHash,
             role,
-        });      
+        });
 
+        // Generar el token para el usuario registrado
+        const sessionData = {
+            token: await tokenSign(newUser), // Generar token para el nuevo usuario
+            user: newUser,
+        };
+        res.send({ sessionData });
         res.status(201).json({ message: "Usuario creado exitosamente", user: newUser });
     } catch (error) {
         console.error(error);
