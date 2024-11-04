@@ -185,7 +185,7 @@ const Carousel = ({ dataType }) => {
         diffX.current = 0
     }
 
-    // Función para redirigir a la página de detalles al hacer clic en el botón "Seguir leyendo"
+    // Función para redirigir a la página de detalles al hacer clic en el botón "Seguir leyendo" ""
     const handleCarouselClick = () => {
         const id = data[currentSlide].id
         window.location.href = `/${dataType}/${id}`
