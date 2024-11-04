@@ -7,6 +7,9 @@ import userModel from "./models/usersModel";
 import adoptionModel from "./models/adoptionsModel";
 import userRouter from './routes/usersRoutes';
 import cors from 'cors';
+import postRouter from './routes/postsRoutes';
+import commentRouter from './routes/commentsRoutes';
+import adoptionRouter from './routes/adoptionsRoutes';
 
 // Crea una instancia de la aplicación express
 export const app = express();
@@ -17,6 +20,9 @@ app.use(express.json())
 
 //Rutas
 app.use('/users', userRouter)
+app.use('/posts', postRouter)
+app.use('/posts/:postId/comments', commentRouter)
+app.use('/adoptions', adoptionRouter)
 
 // Función para inicializar la base de datos
 const initializeDatabase = async (): Promise<void> => {

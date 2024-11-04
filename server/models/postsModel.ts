@@ -60,7 +60,7 @@ const postModel = connection_db.define<PostModel>(
             },
         },
         category: {
-            type: DataTypes.ENUM('noticias', 'cuidado_animal', 'adopcion'), // Define los valores posibles para el ENUM
+            type: DataTypes.ENUM('mundo_animal', 'cuidado_animal', 'adopciones'), // Define los valores posibles para el ENUM
             allowNull: false,
         },
         status: {
