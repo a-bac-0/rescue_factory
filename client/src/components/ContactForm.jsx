@@ -30,7 +30,7 @@ const ContactForm = () => {
           {error}
         </div>
       )}
-      <div className="mb-4">
+      <div className="mb-4 w-[283px]">
         <label htmlFor="name" className="block text-[#ffffff]-700 font-medium mb-1">
           Nombre
         </label>
@@ -43,7 +43,7 @@ const ContactForm = () => {
           className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-4 w-[283px]">
         <label htmlFor="lastname" className="block text-[#ffffff]-700 font-medium mb-1">
           Apellido
         </label>
@@ -56,7 +56,7 @@ const ContactForm = () => {
           className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-4 w-[283px]">
         <label htmlFor="email" className="block text-[#ffffff]-700 font-medium mb-1">
           Email
         </label>
@@ -69,7 +69,7 @@ const ContactForm = () => {
           className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-4 w-[283px]">
         <label htmlFor="message" className="block text-[#ffffff]-700 font-medium mb-1">
           Mensaje
         </label>
@@ -84,7 +84,7 @@ const ContactForm = () => {
         </div>
       <button
         type="submit"
-        className="w-[283px] h-[48px] px-[80px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center">
+        className="w-[100px] h-[48px] px-[10px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center">
       
         Enviar
       </button>
