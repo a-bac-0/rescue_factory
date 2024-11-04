@@ -58,6 +58,25 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 }
 
+// POSTS USER
+
+export const createUser = async (req: Request, res: Response) => {
+
+  try {
+       const { name, email, password, role } = req.body // EN ESTA PARTE EXTRAIMOS LAS PROPIEDADES DEL req.body QUE CONTIENE LA SOLICITUD HTTP👤
+       const user = await userModel.create({
+         name,                                 
+         email,                               
+         password,           
+         role, 
+       })
+       res.json(user) // Y LE ENVIAMOS LA RESPUETA EN FORMATO JSON
+
+     } catch(error) { 
+         console.log('No se ha podido crear el usuario', error)
+  }
+}
+
 //DELETE USER BY ID
 export const deleteUser = async (req: Request, res: Response) => {
 
