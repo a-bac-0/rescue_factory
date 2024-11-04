@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: '', surname: '', email: '', message: '' });
+  const [formData, setFormData] = React.useState({ name: '', surname: '', email: '', message: '' });
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -23,6 +23,7 @@ const ContactForm = () => {
   };
 
   return (
+    <section className="w-[283px] px-10 py-5 border border-white-[1px]">
     <form onSubmit={handleSubmit}>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -83,11 +84,12 @@ const ContactForm = () => {
         </div>
       <button
         type="submit"
-        className="bg-[#D1B85E]-500 hover:bg-[#D6CA9E]-600 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D6CA9E]-500"
-      >
+        className="w-[283px] h-[48px] px-[80px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center">
+      
         Enviar
       </button>
     </form>
+    </section>
   );
 };
 

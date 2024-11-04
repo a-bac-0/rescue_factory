@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ContactForm from '../components/ContactForm';
 import HeaderContactImg from '../assets/images/Header_contact.png';
 import HeaderContactMobile from '../assets/images/Header_contact_mobile.png';
