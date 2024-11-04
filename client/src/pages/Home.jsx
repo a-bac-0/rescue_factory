@@ -7,19 +7,17 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 
 const Home = () => {
-
   const navigate = useNavigate();
   const [adoptionData, setAdoptionData] = useState([]);
 
   useEffect(() => {
     const fetchAdoptions = async () => {
-      const response = await fetch('/api/adoptions'); //replace with my actual api endpoint
+      const response = await fetch("/api/adoptions"); //replace with my actual api endpoint
       const data = await response.json();
       setAdoptionData(data); // set the state with the fetched data
     };
 
     fetchAdoptions();
-
   }, []);
 
   return (
@@ -80,23 +78,24 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="¡HAZTE SOCIO!"
-            onClick={() => navigate('/Registro')}
+            onClick={() => navigate("/Registro")}
           />
         </section>
       </section>
-     
+
       <section className="relative top-[0.6rem] md:top-[0.7rem] lg:top-[1rem] left-0 w-full h-full flex justify-center">
-          <h1 className="font-bold text-5xl  md:text-6xl lg:text-7xl text-[#31442C]">ADOPCIONES</h1>
-        </section>
+        <h1 className="font-bold text-5xl  md:text-6xl lg:text-7xl text-[#31442C]">
+          ADOPCIONES
+        </h1>
+      </section>
       <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
-        
         <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           <Carousel dataType="adoptions" />
 
           <section className="pt-[38px] flex justify-center">
             <MyButton
               label="MÁS ADOPCIONES"
-              onClick={() => navigate('/Adopciones')}
+              onClick={() => navigate("/Adopciones")}
             />
           </section>
         </section>
@@ -110,11 +109,11 @@ const Home = () => {
             EN NOTICIAS
           </h1>
         </section>
-       
+
         <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
           {adoptionData.length > 0 ? (
-            adoptionData.map(item => (
-              <Card key={item.id} datatype="adoptions" data={item} />
+            adoptionData.map((item) => (
+              <Card key={item.id} datatype="post" data={item} />
             ))
           ) : (
             <p className="pt-[2rem]">Cargando datos...</p> // Handle loading state
@@ -124,11 +123,10 @@ const Home = () => {
         <section className="pt-[38px] flex justify-center">
           <MyButton
             label="MÁS NOTICIAS"
-            onClick={() => navigate('/Noticias')}
+            onClick={() => navigate("/Noticias")}
           />
         </section>
-        </section>
-      
+      </section>
     </main>
   );
 };
