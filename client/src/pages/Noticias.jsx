@@ -4,6 +4,7 @@ import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
 import { getPosts } from '../services/PostsServices'
+import MyButton from '../components/Button'
 
 const Noticias = () => {
     const [posts, setPosts] = useState([])
@@ -60,6 +61,13 @@ const Noticias = () => {
                     <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
                         NOTICIAS
                     </h1>
+                    <MyButton
+                        label="Publicar Noticia"
+                        // className={`${styles.showMoreButton}`}
+                        // onClick={() =>
+                        //     (window.location.href = `/${datatype}/${data.id}`)
+                        // }
+                    />
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
