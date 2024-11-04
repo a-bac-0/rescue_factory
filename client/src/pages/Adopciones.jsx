@@ -4,6 +4,7 @@ import Card from '../components/Card'
 import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
 import { getAdoptions } from '../services/AdoptionsServices'
+import MyButton from '../components/Button'
 
 const Adopciones = () => {
     const [adoptions, setAdoptions] = useState([])
@@ -77,6 +78,13 @@ const Adopciones = () => {
             </div>
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto w-[90%]">
+                    <MyButton
+                        label="Publicar Adopción"
+                        className=" w-[28%]"
+                        // onClick={() =>
+                        //     (window.location.href = `/${datatype}/${data.id}`)
+                        // }
+                    />
                     <FilterOptionsAdoptions />
                     <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (

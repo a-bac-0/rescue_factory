@@ -63,7 +63,7 @@ const Noticias = () => {
                     </h1>
                     <MyButton
                         label="Publicar Noticia"
-                        // className={`${styles.showMoreButton}`}
+                        className=" w-[28%] "
                         // onClick={() =>
                         //     (window.location.href = `/${datatype}/${data.id}`)
                         // }
