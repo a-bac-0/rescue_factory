@@ -24,18 +24,18 @@ export const getAdoptionsById = async (id) => {
     }
 }
 
-// POST Crear una nueva adopción
+// POST  una nueva adopción
 export const createAdoption = async (adoptionsData) => {
     try {
         const response = await axios.post(BaseUrl, adoptionsData)
         return response.data
     } catch (error) {
-        console.error('Error al crear la adopción:', error)
+        console.error('Error al crear la adopción', error)
         throw error
     }
 }
 
-// Update una adopción existente por ID
+// UPDATE una adopción existente por ID
 export const updateAdoption = async (id, updatedAdoptionData) => {
     try {
         const response = await axios.put(
@@ -54,7 +54,7 @@ export const deleteAdoption = async (id) => {
     try {
         await axios.delete(`${BaseUrl}/${id}`)
     } catch (error) {
-        console.error('Error al eliminar la adopción:', error)
+        console.error('Error al eliminar la adopción', error)
         throw error
     }
 }
