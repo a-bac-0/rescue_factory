@@ -11,7 +11,7 @@
         "api": "node ../server/server.js"
     },
     "dependencies": {
-        "framer-motion": "^11.11.9",
+        "framer-motion": "^11.11.10",
         "gsap": "^3.12.5",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
