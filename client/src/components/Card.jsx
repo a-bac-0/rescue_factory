@@ -66,7 +66,8 @@ const Card = ({ datatype, data }) => {
         contentContainer: 'flex flex-col justify-center items-start w-[85%]',
         title: 'w-full h-[18px] text-left pt-8 pb-6 mb-1 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
-        additionalInfo: 'w-full text-left mb-2 font-inter text-[15px]',
+        additionalInfo: 'w-full text-left font-inter text-[15px]',
+        adoptionsAuthor: 'w-full text-left font-inter text-[15px] mb-2',
         content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
         showMoreButton:
@@ -109,6 +110,11 @@ const Card = ({ datatype, data }) => {
                     <p className={`${styles.additionalInfo}`}>
                         Autor: {data.user_id}{' '}
                         {/*Modifico aquí el user id, en principio el name de la tabla users se transforma en user_id*/}
+                    </p>
+                )}
+                {datatype === 'adoptions' && (
+                    <p className={`${styles.adoptionsAuthor}`}>
+                        Autor: {data.user_id}
                     </p>
                 )}
                 <p className={`${styles.content}`}>

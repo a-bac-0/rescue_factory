@@ -19,7 +19,7 @@ export const getAdoptionsById = async (id) => {
         const response = await axios.get(`${BaseUrl}/${id}`)
         return response.data
     } catch (error) {
-        console.error('Error al obtener la adopción:', error)
+        console.error('Error al obtener la adopción', error)
         throw error
     }
 }

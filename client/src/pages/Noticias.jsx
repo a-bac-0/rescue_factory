@@ -3,24 +3,15 @@ import newsHeader from '../assets/images/newsHeader.svg'
 import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
-import { getUsers } from '../services/UsersServices'
 import { getPosts } from '../services/PostsServices'
 
 const Noticias = () => {
-    const [users, setUsers] = useState([])
     const [posts, setPosts] = useState([])
     const { filters } = useFilter()
 
-    // Obtener usuarios y posts al cargar la página por primera vez o al cambiar los filtros de categoría, fecha o likes
+    // Obtener posts al cargar la página por primera vez o al cambiar los filtros de categoría, fecha o likes
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const usersResponse = await getUsers()
-                setUsers(usersResponse.data)
-            } catch (error) {
-                console.error('Error al obtener los usuarios:', error)
-            }
-
             try {
                 const postsResponse = await getPosts()
                 setPosts(postsResponse.data)
@@ -30,7 +21,7 @@ const Noticias = () => {
         }
 
         fetchData()
-    }, [])
+    }, [filters])
 
     // Filtrar posts según las opciones seleccionadas
     const filteredNews = posts.filter((post) => {
@@ -74,15 +65,12 @@ const Noticias = () => {
                     <FilterOptionsNews />
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
-                            const user = users.find(
-                                (user) => user.name === post.user_name
-                            )
                             return (
                                 <Card
                                     key={post.id}
                                     datatype="posts"
                                     data={post}
-                                    user={user}
+                                    user={{ name: post.user_id }}
                                 />
                             )
                         })}
