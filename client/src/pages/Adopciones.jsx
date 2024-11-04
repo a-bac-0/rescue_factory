@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
-import FilterOptions from '../components/FilterOptions'
+import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
 
 const Adopciones = () => {
@@ -12,7 +12,8 @@ const Adopciones = () => {
             age: '2',
             sex: 'Hembra',
             category: 'Perros',
-            content: 'Sed ut perspiciatis unde omnis iste natus...',
+            content:
+                'Nube es una perra dulce que busca un hogar donde pueda recibir mucho amor y cariño. ¡Es muy juguetona y le encanta salir a pasear!',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -22,7 +23,8 @@ const Adopciones = () => {
             age: '5',
             sex: 'Macho',
             category: 'Gatos',
-            content: 'A friendly and playful cat waiting for a loving home.',
+            content:
+                'Firulais es un gato amigable y juguetón que espera un hogar amoroso. ¡Siempre está listo para hacerte sonreír!',
             url_images:
                 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
@@ -32,7 +34,8 @@ const Adopciones = () => {
             age: '3',
             sex: 'Hembra',
             category: 'Perros',
-            content: 'An energetic dog looking for a family.',
+            content:
+                'Luna es una perra energética que busca una familia que le guste jugar y salir a pasear. ¡Es muy cariñosa!',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -42,7 +45,8 @@ const Adopciones = () => {
             age: '4',
             sex: 'Macho',
             category: 'Perros',
-            content: 'Loves playing fetch and cuddling.',
+            content:
+                'Toby adora jugar a buscar la pelota y acurrucarse con todos. ¡Es el compañero perfecto para cualquier persona!',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -52,7 +56,8 @@ const Adopciones = () => {
             age: '1',
             sex: 'Hembra',
             category: 'Gatos',
-            content: 'A playful kitten looking for a family.',
+            content:
+                'Mimi es una gatita juguetona que busca una familia. ¡Le encanta jugar y es muy cariñosa con todos!',
             url_images:
                 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
@@ -62,7 +67,8 @@ const Adopciones = () => {
             age: '6',
             sex: 'Macho',
             category: 'Perros',
-            content: 'Loves to go for long walks.',
+            content:
+                'Rocco adora pasear durante horas y disfrutar de la compañía de su familia. ¡Es un perro muy leal!',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -72,7 +78,8 @@ const Adopciones = () => {
             age: '3',
             sex: 'Hembra',
             category: 'Gatos',
-            content: 'A sweet cat who loves to be petted.',
+            content:
+                'Pelusa es una gata dulce que ama ser acariciada. ¡Te hará compañía mientras te relajas en casa!',
             url_images:
                 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
@@ -82,7 +89,8 @@ const Adopciones = () => {
             age: '7',
             sex: 'Macho',
             category: 'Perros',
-            content: 'A loyal companion and friend.',
+            content:
+                'Max es un perro leal y cariñoso que busca un hogar donde pueda dar y recibir amor.',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -92,7 +100,8 @@ const Adopciones = () => {
             age: '4',
             sex: 'Hembra',
             category: 'Gatos',
-            content: 'A fluffy cat who loves to nap.',
+            content:
+                'Nina es una gata esponjosa que adora dormir. ¡Es la compañera perfecta para las tardes de sofá!',
             url_images:
                 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
@@ -102,7 +111,8 @@ const Adopciones = () => {
             age: '5',
             sex: 'Macho',
             category: 'Perros',
-            content: 'Enjoys playing with children.',
+            content:
+                'Rocky disfruta jugar con los niños. ¡Es un perro divertido y lleno de energía!',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
@@ -112,7 +122,8 @@ const Adopciones = () => {
             age: '3',
             sex: 'Hembra',
             category: 'Gatos',
-            content: 'A curious cat who loves to explore.',
+            content:
+                'Mika es una gata curiosa que ama explorar. ¡Siempre está lista para nuevas aventuras!',
             url_images:
                 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267',
         },
@@ -122,11 +133,13 @@ const Adopciones = () => {
             age: '8',
             sex: 'Macho',
             category: 'Perros',
-            content: 'An old soul who enjoys quiet moments.',
+            content:
+                'Charlie es un alma vieja que disfruta de momentos tranquilos y de la compañía de su familia.',
             url_images:
                 'https://madagascarmascotas.com/blog/wp-content/uploads/2021/10/calcular-la-edad-de-un-perro.jpg',
         },
     ]
+
     const { filters } = useFilter()
 
     const filteredAdoptions = adoptions.filter((adoption) => {
@@ -183,8 +196,8 @@ const Adopciones = () => {
             </div>
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto w-[90%]">
-                    <FilterOptions />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                    <FilterOptionsAdoptions />
+                    <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => (
                                 <Card
