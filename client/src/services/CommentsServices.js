@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BaseUrl = 'http://localhost:8000/comments'
+const BaseUrl = 'http://localhost:8000/posts/:postId/comments'
 
 // GET para obtener todos los comentarios
 export const getComments = async () => {
