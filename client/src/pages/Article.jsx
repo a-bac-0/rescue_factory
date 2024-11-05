@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getAPostsById } from '../services/PostsServices'
 import { getAdoptionsById } from '../services/AdoptionsServices'
-import { getAPostsById } from '../services/PostsServices'
 import { getUsersById } from '../services/UsersServices'
 
 const Article = () => {
