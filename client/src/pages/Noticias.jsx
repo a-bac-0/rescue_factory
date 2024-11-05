@@ -44,7 +44,6 @@ const Noticias = () => {
             return new Date(a.date) - new Date(b.date)
         }
 
-        // Ordenar por likes
         if (filters.like_count.value === 'des') {
             return b.like_count - a.like_count
         } else if (filters.like_count.value === 'asc') {
