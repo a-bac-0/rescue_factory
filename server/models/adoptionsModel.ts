@@ -11,6 +11,7 @@ interface AdoptionAttributes {
     content: string;
     url_images: string;
     user_id: number;
+    date: Date; // El tipo Date para manejar timestamps
 }
 
 // Los atributos opcionales para la creación de nuevos registros
@@ -26,10 +27,9 @@ class AdoptionModel extends Model<AdoptionAttributes, AdoptionCreationAttributes
     public content!: string;
     public url_images!: string;
     public user_id!: number;
+    public date!: Date;
 
-    // Timestamps opcionales
-    // public readonly createdAt!: Date;
-    // public readonly updatedAt!: Date;
+
 }
 
 const adoptionModel = connection_db.define<AdoptionModel>(
@@ -71,6 +71,11 @@ const adoptionModel = connection_db.define<AdoptionModel>(
                 model: 'users', // Debe coincidir con la tabla de usuarios
                 key: 'id',
             },
+        },
+        date: {
+            type: DataTypes.DATE, // Usamos DATE para manejar timestamps
+            allowNull: false,
+            defaultValue: DataTypes.NOW, // El valor por defecto será la fecha actual
         },
     },
     {

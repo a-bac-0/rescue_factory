@@ -15,6 +15,7 @@ interface PostAttributes {
     status: Status; // Tipo ENUM
     like_count: number;
     url_images: string;
+    date: Date; // El tipo Date para manejar timestamps
 }
 
 // Opcional: si se crea un nuevo post, algunos campos pueden ser opcionales (e.g. ID autogenerado)
@@ -32,6 +33,7 @@ class PostModel extends Model<PostAttributes, PostCreationAttributes> implements
     public status!: Status; // Campo status tipado
     public like_count!: number;
     public url_images!: string;
+    public date!: Date;
 }
 
 // Definir el modelo utilizando el método `define` de Sequelize
@@ -76,6 +78,11 @@ const postModel = connection_db.define<PostModel>(
         url_images: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE, // Usamos DATE para manejar timestamps
+            allowNull: false,
+            defaultValue: DataTypes.NOW, // El valor por defecto será la fecha actual
         },
     },
     {
