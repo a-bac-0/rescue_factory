@@ -4,25 +4,29 @@ import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
 import { getPosts } from '../services/PostsServices'
-import MyButton from '../components/Button'
+import { getUsers } from '../services/UsersServices'
 
 const Noticias = () => {
-    const [posts, setPosts] = useState([])
     const { filters } = useFilter()
+    const [posts, setPosts] = useState([])
+    const [users, setUsers] = useState([])
 
-    // Obtener posts al cargar la página por primera vez o al cambiar los filtros de categoría, fecha o likes
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const postsResponse = await getPosts()
-                setPosts(postsResponse.data)
+                const [postsData, usersData] = await Promise.all([
+                    getPosts(),
+                    getUsers(),
+                ])
+                setPosts(postsData)
+                setUsers(usersData)
             } catch (error) {
-                console.error('Error al obtener las noticias:', error)
+                console.error('Error fetching data:', error)
             }
         }
 
         fetchData()
-    }, [filters])
+    }, [])
 
     // Filtrar posts según las opciones seleccionadas
     const filteredNews = posts.filter((post) => {
@@ -61,24 +65,25 @@ const Noticias = () => {
                     <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
                         NOTICIAS
                     </h1>
-                    <MyButton
-                        label="Publicar Noticia"
-                        // className={`${styles.showMoreButton}`}
-                        // onClick={() =>
-                        //     (window.location.href = `/${datatype}/${data.id}`)
-                        // }
-                    />
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
+                            const user = users.find(
+                                (user) => user.id === post.user_id
+                            )
+                            const postWithUserName = {
+                                ...post,
+                                user_name: user
+                                    ? user.name
+                                    : 'Usuario desconocido',
+                            }
                             return (
                                 <Card
                                     key={post.id}
                                     datatype="posts"
-                                    data={post}
-                                    user={{ name: post.user_id }}
+                                    data={postWithUserName}
                                 />
                             )
                         })}

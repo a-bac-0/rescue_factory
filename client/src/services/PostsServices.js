@@ -14,7 +14,7 @@ export const getPosts = async () => {
 }
 
 // GET BY ID para obtener una noticia (posts) conreta
-export const getAPostsById = async (id) => {
+export const getPostsById = async (id) => {
     try {
         const response = await axios.get(`${BaseUrl}/${id}`)
         return response.data
