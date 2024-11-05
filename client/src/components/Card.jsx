@@ -12,7 +12,7 @@ const CHAR_LIMIT_LARGE = 320
 const Card = ({ datatype, data }) => {
     // Estado inicial para manejar el límite de caracteres, mobile first
     const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
-    // Estado para  identificar si el usuario ha dado "me gusta"
+    // Estado para identificar si el usuario ha dado "me gusta"
     const [isLiked, setIsLiked] = useState(false)
     const [likeCount, setLikeCount] = useState(data.like_count)
 
@@ -137,7 +137,7 @@ const Card = ({ datatype, data }) => {
                 {datatype === 'adoptions' && (
                     <h2 className={`${styles.additionalInfo}`}>{data.sex}</h2>
                 )}
-                <p className={`${styles.additionalInfo}`}>
+                <p className={`${styles.adoptionsAuthor}`}>
                     Usuario: {data.user_name}
                 </p>
                 <p className={`${styles.content}`}>
