@@ -30,7 +30,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="w-[650px] flex justify-left items-center h-[650px] border border-white">
+    <section className="lg:w-[80%] flex justify-left items-center h-[650px] border border-white">
     <section className="px-10 py-5 bg-[#76816A]">
     <form onSubmit={handleSubmit}>
       {error && (
