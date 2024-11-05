@@ -9,6 +9,8 @@ export const FilterProvider = ({ children }) => {
         category: { label: 'Categoría', value: 'Todas' },
         age: { label: 'Edad', value: 'Cualquiera' },
         sex: { label: 'Sexo', value: 'Cualquiera' },
+        date: { label: 'Fecha', value: 'Cualquiera' },
+        like_count: { label: 'Likes', value: 'Cualquiera' },
     })
 
     const handleSelectChange = (name, selectedOption) => {
@@ -28,7 +30,7 @@ export const FilterProvider = ({ children }) => {
             )
         }
 
-        //  Edad
+        // Edad
         if (filters.age && filters.age.value !== 'Cualquiera') {
             filteredData = filteredData.filter((item) => {
                 const age = item.age
@@ -50,6 +52,38 @@ export const FilterProvider = ({ children }) => {
             filteredData = filteredData.filter(
                 (item) => item.sex === filters.sex.value
             )
+        }
+
+        // Ordenar por Likes
+        if (filters.like_count) {
+            switch (filters.like_count.value) {
+                case 'Más likes':
+                    filteredData.sort((a, b) => b.like_count - a.like_count)
+                    break
+                case 'Menos likes':
+                    filteredData.sort((a, b) => a.like_count - b.like_count)
+                    break
+                default:
+                    break
+            }
+        }
+
+        // Ordenar por Fecha
+        if (filters.date) {
+            switch (filters.date.value) {
+                case 'Más recientes':
+                    filteredData.sort(
+                        (a, b) => new Date(b.date) - new Date(a.date)
+                    )
+                    break
+                case 'Menos recientes':
+                    filteredData.sort(
+                        (a, b) => new Date(a.date) - new Date(b.date)
+                    )
+                    break
+                default:
+                    break
+            }
         }
 
         return filteredData

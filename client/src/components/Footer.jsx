@@ -52,12 +52,12 @@ const Footer = () => {
     <footer style={footerContainerStyle}>
       <div style={{ ...footerContentStyle, ...(window.innerWidth >= 768 && { gridTemplateColumns: 'auto 1fr auto' }) }}>
         
-      
+        
         <div>
           <img src={logo} alt="Logo" style={logoStyle} />
         </div>
 
-        
+       
         <ul style={sectionsContainerStyle}>
           <li style={sectionTitleStyle}>SECCIONES</li>
           <li><Link to="/adopciones">Adopciones</Link></li>
@@ -70,6 +70,7 @@ const Footer = () => {
         </ul>
       </div>
 
+     
       <p style={copyRightTextStyle}>Copyright © 2024 Rescue Factory</p>
     </footer>
   );
