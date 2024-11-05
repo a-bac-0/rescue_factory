@@ -140,7 +140,7 @@ const Carousel = ({ dataType }) => {
                             </p>
                             {dataType === 'adoptions' && (
                                 <div className="text-sm font-inter text-black text-left">
-                                    {data[currentSlide].age}
+                                    {data[currentSlide].age} años
                                 </div>
                             )}
                             <p className="mt-4 text-sm font-inter text-black">

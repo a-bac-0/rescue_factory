@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
 import Card from '../components/Card'
 import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
 import { getAdoptions } from '../services/AdoptionsServices'
+import { getUsers } from '../services/UsersServices'
 
 const Adopciones = () => {
-    const [adoptions, setAdoptions] = useState([])
     const { filters } = useFilter()
+    const [adoptions, setAdoptions] = useState([])
+    const [users, setUsers] = useState([])
 
-    // Obtener adoptions al cargar la página por primera vez o al cambiar los filtros de tipo, sexo o edad
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const postsResponse = await getAdoptions()
-                setAdoptions(postsResponse.data)
+                const [adoptionsData, usersData] = await Promise.all([
+                    getAdoptions(),
+                    getUsers(),
+                ])
+                setAdoptions(adoptionsData)
+                setUsers(usersData)
             } catch (error) {
-                console.error('Error al obtener las noticias:', error)
+                console.error('Error fetching data:', error)
             }
         }
 
         fetchData()
-    }, [filters])
+    }, [])
 
+    // Filtrar adopciones según las opciones seleccionadas
     const filteredAdoptions = adoptions.filter((adoption) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
@@ -35,12 +41,13 @@ const Adopciones = () => {
         const matchesAge =
             filters.age.value === 'Cualquiera' ||
             (filters.age.value === '1 a 4 años' &&
-                adoption.age >= 1 &&
-                adoption.age <= 4) ||
+                parseInt(adoption.age) >= 1 &&
+                parseInt(adoption.age) <= 4) ||
             (filters.age.value === '4 a 8 años' &&
-                adoption.age > 4 &&
-                adoption.age <= 8) ||
-            (filters.age.value === 'Más de 8 años' && adoption.age > 8)
+                parseInt(adoption.age) > 4 &&
+                parseInt(adoption.age) <= 8) ||
+            (filters.age.value === 'Más de 8 años' &&
+                parseInt(adoption.age) > 8)
 
         return matchesCategory && matchesSex && matchesAge
     })
@@ -80,16 +87,27 @@ const Adopciones = () => {
                     <FilterOptionsAdoptions />
                     <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
-                            filteredAdoptions.map((adoption) => (
-                                <Card
-                                    key={adoption.id}
-                                    datatype="adoptions"
-                                    data={adoption}
-                                    className="w-full"
-                                />
-                            ))
+                            filteredAdoptions.map((adoption) => {
+                                const user = users.find(
+                                    (user) => user.id === adoption.user_id
+                                )
+                                const adoptionWithUserName = {
+                                    ...adoption,
+                                    user_name: user
+                                        ? user.name
+                                        : 'Usuario desconocido',
+                                }
+                                return (
+                                    <Card
+                                        key={adoption.id}
+                                        datatype="adoptions"
+                                        data={adoptionWithUserName}
+                                        className="w-full"
+                                    />
+                                )
+                            })
                         ) : (
-                            <p className="text-gray-600 text-lg w-[75%] flex items-start">
+                            <p className="text-gray-600 text-lg">
                                 No hay adopciones disponibles con los filtros
                                 seleccionados.
                             </p>
