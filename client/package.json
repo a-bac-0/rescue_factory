@@ -11,6 +11,7 @@
         "api": "node ../server/server.js"
     },
     "dependencies": {
+        "axios": "^1.7.7",
         "framer-motion": "^11.11.10",
         "gsap": "^3.12.5",
         "react": "^18.3.1",
