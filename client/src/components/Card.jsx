@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import like_button from '../assets/images/like_button.svg'
+import { toggleLike } from '../services/postsServices'
 import MyButton from '../components/Button'
 
 // Constantes para límites de caracteres
@@ -13,6 +14,7 @@ const Card = ({ datatype, data }) => {
     const [charLimit, setCharLimit] = useState(CHAR_LIMIT_SMALL)
     // Estado para  identificar si el usuario ha dado "me gusta"
     const [isLiked, setIsLiked] = useState(false)
+    const [likeCount, setLikeCount] = useState(data.like_count)
 
     // Función para actualizar el límite dependiendo del width
     useEffect(() => {
@@ -50,12 +52,42 @@ const Card = ({ datatype, data }) => {
         return truncatedText.trim() + ' (...)'
     }
 
-    // Función para manejar el clic en el botón de "me gusta"
-    const handleLikeClick = (e) => {
-        //Utilizamos stop propagation se utiliza para evitar que el evento se propague a su elemento padre, el contenedor principal
+    useEffect(() => {
+        // Cargar el estado inicial del "like" desde localStorage sólo si es de tipo `posts`
+        if (datatype === 'posts') {
+            const likedPosts = JSON.parse(
+                localStorage.getItem('likedPosts') || '{}'
+            )
+            setIsLiked(likedPosts[data.id] || false)
+        }
+        setLikeCount(data.like_count)
+    }, [data.id, data.like_count, datatype])
+
+    const handleLikeClick = async (e) => {
         e.stopPropagation()
-        // Si el usuario da click en el boton de like, se cambia el estado de isLiked a su valor contrario (true o false)  sumando o restando el like
-        setIsLiked(!isLiked)
+
+        if (datatype !== 'posts') return // Evitar el "like" en datos de adopciones
+
+        const newLikeStatus = !isLiked
+        const newLikeCount = newLikeStatus ? likeCount + 1 : likeCount - 1
+
+        try {
+            await toggleLike(data.id, newLikeCount)
+            setLikeCount(newLikeCount)
+            setIsLiked(newLikeStatus)
+
+            const likedPosts = JSON.parse(
+                localStorage.getItem('likedPosts') || '{}'
+            )
+            if (newLikeStatus) {
+                likedPosts[data.id] = true
+            } else {
+                delete likedPosts[data.id]
+            }
+            localStorage.setItem('likedPosts', JSON.stringify(likedPosts))
+        } catch (error) {
+            console.error('Error al actualizar el "like"', error)
+        }
     }
 
     // Estilos para los componentes de adopciones

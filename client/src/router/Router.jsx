@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
                 element: <Footer />,
             },
             {
-                path: ':type/:id', // Ruta dinámica para cualquier tipo de artículo
+                path: ':type/:id',
                 element: <Article />,
             },
         ],

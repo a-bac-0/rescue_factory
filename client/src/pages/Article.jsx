@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getPostsById } from '../services/PostsServices'
 import { getAdoptionsById } from '../services/AdoptionsServices'
 import { getUsersById } from '../services/UsersServices'
 
