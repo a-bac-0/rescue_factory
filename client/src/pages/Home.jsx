@@ -103,6 +103,8 @@ const Home = () => {
                         EN NOTICIAS
                     </h1>
                 </div>
+                <Carousel dataType="posts" />
+
                 <section className="pt-[38px] flex justify-center">
                     <MyButton
                         label="MÁS NOTICIAS"

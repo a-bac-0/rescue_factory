@@ -28,7 +28,6 @@ const Card = ({ datatype, data }) => {
 
         // Event listener para que se actualice el límite de caracteres al cambiar el tamaño de la ventana
         window.addEventListener('resize', updateCharLimit)
-        // Llamada a la función para actualizar el límite de caracteres
         updateCharLimit()
 
         // Actualización del límite de carácteres al cambiar el width
@@ -59,10 +58,10 @@ const Card = ({ datatype, data }) => {
         setIsLiked(!isLiked)
     }
 
-    // Estilos vinculados al tipo de datos "adoptions"
+    // Estilos para los componentes de adopciones
     const adoptionsStyles = {
         cardContainer:
-            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col  shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
+            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
         contentContainer: 'flex flex-col justify-center items-start w-[85%]',
         title: 'w-full h-[18px] text-left pt-8 pb-6 mb-1 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
@@ -74,7 +73,7 @@ const Card = ({ datatype, data }) => {
             'w-[full] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[15px] rounded-md mb-2',
     }
 
-    // Estilos vinculados al tipo de datos "posts"
+    // Estilos para los componentes de posts
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg w-[91%] h-[auto] items-center flex flex-row hover:scale-102 transition-transform duration-300',
@@ -106,17 +105,9 @@ const Card = ({ datatype, data }) => {
                 {datatype === 'adoptions' && (
                     <h2 className={`${styles.additionalInfo}`}>{data.sex}</h2>
                 )}
-                {datatype === 'posts' && (
-                    <p className={`${styles.additionalInfo}`}>
-                        Autor: {data.user_id}{' '}
-                        {/*Modifico aquí el user id, en principio el name de la tabla users se transforma en user_id*/}
-                    </p>
-                )}
-                {datatype === 'adoptions' && (
-                    <p className={`${styles.adoptionsAuthor}`}>
-                        Autor: {data.user_id}
-                    </p>
-                )}
+                <p className={`${styles.additionalInfo}`}>
+                    Usuario: {data.user_name}
+                </p>
                 <p className={`${styles.content}`}>
                     {truncateContent(data.content)}
                 </p>
