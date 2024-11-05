@@ -57,7 +57,7 @@ export const deletePost = async (req: Request, res: Response) => {
 export const createPost = async (req: Request, res: Response) => {
 
    try {
-        const { title, content, user_id,  category, status, like_count, url_images } = req.body // EN ESTA PARTE EXTRAIMOS LAS PROPIEDADES DEL req.body QUE CONTIENE LA SOLICITUD HTTP👤
+        const { title, content, user_id,  category, status, like_count, url_images, date } = req.body // EN ESTA PARTE EXTRAIMOS LAS PROPIEDADES DEL req.body QUE CONTIENE LA SOLICITUD HTTP👤
         const post = await postModel.create({
           title,                                 
           content,                               
@@ -66,7 +66,7 @@ export const createPost = async (req: Request, res: Response) => {
           status,          // EL METODO create DE SEQUELIZE
           like_count,
           url_images,
-
+          date
         })
         res.json(post) // Y LE ENVIAMOS LA RESPUETA EN FORMATO JSON
 
@@ -82,7 +82,7 @@ export const updatePost = async( req: Request, res: Response ) =>{
   try {
 
     const { id } = req.params  // HACEMOS UNA CONSTANTE ID PARA EXTRAER LOS PARAMETROS QUE TIENE EL POST
-    const {  title, content, user_id,  category, status, like_count, url_images } = req.body
+    const {  title, content, user_id,  category, status, like_count, url_images, date } = req.body
     const update = await postModel.findByPk(id); // HACEMOS UNA CONSTANTE PARA ESPECIFICARLE QUE VA A EXTRAER UN ID ESPECIFICO
     
     await update?.update({ // Y AQUI LE PASAMOS LO QUE PODRA ACTUALIZAR 🔄️
@@ -93,6 +93,7 @@ export const updatePost = async( req: Request, res: Response ) =>{
           status,          
           like_count,
           url_images,
+          date
     })
       res.json(update)
 

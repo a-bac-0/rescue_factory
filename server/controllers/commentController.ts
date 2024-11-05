@@ -53,12 +53,12 @@ export const deleteComment = async (req:Request, res:Response) => {
 
 export const createComment = async (req:Request, res:Response) => {
     try {
-        const { content, post_id, user_id, createAd } = req.body;
+        const { content, post_id, user_id, date } = req.body;
         const comment = await commentModel.create({
             content,
             post_id,
             user_id,
-            createAd,
+            date,
 
         });
             res.json(comment)
@@ -73,14 +73,14 @@ export const createComment = async (req:Request, res:Response) => {
 export const updateComment = async (req:Request, res:Response) => {
     try {
         const {id} = req.params;
-        const { content, post_id, user_id, createAd } = req.body;
+        const { content, post_id, user_id, date } = req.body;
         const commentUpdate = await commentModel.findByPk(id);
 
         await commentUpdate?.update({
             content,
             post_id,
             user_id,
-            createAd,
+            date,
         });
             res.json(commentUpdate)
     } catch (error) {

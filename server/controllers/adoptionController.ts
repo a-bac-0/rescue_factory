@@ -33,7 +33,7 @@ export const getOneAdoption = async (req: Request, res: Response) => {
 
 export const createAdoption = async (req: Request, res: Response) => {
     try {
-        const {name, age, sex, category, content, url_images, user_id} = req.body;
+        const {name, age, sex, category, content, url_images, user_id, date} = req.body;
         const adoption = await adoptionModel.create({
             name,
             age, 
@@ -42,6 +42,7 @@ export const createAdoption = async (req: Request, res: Response) => {
             content,
             url_images,
             user_id,
+            date
         })
             res.json(adoption)
 
@@ -70,7 +71,7 @@ export const deleteAdoption = async (req:Request, res: Response) => {
 export const updateAdoption = async (req:Request, res:Response) => {
     try {
         const {id} = req.params;
-        const {name, age, sex, category, content, url_images, user_id} = req.body;
+        const {name, age, sex, category, content, url_images, user_id, date} = req.body;
         const updateAdoption = await adoptionModel.findByPk(id)
 
         await updateAdoption?.update({
@@ -81,6 +82,7 @@ export const updateAdoption = async (req:Request, res:Response) => {
             content,
             url_images,
             user_id,
+            date
         })
             res.json(updateAdoption);
 
