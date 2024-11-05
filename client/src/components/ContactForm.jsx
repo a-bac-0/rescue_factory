@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ContactForm = () => {
-  const [formData, setFormData] = React.useState({ name: '', surname: '', email: '', message: '' });
+  const [formData, setFormData] = React.useState({ first_name: '', last_name: '', email: '', message: '' });
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -12,7 +12,7 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    if (!formData.name || !formData.lastname || !formData.email || !formData.message) {
+    if (!formData.first_name || !formData.last_name || !formData.email || !formData.message) {
       setError("Por favor llenar todos los campos.");
       return;
     }
@@ -26,7 +26,7 @@ const ContactForm = () => {
 
     console.log("Data submitted:", formData);
     setError(null);
-    setFormData({ name: '', surname: '', email: '', message: '' }); // Reset form data
+    setFormData({ first_name: '', last_name: '', email: '', message: '' }); // Reset form data
   };
 
   return (
@@ -44,24 +44,24 @@ const ContactForm = () => {
         </label>
         <input
           type="text"
-          id="name"
-          name="name"
-          value={formData.name}
+          id="first_name"
+          name="first_name"
+          value={formData.first_name}
           onChange={handleChange}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4 w-[283px]">
-        <label htmlFor="lastname" className="block text-[#ffffff]-700 font-medium mb-1">
+        <label htmlFor="last_name" className="block text-[#ffffff]-700 font-medium mb-1">
           Apellido
         </label>
         <input
           type="text"
-          id="lastname"
-          name="lastname"
-          value={formData.lastname}
+          id="last_name"
+          name="last_name"
+          value={formData.last_name}
           onChange={handleChange}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4 w-[283px]">
@@ -74,7 +74,7 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4 w-[283px]">
@@ -87,7 +87,7 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         ></textarea>
         </div>
       <button
