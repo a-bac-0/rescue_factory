@@ -38,7 +38,7 @@ const ContactForm = () => {
           {error}
         </div>
       )}
-      <div className="mb-4 w-[283px]">
+      <div className="mb-4 md:w-[283px] lg:w-[385px]">
         <label htmlFor="name" className="block text-[#ffffff]-700 font-medium mb-1">
           Nombre
         </label>
@@ -51,7 +51,7 @@ const ContactForm = () => {
           className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4 w-[283px]">
+      <div className="mb-4 md:w-[283px] lg:w-[385px]">
         <label htmlFor="last_name" className="block text-[#ffffff]-700 font-medium mb-1">
           Apellido
         </label>
@@ -64,7 +64,7 @@ const ContactForm = () => {
           className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4 w-[283px]">
+      <div className="mb-4 md:w-[283px] lg:w-[385px]">
         <label htmlFor="email" className="block text-[#ffffff]-700 font-medium mb-1">
           Email
         </label>
@@ -77,7 +77,7 @@ const ContactForm = () => {
           className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <div className="mb-4 w-[283px]">
+      <div className="mb-4 md:w-[283px] lg:w-[385px]">
         <label htmlFor="message" className="block text-[#ffffff]-700 font-medium mb-1">
           Mensaje
         </label>
