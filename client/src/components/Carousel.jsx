@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Arrow1 from '../assets/images/Arrow 1.svg'
 import Arrow2 from '../assets/images/Arrow 2.svg'
-import { getPosts } from '../services/PostsServices'
+import { getPosts } from '../services/postsServices'
 import { getAdoptions } from '../services/AdoptionsServices'
 
 // Constantes para límites de caracteres
