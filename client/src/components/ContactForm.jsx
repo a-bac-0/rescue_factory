@@ -30,7 +30,8 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="w-[283px] px-10 py-5 border border-white-[1px]">
+    <section className="w-[300px] flex justify-center items-center min-h-screen">
+    <section className="px-10 py-5 border border-white bg-[#869378]">
     <form onSubmit={handleSubmit}>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -96,6 +97,7 @@ const ContactForm = () => {
         Enviar
       </button>
     </form>
+    </section>
     </section>
   );
 };
