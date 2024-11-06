@@ -75,7 +75,7 @@ const Article = () => {
 
     return (
         <div className="width-full mt- flex flex-col h-auto items-center  bg-[#76816A]">
-            <div className="mt-28 lg:gap-5 mt-20 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
+            <div className="lg:gap-5 mt-20 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
                 <div className="w-[80%] h-[auto]  sm:w-[70%] flex flex-col justify-center">
                     <h1 className="font-inter sm:w-[50%] text-3xl font-bold flex text-black mb-3 lg:text-7xl">
                         {type === 'adoptions' ? data.name : data.title}
@@ -109,7 +109,7 @@ const Article = () => {
                     <img
                         src={data.url_images}
                         alt="Imagen Artículo"
-                        className="w-[100%] h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px] sm:w-[85%]"
+                        className="h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px] "
                     />
                 </div>
             </div>
