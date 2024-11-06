@@ -11,7 +11,7 @@ import postRouter from './routes/postsRoutes';
 import commentRouter from './routes/commentsRoutes';
 import adoptionRouter from './routes/adoptionsRoutes';
 import authRouter from './routes/authRoutes';
-
+import uploadImage from './middleware/uploadImage';
 // Crea una instancia de la aplicación express
 export const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.json())
 
 //Rutas
 app.use('/users', userRouter)
-app.use('/posts', postRouter)
+app.use('/posts', postRouter,)
 app.use('/posts/:postId/comments', commentRouter)
 app.use('/adoptions', adoptionRouter)
 app.use("/auth", authRouter);
