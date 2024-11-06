@@ -69,3 +69,15 @@ export const deletePost = async (id) => {
         throw error
     }
 }
+
+export const toggleLike = async (id, likeCount) => {
+    try {
+        const response = await axios.patch(`${BaseUrl}/${id}`, {
+            like_count: likeCount,
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error al actualizar el contador de likes', error)
+        throw error
+    }
+}
