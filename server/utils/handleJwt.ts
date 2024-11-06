@@ -8,16 +8,18 @@ dotenv.config();
 
 interface User {
     id: number;
+    role: string; 
     [key: string]: any;
 }
 
 export const tokenSign = async (user: User): Promise<string> => {
-    // Firmar el token con el id del usuario
+    // Firmar el token con el id y el rol del usuario
     const sign = jwt.sign(
         {
-            id: user.id
+            id: user.id,
+            role: user.role // Agregar el rol al payload para poder verificar el rol
         },
-        JWT as jwt.Secret, // Especifica que JWT es un secreto
+        JWT as jwt.Secret,
         {
             expiresIn: '24h'
         }
@@ -27,7 +29,14 @@ export const tokenSign = async (user: User): Promise<string> => {
 
 export const verifyToken = async (token: string): Promise<string | jwt.JwtPayload | null> => {
     try {
-        return jwt.verify(token, JWT as jwt.Secret); // Verificar el token con JWT
+        const decoded = jwt.verify(token, JWT as jwt.Secret); // Verificar el token
+
+        // Aquí verificamos el rol
+        if (typeof decoded === 'object' && decoded.role === 'admin') {
+            console.log('El usuario es administrador');
+        }
+
+        return decoded;
     } catch (error) {
         return null;
     }
