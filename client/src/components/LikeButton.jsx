@@ -6,7 +6,7 @@ import like_button from '../assets/images/like_button.svg'
 const LikeButton = ({ isLiked, likeCount, handleLikeClick }) => {
     return (
         <div
-            className="flex items-center text-black text-[12px] mt-2 cursor-pointer lg:text-[13px]"
+            className="flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]"
             onClick={handleLikeClick}
         >
             <motion.img
