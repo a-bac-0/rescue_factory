@@ -4,7 +4,7 @@ import HeaderHomeMobile from "../assets/images/Header_home_mobile.svg";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
-import Card from "../components/Card";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -117,14 +117,8 @@ const Home = () => {
           </h1>
         </section>
        
-        <section className="w-full min-w-[314px] max-w-[850px] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
-          {adoptionData.length > 0 ? (
-            adoptionData.map(item => (
-              <Card key={item.id} datatype="adoptions" data={item} />
-            ))
-          ) : (
-            <p className="pt-[2rem]">Cargando datos...</p> // Handle loading state
-          )}
+        <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-1">
+        <Carousel dataType="posts" />
         </section>
 
         <section className="pt-[38px] pb-[6rem] flex justify-center">
