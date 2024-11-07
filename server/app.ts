@@ -25,9 +25,9 @@ app.use(express.json())
 
 //Rutas
 app.use('/users', verifyTokenMiddleware, userRouter);
-app.use('/posts', verifyTokenMiddleware, postRouter);
+app.use('/posts', postRouter);
 app.use('/posts/:postId/comments',verifyTokenMiddleware, commentRouter)
-app.use('/adoptions', verifyTokenMiddleware, adoptionRouter);
+app.use('/adoptions', adoptionRouter);
 app.use("/auth", authRouter);
 
 // Función para inicializar la base de datos
