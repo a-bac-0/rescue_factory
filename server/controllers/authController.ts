@@ -7,7 +7,7 @@ import { tokenSign } from "../utils/handleJwt";
 
 dotenv.config();
 
-//LOGIN
+// LOGIN
 
 export const loginController = async (req: Request, res: Response) => {
     try {
@@ -19,8 +19,9 @@ export const loginController = async (req: Request, res: Response) => {
             handleHttpError(res, "USER_NOT_EXISTS", 404);
             return;
         }
+        
         const passwordHashed = user.password;
-        const checkPasswords = await compare(loginPassword, passwordHashed)
+        const checkPasswords = await compare(loginPassword, passwordHashed);
 
         if (!checkPasswords) {
             handleHttpError(res, "PASSWORD_INVALID", 401);
@@ -29,20 +30,18 @@ export const loginController = async (req: Request, res: Response) => {
 
         const sessionData = {
             token: await tokenSign(user),
-            user: user
-        }
+            user: user,
+        };
 
-
-        res.send({ sessionData });
+        // Solo enviamos la respuesta una vez.
+        res.send({ sessionData }); // Respuesta final sin continuar la ejecución.
     } catch (error) {
         console.log(error);
-        handleHttpError(res, "ERROR_LOGIN_USER");
-        res.status(403).json({ error: error });
+        handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
     }
 };
 
-
-//REGISTER
+// REGISTER
 
 export const registerController = async (req: Request, res: Response) => {
     try {
@@ -66,10 +65,16 @@ export const registerController = async (req: Request, res: Response) => {
             token: await tokenSign(newUser), // Generar token para el nuevo usuario
             user: newUser,
         };
-        res.send({ sessionData });
-        res.status(201).json({ message: "Usuario creado exitosamente", user: newUser });
+
+        // Solo enviamos la respuesta una vez.
+        res.status(201).json({
+            message: "Usuario creado exitosamente",
+            user: newUser,
+            sessionData: sessionData,
+        });
     } catch (error) {
         console.error(error);
+        // En caso de error, enviamos el mensaje correspondiente.
         res.status(500).json({ message: "Error al registrar el usuario" });
     }
 };
