@@ -10,13 +10,19 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
     return;
   }
 
-  const decoded = await verifyToken(token);
+  try {
+    const decoded = await verifyToken(token);
 
-  if (!decoded) {
+    if (!decoded) {
+      res.status(401).json({ message: 'Token inválido o expirado' });
+      return;
+    }
+
+    // Definir el tipo de `decoded` explícitamente como `User`
+    req.user = decoded as User;
+    next();
+  } catch (error) {
+    console.error('Error al verificar el token:', error);
     res.status(401).json({ message: 'Token inválido o expirado' });
-    return;
   }
-
-  req.user = decoded as User; // Agrega el usuario decodificado al objeto `req`
-  next(); // Pasa al siguiente middleware o controlador
 };
