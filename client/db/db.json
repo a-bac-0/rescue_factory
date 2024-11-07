@@ -34,14 +34,14 @@
     "comments": [
         {
             "id": "101",
-            "post_id": "1",
+            "postId": "1",
             "user_id": 2,
             "content": "Este artículo es muy inspirador, ¡gracias por compartir!",
             "date": "2023-11-02"
         },
         {
             "id": "102",
-            "post_id": "1",
+            "postId": "1",
             "user_id": 3,
             "content": "Adopté a mi perrito hace un año y fue la mejor decisión.",
             "date": "2023-11-03"

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { getCommentsByPostId } from '../services/CommentsServices'
 import { getUsersById } from '../services/UsersServices'
 
-const BoxComments = ({ postId }) => {
+const BoxComments = ({ post_id }) => {
     const [comments, setComments] = useState([])
     const [users, setUsers] = useState({})
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const commentData = await getCommentsByPostId(postId)
+                const commentData = await getCommentsByPostId(post_id)
 
                 // Verificar que commentData sea un array y tenga elementos
                 if (Array.isArray(commentData) && commentData.length > 0) {
@@ -37,7 +37,7 @@ const BoxComments = ({ postId }) => {
             }
         }
         fetchData()
-    }, [postId])
+    }, [post_id])
 
     return (
         <div className="w-full h-auto flex flex-col mt-7">

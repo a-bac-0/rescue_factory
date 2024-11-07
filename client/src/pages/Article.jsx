@@ -126,7 +126,7 @@ const Article = () => {
                         <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
                             COMENTARIOS
                         </h1>
-                        <BoxComments postId={id} />
+                        <BoxComments post_id={id} />
                     </div>
                 </div>
             )}
