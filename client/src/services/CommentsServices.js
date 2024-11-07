@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BaseUrl = 'http://localhost:8000/posts/:postId/comments'
+const BaseUrl = 'http://localhost:8000/comments'
 
 // GET para obtener todos los comentarios
 export const getComments = async () => {
@@ -13,7 +13,18 @@ export const getComments = async () => {
     }
 }
 
-// POST  un nuevo comentario
+// GET para obtener comentarios por ID de post
+export const getCommentsByPostId = async (postId) => {
+    try {
+        const response = await axios.get(`${BaseUrl}?postId=${postId}`)
+        return response.data
+    } catch (error) {
+        console.error('Error al obtener los comentarios por ID de post', error)
+        throw error
+    }
+}
+
+// POST un nuevo comentario
 export const createComment = async (commentsData) => {
     try {
         const response = await axios.post(BaseUrl, commentsData)
