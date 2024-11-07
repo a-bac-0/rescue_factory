@@ -4,13 +4,18 @@ import { Request, Response, NextFunction } from 'express';
 
 export const authorizeRole = (roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction): void => {
-    const userRole = req.user?.role; // Accede al rol del usuario desde `req.user`
+    if (!req.user) {
+      res.status(403).json({ message: 'Acceso denegado: usuario no autenticado' });
+      return;
+    }
+
+    const userRole = req.user.role;
 
     if (!userRole || !roles.includes(userRole)) {
       res.status(403).json({ message: 'Acceso denegado: permisos insuficientes' });
       return;
     }
 
-    next(); // Pasa al siguiente middleware o controlador si el rol es permitido
+    next();
   };
 };
