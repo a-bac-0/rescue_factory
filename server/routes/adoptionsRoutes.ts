@@ -8,7 +8,7 @@ const adoptionRouter = express.Router();
 
 adoptionRouter.get('/', getAdoptions);
 adoptionRouter.get('/:id', verifyTokenMiddleware, getOneAdoption);
-adoptionRouter.post('/', verifyTokenMiddleware, createAdoption); 
+adoptionRouter.post('/',uploadImage, verifyTokenMiddleware, createAdoption); 
 adoptionRouter.delete('/:id',uploadImage, verifyTokenMiddleware, authorizeRole(['admin']), deleteAdoption); 
 adoptionRouter.put('/:id', verifyTokenMiddleware, authorizeRole(['admin']), updateAdoption);
 
