@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getAdoptionsById } from '../services/AdoptionsServices'
 import { getUsersById } from '../services/UsersServices'
@@ -16,6 +16,7 @@ const Article = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true)
             try {
                 let result
                 if (type === 'posts') {
@@ -23,9 +24,9 @@ const Article = () => {
                 } else if (type === 'adoptions') {
                     result = await getAdoptionsById(id)
                 }
+
                 setData(result)
 
-                // Obtener el estado de "like" desde localStorage usando el ID
                 const likedItems =
                     JSON.parse(localStorage.getItem('likedItems')) || {}
                 setIsLiked(likedItems[id] || false)
@@ -39,11 +40,12 @@ const Article = () => {
                 setLoading(false)
             } catch (error) {
                 console.error('Error obteniendo los datos:', error)
+                setLoading(false)
             }
         }
 
         fetchData()
-    }, [id, type])
+    }, [id, type]) // Dependency array includes both `id` and `type`
 
     const handleLikeClick = async () => {
         const newLikeStatus = !isLiked
@@ -73,12 +75,11 @@ const Article = () => {
     if (loading) {
         return <div>Cargando...</div>
     }
-
     return (
-        <div className="width-full mt- flex flex-col h-auto items-center  bg-[#76816A]">
+        <div className="width-full mt- flex flex-col h-auto items-center bg-[#76816A]">
             <div className="mt-28 lg:gap-5 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
-                <div className="w-[80%] h-[auto]  sm:w-[70%] flex flex-col justify-center">
-                    <h1 className="font-inter sm:w-[50%] text-3xl  sm:text-5xl font-bold flex text-[#222f1e] mb-3 lg:text-7xl">
+                <div className="w-[80%] h-[auto] sm:w-[70%] flex flex-col justify-center">
+                    <h1 className="font-inter sm:w-[50%] text-3xl sm:text-5xl font-bold flex text-[#222f1e] mb-3 lg:text-7xl">
                         {type === 'adoptions' ? data.name : data.title}
                     </h1>
                     {type === 'adoptions' && (
@@ -86,7 +87,7 @@ const Article = () => {
                             <p className="font-inter text-lg flex text-[#222f1e] mb-1 lg:text-3xl">
                                 {data.age} años
                             </p>
-                            <p className="font-inter text-lg text-[#222f1e]mb-1 lg:text-2xl">
+                            <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
                                 {data.sex}
                             </p>
                         </>
@@ -110,20 +111,25 @@ const Article = () => {
                     <img
                         src={data.url_images}
                         alt="Imagen Artículo"
-                        className="h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px] "
+                        className="h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px]"
                     />
                 </div>
             </div>
-            <div className="w-[80%] mb-10 mt-2 sm:mt-9 flex flex-col items-center">
-                <p className="font-inter text-lg text-[#222f1e] mb-5 lg:text-2xl">
+            <div className="w-[80%] mb-10 mt-2 lg:mt-9 flex flex-col items-center">
+                <p className="font-inter text-lg text-[#222f1e] mb-20 sm:mb-40 lg:text-2xl">
                     {data.content}
                 </p>
-                <div className="flex text-[#222f1e] flex-col items-start justify-start w-full font-inter font-bold text-3xl mt-20 sm:text-5xl lg:text-7xl">
-                    <h1>Comentarios</h1>
-                    <div className="border-2 border-[#222f1e] w-full"></div>
-                    <BoxComments />
-                </div>
             </div>
+            {type === 'posts' && (
+                <div className="flex w-full mb-10 bg-customGreen h-auto flex-col items-center justify-start min-h-screen">
+                    <div className="w-[80%] relative">
+                        <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
+                            COMENTARIOS
+                        </h1>
+                        <BoxComments postId={id} />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
