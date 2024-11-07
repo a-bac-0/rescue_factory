@@ -10,6 +10,6 @@ userRouter.get('/', verifyTokenMiddleware, getAllUsers);
 userRouter.get('/:id', verifyTokenMiddleware, getUserById);
 userRouter.delete('/:id', verifyTokenMiddleware, authorizeRole(['admin']), deleteUser); 
 userRouter.put('/:id', verifyTokenMiddleware, authorizeRole(['admin']), updateUser);    
-userRouter.post('/', verifyTokenMiddleware, authorizeRole(['admin']), createUser);     
+userRouter.post('/', verifyTokenMiddleware, createUser);     
 
 export default userRouter;
