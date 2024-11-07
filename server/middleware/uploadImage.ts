@@ -6,31 +6,17 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
             const { imageUrl } = req.body;
 
             if (!imageUrl) {
-                return res.status(400).json({
-                    success: false,
-                    message: "No image URL provided"
-                });
+                 res.status(400).json
+                
             }
 
-            const options = {
-                folder: "pets-app",
-                resource_type: "auto",
-                fetch_format: "auto",
-                quality: "auto"
-            };
-
-            const result = await cloudinary.uploader.upload(imageUrl,);
+            const result = await cloudinary.uploader.upload(imageUrl);
         
-            
             req.body.url_images = result.secure_url;
             next();
 
         } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: "Error uploading image",
-                error: error instanceof Error ? error.message : "Unknown error"
-            });
+            console.log('no se pudo subir la imagen',error);
         }
     };
 
