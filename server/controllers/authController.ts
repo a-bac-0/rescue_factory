@@ -21,7 +21,7 @@ export const loginController = async (req: Request, res: Response) => {
         
         const passwordHashed = user.password;
         const checkPasswords = await compare(loginPassword, passwordHashed);
-        const checkPasswords = await compare(loginPassword, passwordHashed);
+    
 
         if (!checkPasswords) {
             handleHttpError(res, "PASSWORD_INVALID", 401);
