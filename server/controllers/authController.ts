@@ -18,7 +18,9 @@ export const loginController = async (req: Request, res: Response) => {
             handleHttpError(res, "USER_NOT_EXISTS", 404);
             return;
         }
+        
         const passwordHashed = user.password;
+        const checkPasswords = await compare(loginPassword, passwordHashed);
         const checkPasswords = await compare(loginPassword, passwordHashed);
 
         if (!checkPasswords) {
@@ -34,8 +36,7 @@ export const loginController = async (req: Request, res: Response) => {
         res.send({ sessionData });
     } catch (error) {
         console.log(error);
-        handleHttpError(res, "ERROR_LOGIN_USER");
-        res.status(403).json({ error: error });
+        handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
     }
 };
 
@@ -79,8 +80,10 @@ export const registerController = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error(error);
+        // En caso de error, enviamos el mensaje correspondiente.
         res.status(500).json({ message: "Error al registrar el usuario" });
     }
 };
 
 // (OPCIONAL) LOGOUT - REFRESH TOKEN
+
