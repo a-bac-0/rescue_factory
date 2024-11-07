@@ -121,7 +121,7 @@ const Article = () => {
                 </p>
             </div>
             {type === 'posts' && (
-                <div className="flex w-full mb-10 bg-customGreen h-auto flex-col items-center justify-start min-h-screen">
+                <div className="flex w-full bg-customGreen pb-16 flex-col items-center justify-start">
                     <div className="w-[80%] relative">
                         <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
                             COMENTARIOS

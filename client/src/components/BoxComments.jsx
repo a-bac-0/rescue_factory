@@ -5,69 +5,39 @@ import { getUsersById } from '../services/UsersServices'
 const BoxComments = ({ postId }) => {
     const [comments, setComments] = useState([])
     const [users, setUsers] = useState({})
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
             try {
                 const commentData = await getCommentsByPostId(postId)
 
+                // Verificar que commentData sea un array y tenga elementos
                 if (Array.isArray(commentData) && commentData.length > 0) {
                     setComments(commentData)
 
-                    const userIds = new Set(
-                        commentData.map((comment) => comment.user_id)
+                    // Obtener los usuarios relacionados con los comentarios
+                    const userIds = [
+                        ...new Set(
+                            commentData.map((comment) => comment.user_id)
+                        ),
+                    ]
+                    const userDataArray = await Promise.all(
+                        userIds.map((id) => getUsersById(id))
                     )
 
+                    // Almacenar los datos de los usuarios por ID
                     const userData = {}
-                    for (const userId of userIds) {
-                        const user = await getUsersById(userId)
+                    userDataArray.forEach((user) => {
                         userData[user.id] = user
-                    }
+                    })
                     setUsers(userData)
-                } else {
-                    setError(
-                        'No hay comentarios disponibles para este contenido.'
-                    )
                 }
-                setLoading(false)
             } catch (err) {
-                setLoading(false)
                 console.error('Error al obtener los comentarios', err)
-                if (err.response?.status === 404) {
-                    setError('No se encontraron comentarios para este post.')
-                } else {
-                    setError(
-                        'Ha ocurrido un error al cargar los comentarios. Por favor, inténtalo de nuevo más tarde.'
-                    )
-                }
             }
         }
-
-        if (postId) {
-            fetchData()
-        }
+        fetchData()
     }, [postId])
-
-    if (error) {
-        return (
-            <div className="w-full">
-                <p className="w-[90%] font-inter text-sm text-red-500 mt-7">
-                    {error}
-                </p>
-            </div>
-        )
-    }
-
-    if (loading) {
-        return (
-            <div className="w-full p-4 text-center font-inter">
-                Cargando comentarios...
-            </div>
-        )
-    }
 
     return (
         <div className="w-full h-auto flex flex-col mt-7">
@@ -79,7 +49,7 @@ const BoxComments = ({ postId }) => {
                 comments.map((comment) => (
                     <div
                         key={comment.id}
-                        className="bg-[#D1B85E] p-4 rounded-md mt-4 w-full flex flex-col items-start"
+                        className="bg-[#D1B85E] shadow-2xl p-4 rounded-md mt-4 w-full flex flex-col items-start"
                     >
                         <div className="flex flex-col items-start justify-between w-full">
                             <p className="font-inter font-bold text-gray-900">
