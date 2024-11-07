@@ -1,5 +1,4 @@
     import { v2 as cloudinary } from 'cloudinary';
-    import { config } from "dotenv";
     import { Request, Response, NextFunction } from "express";
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
