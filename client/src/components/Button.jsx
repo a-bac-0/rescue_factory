@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-const MyButton = ({ label, onClick, className }) => {
+const MyButton = ({ label, onClick, className = '' }) => {
     return (
         <button
             onClick={onClick}

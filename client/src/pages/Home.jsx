@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import HeaderHomeImg from '../assets/images/Header_home.png'
 import HeaderHomeMobile from '../assets/images/Header_home_mobile.svg'
@@ -13,6 +14,19 @@ const Home = () => {
     useEffect(() => {
         const fetchAdoptions = async () => {
             const API_URL = '/api/adoptions' // Endpoint fake
+=======
+import React, { useEffect, useState } from "react";
+import HeaderHomeImg from "../assets/images/Header_home.png";
+import HeaderHomeMobile from "../assets/images/Header_home_mobile.svg";
+import Carousel from "../components/Carousel";
+import MyButton from "../components/Button";
+import { useNavigate } from "react-router-dom";
+
+
+const Home = () => {
+  const navigate = useNavigate();
+  const [adoptionData, setAdoptionData] = useState([]);
+>>>>>>> 59079b364452fae27c6191df588c85f9948eb2f3
 
             try {
                 const response = await fetch(API_URL)
@@ -23,6 +37,7 @@ const Home = () => {
             }
         }
 
+<<<<<<< HEAD
         fetchAdoptions()
     }, [])
 
@@ -39,6 +54,10 @@ const Home = () => {
                 alt="Header Home"
                 className="w-full h-auto object-cover block md:hidden"
             />
+=======
+    fetchAdoptions();
+  }, []);
+>>>>>>> 59079b364452fae27c6191df588c85f9948eb2f3
 
             <section className="w-[80%] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
                 <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-5xl lg:text-7xl">
@@ -104,6 +123,7 @@ const Home = () => {
                 <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
                     <Carousel dataType="adoptions" />
 
+<<<<<<< HEAD
                     <section className="pt-[38px] flex justify-center">
                         <MyButton
                             label="MÁS ADOPCIONES"
@@ -121,11 +141,39 @@ const Home = () => {
                         EN NOTICIAS
                     </h1>
                 </section>
+=======
+        <section className="pt-[38px] flex justify-center">
+          <MyButton
+            label="¡HAZTE SOCIO!"
+            onClick={() => navigate("/Registro")}
+          />
+        </section>
+      </section>
+
+      <section className="relative top-[0.6rem] md:top-[0.7rem] lg:top-[1rem] left-0 w-full h-full flex justify-center">
+        <h1 className="font-bold text-5xl  md:text-6xl lg:text-7xl text-[#31442C]">
+          ADOPCIONES
+        </h1>
+      </section>
+      <section className="relative min-h-dvh bg-[#31442C] pt-14 pb-36">
+        <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36">
+          <Carousel dataType="adoptions" />
+
+          <section className="pt-[38px] flex justify-center">
+            <MyButton
+              label="MÁS ADOPCIONES"
+              onClick={() => navigate("/Adopciones")}
+            />
+          </section>
+        </section>
+      </section>
+>>>>>>> 59079b364452fae27c6191df588c85f9948eb2f3
 
                 <section className="w-full min-w-[314px] max-w-6xl mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-1">
                     <Carousel dataType="posts" />
                 </section>
 
+<<<<<<< HEAD
                 <section className="pt-[38px] pb-[6rem] flex justify-center">
                     <MyButton
                         label="MÁS NOTICIAS"
@@ -137,5 +185,17 @@ const Home = () => {
         </main>
     )
 }
+=======
+        <section className="pt-[38px] pb-[6rem] flex justify-center">
+          <MyButton
+            label="MÁS NOTICIAS"
+            onClick={() => navigate("/Noticias")}
+          />
+        </section>
+      </section>
+    </main>
+  );
+};
+>>>>>>> 59079b364452fae27c6191df588c85f9948eb2f3
 
 export default Home
