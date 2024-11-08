@@ -19,7 +19,7 @@ const ContactForm = () => {
   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError("Por favor introducir un email válido.");
+      setError("Por favor, introduzca un email válido que contenga '@' y un dominio.");
       return;
     }
 
@@ -32,7 +32,7 @@ const ContactForm = () => {
   return (
     <section className="lg:w-[80%] flex justify-left items-center h-[650px] border border-white">
     <section className="px-10 py-5 bg-[#76816A]">
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}> 
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
@@ -74,7 +74,6 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          title="Por favor, introduzca un email válido."
           className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
