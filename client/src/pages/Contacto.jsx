@@ -1,6 +1,6 @@
 
 import ContactForm from '../components/ContactForm';
-import HeaderContactImg from '../assets/images/Header_contact.png';
+import HeaderContactImg from '../assets/images/Header_contact.svg';
 import HeaderContactMobile from '../assets/images/Header_contact_mobile.png';
 
 const Contacto = () => {
