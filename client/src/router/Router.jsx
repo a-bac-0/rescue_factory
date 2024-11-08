@@ -9,6 +9,7 @@ import Registro from '../pages/Registro.jsx'
 import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
+import Article from '../pages/Article.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -43,12 +44,17 @@ export const router = createBrowserRouter([
                 path: 'historiasDeAdopcion',
                 element: <HistoriasDeAdopciones />,
             },
-            {   path:'nav',
-                element: <Navbar/>
+            {
+                path: 'nav',
+                element: <Navbar />,
             },
             {
-                path:'footer',
-                element: <Footer/>
+                path: 'footer',
+                element: <Footer />,
+            },
+            {
+                path: ':type/:id',
+                element: <Article />,
             },
         ],
     },

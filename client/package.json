@@ -8,7 +8,7 @@
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "api": "node ../server/server.js"
+        "api": "json-server --watch db/db.json --port 8000"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.6.0",
