@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import HeaderHomeImg from "../assets/images/Header_home.png";
+import HeaderHomeImg from "../assets/images/Header_home.svg";
 import HeaderHomeMobile from "../assets/images/Header_home_mobile.svg";
 import Carousel from "../components/Carousel";
 import MyButton from "../components/Button";
