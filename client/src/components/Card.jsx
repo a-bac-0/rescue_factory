@@ -96,7 +96,7 @@ const Card = ({ datatype, data }) => {
         content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
         showMoreButton:
-            'w-[full] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[15px] rounded-md mb-2',
+            'w-[90%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[12px] rounded-md mb-2',
     }
 
     // Estilos para los componentes de posts

@@ -4,6 +4,7 @@ import Adopciones from '../pages/Adopciones.jsx'
 import Home from '../pages/Home.jsx'
 import Noticias from '../pages/Noticias.jsx'
 import Contacto from '../pages/Contacto.jsx'
+import Login from '../components/Login.jsx'
 import Registro from '../pages/Registro.jsx'
 import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
 import Navbar from '../components/Navbar.jsx'
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <Registro />,
+                element: <Login />,
             },
             {
                 path: 'adopciones',
