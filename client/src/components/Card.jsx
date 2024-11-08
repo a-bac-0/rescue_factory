@@ -87,23 +87,22 @@ const Card = ({ datatype, data }) => {
     // Estilos para los componentes de adopciones
     const adoptionsStyles = {
         cardContainer:
-            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
+            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col  shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
         contentContainer: 'flex flex-col justify-center items-start w-[85%]',
         title: 'w-full h-[18px] text-left pt-8 pb-6 mb-1 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
         additionalInfo: 'w-full text-left mb-2 font-inter text-[15px]',
-        adoptionsAuthor: 'w-full text-left font-inter text-[15px] mb-2',
         content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
         showMoreButton:
-            'w-[90%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[12px] rounded-md mb-2',
+            'w-full h-[auto] mb-1 p-1 text-black font-inter font-bold text-[15px] rounded-md mb-2',
     }
 
-    // Estilos para los componentes de posts
+    // Estilos vinculados al tipo de datos "posts"
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg w-[auto] h-[auto] items-center flex flex-row hover:scale-102 transition-transform duration-300',
-        contentContainer: 'p-4 flex-col w-[55%] md:w-[60%]',
+        contentContainer: 'p-4 flex-col w-[45%] md:w-[70%]',
         title: 'text-black mb-2 font-inter font-bold text-[14px] md:text-[16px] lg:text-[19px]',
         subtitle:
             'text-black font-inter text-[14px] md:text-[12px] lg:text-[15px]',
@@ -113,7 +112,7 @@ const Card = ({ datatype, data }) => {
         likeCount:
             'mt-2 flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]',
         showMoreButton:
-            'w-[full] mb-2 h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[13px] rounded-md mt-2 lg:text-[16px]',
+            'w-full h-[auto] mb-2  p-2 text-black font-inter font-bold text-[13px]  sm:text-[16px] rounded-md mt-2 lg:text-[16px]',
     }
 
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
