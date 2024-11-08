@@ -86,6 +86,7 @@ const Home = () => {
           <MyButton
             label="¡HAZTE SOCIO!"
             onClick={() => navigate("/Registro")}
+            className={`w-[350px] h-[70px]`}
           />
         </section>
       </section>
@@ -103,6 +104,7 @@ const Home = () => {
             <MyButton
               label="MÁS ADOPCIONES"
               onClick={() => navigate("/Adopciones")}
+              className={`w-[350px] h-[70px]`}
             />
           </section>
         </section>
@@ -125,6 +127,7 @@ const Home = () => {
           <MyButton
             label="MÁS NOTICIAS"
             onClick={() => navigate("/Noticias")}
+            className={`w-[350px] h-[70px]`}
           />
         </section>
       </section>
