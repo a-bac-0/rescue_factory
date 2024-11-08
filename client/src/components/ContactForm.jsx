@@ -74,6 +74,7 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          title="Por favor, introduzca un email válido."
           className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
@@ -92,7 +93,7 @@ const ContactForm = () => {
         </div>
       <button
         type="submit"
-        className="w-[100px] h-[48px] px-[10px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center">
+        className="w-[100%] h-[48px] px-[10px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center">
       
         Enviar
       </button>
