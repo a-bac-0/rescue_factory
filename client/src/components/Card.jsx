@@ -3,6 +3,10 @@ import LikeButton from './LikeButton'
 import MyButton from '../components/Button'
 import { toggleLike } from '../services/PostsServices'
 import { getUsersById } from '../services/UsersServices'
+import { RxUpdate } from 'react-icons/rx'
+import { MdDeleteOutline } from 'react-icons/md'
+import { deletePost } from '../services/PostsServices'
+import { deleteAdoption } from '../services/AdoptionsServices'
 
 // Constantes para límites de caracteres
 const CHAR_LIMIT_SMALL = 70
@@ -84,26 +88,52 @@ const Card = ({ datatype, data }) => {
         }
     }
 
+    // Funcionalidad eliminar adopción o noticia. Añadimos alerta provisional hasta tener la alerta personalizada
+    const handleDeleteClick = async () => {
+        const confirmation = window.confirm(
+            `¿Estás seguro de eliminar esta ${
+                datatype === 'posts' ? 'noticia' : 'adopción'
+            }?`
+        )
+        if (confirmation) {
+            try {
+                if (datatype === 'posts') {
+                    await deletePost(data.id)
+                } else {
+                    await deleteAdoption(data.id)
+                }
+                window.location.reload()
+            } catch (error) {
+                console.error(
+                    `Error al eliminar la ${
+                        datatype === 'posts' ? 'noticia' : 'adopción'
+                    }`,
+                    error
+                )
+            }
+        }
+    }
+
     // Estilos para los componentes de adopciones
     const adoptionsStyles = {
         cardContainer:
-            'bg-white items-center w-[330px] h-[auto] pb-9 flex flex-col shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
+            'bg-white items-center w-[330px] h-[auto] pb-5 flex flex-col shadow-md cursor-pointer hover:scale-102 transition-transform duration-300', // Reducir pb-9 a pb-5
         contentContainer: 'flex flex-col justify-center items-start w-[85%]',
         title: 'w-full h-[18px] text-left pt-8 pb-6 mb-1 font-inter font-bold text-[18px]',
         subtitle: 'w-full text-left font-inter text-[15px]',
         additionalInfo: 'w-full text-left mb-2 font-inter text-[15px]',
-        adoptionsAuthor: 'w-full text-left font-inter text-[15px] mb-2',
         content: 'w-full text-left font-inter pt-1 text-[15px] mb-2',
         image: 'w-[85%] h-[200px] object-cover rounded-md mx-auto',
         showMoreButton:
-            'w-[90%] h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[12px] rounded-md mb-2',
+            'w-full h-[auto] mb-1 p-1 text-black font-inter font-bold text-[15px] rounded-md mb-2',
+        iconContainer: 'flex justify-center mt-2 gap-4',
     }
 
-    // Estilos para los componentes de posts
+    // Estilos vinculados al tipo de datos "posts"
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg w-[auto] h-[auto] items-center flex flex-row hover:scale-102 transition-transform duration-300',
-        contentContainer: 'p-4 flex-col w-[55%] md:w-[60%]',
+        contentContainer: 'p-4 flex-col w-[45%] md:w-[70%]',
         title: 'text-black mb-2 font-inter font-bold text-[14px] md:text-[16px] lg:text-[19px]',
         subtitle:
             'text-black font-inter text-[14px] md:text-[12px] lg:text-[15px]',
@@ -113,7 +143,8 @@ const Card = ({ datatype, data }) => {
         likeCount:
             'mt-2 flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]',
         showMoreButton:
-            'w-[full] mb-2 h-[40px] bg-[#D0A24C] text-black font-inter font-bold text-[13px] rounded-md mt-2 lg:text-[16px]',
+            'w-full h-[auto] mb-2 p-2 text-black font-inter font-bold text-[13px] sm:text-[16px] rounded-md mt-2 lg:text-[16px]',
+        iconContainer: 'flex justify-start items-center mt-2 gap-4',
     }
 
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
@@ -143,19 +174,40 @@ const Card = ({ datatype, data }) => {
                         (window.location.href = `/${datatype}/${data.id}`)
                     }
                 />
-                {datatype === 'posts' && (
-                    <LikeButton
-                        isLiked={isLiked}
-                        likeCount={likeCount}
-                        handleLikeClick={handleLikeClick}
-                    />
-                )}
+                <div className={`${styles.iconContainer}`}>
+                    {datatype === 'posts' && (
+                        <>
+                            <LikeButton
+                                className="w-4 h-4 mr-5"
+                                isLiked={isLiked}
+                                likeCount={likeCount}
+                                handleLikeClick={handleLikeClick}
+                            />
+                            <button>
+                                <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
+                            </button>
+                            <button onClick={handleDeleteClick}>
+                                <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
             <img
                 src={data.url_images}
                 alt={datatype === 'adoptions' ? data.name : data.title}
                 className={`${styles.image}`}
             />
+            {datatype === 'adoptions' && (
+                <div className={`${styles.iconContainer}`}>
+                    <button>
+                        <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
+                    </button>
+                    <button onClick={handleDeleteClick}>
+                        <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

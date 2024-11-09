@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { getAdoptionsById } from '../services/AdoptionsServices'
 import { getUsersById } from '../services/UsersServices'
 import { getPostsById, toggleLike } from '../services/PostsServices'
 import LikeButton from '../components/LikeButton'
 import BoxComments from '../components/BoxComments'
+import { RxUpdate } from 'react-icons/rx'
+import { MdDeleteOutline } from 'react-icons/md'
+import { deletePost } from '../services/PostsServices'
+import { deleteAdoption } from '../services/AdoptionsServices'
 
 const Article = () => {
     const { id, type } = useParams()
+    const navigate = useNavigate()
     const [data, setData] = useState({})
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
@@ -45,7 +50,7 @@ const Article = () => {
         }
 
         fetchData()
-    }, [id, type]) // Dependency array includes both `id` and `type`
+    }, [id, type])
 
     const handleLikeClick = async () => {
         const newLikeStatus = !isLiked
@@ -72,9 +77,40 @@ const Article = () => {
         }
     }
 
-    if (loading) {
-        return <div>Cargando...</div>
+    const handleDeleteClick = async () => {
+        const confirmation = window.confirm(
+            `¿Estás seguro de eliminar esta ${
+                type === 'posts' ? 'noticia' : 'adopción'
+            }?`
+        )
+        if (confirmation) {
+            try {
+                if (type === 'posts') {
+                    await deletePost(data.id)
+                } else {
+                    await deleteAdoption(data.id)
+                }
+                // Navegar a la página anterior después de eliminar
+                navigate(-1)
+            } catch (error) {
+                console.error(
+                    `Error al eliminar la ${
+                        type === 'posts' ? 'noticia' : 'adopción'
+                    }`,
+                    error
+                )
+            }
+        }
     }
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-2xl text-[#222f1e]">Cargando...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="width-full mt- flex flex-col h-auto items-center bg-[#76816A]">
             <div className="mt-28 lg:gap-5 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
@@ -93,19 +129,31 @@ const Article = () => {
                         </>
                     )}
                     <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
-                        Fecha: {data.date ? data.date : 'No disponible'}
+                        {data.date ? data.date : 'No disponible'}
                     </p>
                     <p className="font-inter text-lg text-[#222f1e] mb-2 lg:text-2xl">
                         Usuario:{' '}
                         {user.name ? user.name : 'Usuario no encontrado'}
                     </p>
-                    {type === 'posts' && (
-                        <LikeButton
-                            isLiked={isLiked}
-                            likeCount={likeCount}
-                            handleLikeClick={handleLikeClick}
+                    <div className="flex items-center gap-4">
+                        {type === 'posts' && (
+                            <LikeButton
+                                className="w-5 h-5 mr-5"
+                                isLiked={isLiked}
+                                likeCount={likeCount}
+                                handleLikeClick={handleLikeClick}
+                            />
+                        )}
+                        <RxUpdate
+                            className="text-blue-500 cursor-pointer hover:text-blue-700"
+                            size={30}
                         />
-                    )}
+                        <MdDeleteOutline
+                            className="text-red-500 cursor-pointer hover:text-red-700"
+                            size={30}
+                            onClick={handleDeleteClick}
+                        />
+                    </div>
                 </div>
                 <div className="flex mt-5 justify-center w-[80%] h-[auto] sm:mt-0 sm:h-[80%]">
                     <img
