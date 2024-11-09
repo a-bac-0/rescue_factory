@@ -93,7 +93,7 @@ const Article = () => {
                         </>
                     )}
                     <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
-                        Fecha: {data.date ? data.date : 'No disponible'}
+                        {data.date ? data.date : 'No disponible'}
                     </p>
                     <p className="font-inter text-lg text-[#222f1e] mb-2 lg:text-2xl">
                         Usuario:{' '}

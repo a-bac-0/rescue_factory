@@ -52,15 +52,15 @@ const BoxComments = ({ post_id }) => {
                         className="bg-[#D1B85E] shadow-2xl p-4 rounded-md mt-4 w-full flex flex-col items-start"
                     >
                         <div className="flex flex-col items-start justify-between w-full">
-                            <p className="font-inter font-bold text-gray-900">
+                            <p className="font-inter font-bold font-inter text-black">
                                 {users[comment.user_id]?.name ||
                                     'Usuario desconocido'}
                             </p>
-                            <p className="font-inter text-sm text-gray-700">
+                            <p className="font-inter text-sm font-inter text-black">
                                 {comment.date}
                             </p>
                         </div>
-                        <p className="font-inter text-sm mt-2 text-gray-800">
+                        <p className="font-inter text-sm mt-2 text-black">
                             {comment.content}
                         </p>
                     </div>
