@@ -1,18 +1,17 @@
-// LikeButton.jsx
 import React from 'react'
 import { motion } from 'framer-motion'
 import like_button from '../assets/images/like_button.svg'
 
-const LikeButton = ({ isLiked, likeCount, handleLikeClick }) => {
+const LikeButton = ({ isLiked, likeCount, handleLikeClick, className }) => {
     return (
         <div
-            className="flex items-center text-black text-[12px] cursor-pointer lg:text-[13px]"
+            className={`flex items-center text-black text-[12px] cursor-pointer lg:text-[13px] ${className}`}
             onClick={handleLikeClick}
         >
             <motion.img
                 src={like_button}
                 alt="Like button"
-                className="w-4 h-4 mr-2"
+                className="mr-2"
                 initial={{ scale: 1 }}
                 animate={{
                     scale: isLiked ? 1.2 : 1,

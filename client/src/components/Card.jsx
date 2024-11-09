@@ -178,6 +178,7 @@ const Card = ({ datatype, data }) => {
                     {datatype === 'posts' && (
                         <>
                             <LikeButton
+                                className="w-4 h-4 mr-5"
                                 isLiked={isLiked}
                                 likeCount={likeCount}
                                 handleLikeClick={handleLikeClick}
