@@ -25,7 +25,7 @@
       "title": "Consejos para el cuidado de mascotas",
       "content": "El cuidado de las mascotas es una responsabilidad que todos los dueños deben tomar en serio. Para asegurar que nuestros amigos peludos vivan felices y saludables, es fundamental proporcionarles una dieta balanceada, ejercicio regular y atención veterinaria. Es esencial conocer las necesidades nutricionales específicas de cada especie y raza, ya que lo que es bueno para un perro podría no serlo para un gato. El ejercicio es igualmente importante; los perros necesitan paseos diarios y los gatos se benefician de juguetes que estimulan su instinto cazador. Además, mantener un ambiente limpio y seguro es crucial para la salud de nuestras mascotas. También es importante prestar atención a su comportamiento, ya que cambios en su rutina pueden ser indicativos de problemas de salud. La socialización es otra parte vital del cuidado de las mascotas; esto implica exponer a los animales a diferentes situaciones, personas y otros animales desde una edad temprana. Esto no solo ayuda a prevenir problemas de comportamiento, sino que también les permite desarrollar confianza y adaptabilidad. Finalmente, recordar que las mascotas son seres vivos que requieren amor y atención constantes. La conexión emocional que se forma con ellos es invaluable, y cuidar de su bienestar es una inversión en una relación duradera y significativa. Con el tiempo, el esfuerzo que pongas en el cuidado de tu mascota se verá recompensado con lealtad y amor incondicional.",
       "date": "2023-11-03",
-      "like_count": 42,
+      "like_count": 41,
       "user_id": 3,
       "category": "Cuidado_animal",
       "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
@@ -90,17 +90,6 @@
       "user_id": 4,
       "category": "Perros",
       "content": "Rocky es un perro de cuatro años muy cariñoso y leal. Es un perro protector que busca un hogar donde pueda sentirse seguro. Rocky es activo y disfruta de los paseos al aire libre. Se lleva bien con otros perros y es ideal para una familia que quiera un compañero protector y fiel.",
-      "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
-    },
-    {
-      "id": "5",
-      "date": "2023-11-01",
-      "name": "Bella",
-      "age": "5",
-      "sex": "Hembra",
-      "user_id": 5,
-      "category": "Perros",
-      "content": "Bella es una perrita de cinco años que ha pasado por muchas experiencias y está lista para encontrar un hogar estable y amoroso. Es una perra tranquila y muy cariñosa, ideal para familias que buscan una compañera de vida. Bella se lleva bien con niños y con otros perros, lo que la hace ideal para un hogar que valore la paz y la tranquilidad.",
       "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
     }
   ],
