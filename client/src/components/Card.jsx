@@ -3,6 +3,8 @@ import LikeButton from './LikeButton'
 import MyButton from '../components/Button'
 import { toggleLike } from '../services/PostsServices'
 import { getUsersById } from '../services/UsersServices'
+import { RxUpdate } from 'react-icons/rx'
+import { MdDeleteOutline } from 'react-icons/md'
 
 // Constantes para límites de caracteres
 const CHAR_LIMIT_SMALL = 70
@@ -142,19 +144,28 @@ const Card = ({ datatype, data }) => {
                         (window.location.href = `/${datatype}/${data.id}`)
                     }
                 />
-                {datatype === 'posts' && (
-                    <LikeButton
-                        isLiked={isLiked}
-                        likeCount={likeCount}
-                        handleLikeClick={handleLikeClick}
-                    />
-                )}
+                <div>
+                    {datatype === 'posts' && (
+                        <LikeButton
+                            isLiked={isLiked}
+                            likeCount={likeCount}
+                            handleLikeClick={handleLikeClick}
+                        />
+                    )}
+
+                    {datatype === 'posts' && <RxUpdate />}
+                    {datatype === 'posts' && <MdDeleteOutline />}
+                </div>
             </div>
             <img
                 src={data.url_images}
                 alt={datatype === 'adoptions' ? data.name : data.title}
                 className={`${styles.image}`}
             />
+            <div>
+                {datatype === 'adoptions' && <RxUpdate />}
+                {datatype === 'adoptions' && <MdDeleteOutline />}
+            </div>
         </div>
     )
 }
