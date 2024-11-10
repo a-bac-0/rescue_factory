@@ -14,22 +14,35 @@ const Adopciones = () => {
     const [users, setUsers] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [adoptionsData, usersData] = await Promise.all([
-                    getAdoptions(),
-                    getUsers(),
-                ])
-                setAdoptions(adoptionsData)
-                setUsers(usersData)
-            } catch (error) {
-                console.error('Error fetching data:', error)
-            }
+    const fetchData = async () => {
+        try {
+            const [adoptionsData, usersData] = await Promise.all([
+                getAdoptions(),
+                getUsers(),
+            ])
+            setAdoptions(adoptionsData)
+            setUsers(usersData)
+        } catch (error) {
+            console.error('Error al obtener los datos:', error)
         }
+    }
 
+    useEffect(() => {
         fetchData()
     }, [])
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        fetchData()
+    }
+
+    const handleCardUpdate = async (updatedAdoption) => {
+        setAdoptions((currentAdoptions) =>
+            currentAdoptions.map((adoption) =>
+                adoption.id === updatedAdoption.id ? updatedAdoption : adoption
+            )
+        )
+    }
 
     const filteredAdoptions = adoptions.filter((adoption) => {
         const matchesCategory =
@@ -84,18 +97,21 @@ const Adopciones = () => {
                     </h1>
                 </div>
             </div>
-            <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
-                <div className="max-w-[1400px] mx-auto w-[90%]">
+            <div className="h-auto  pt-10 pb-10 bg-customGreen mt-0">
+                <div className="mx-auto flex justify-center  items-center lg:justify-start lg:items-start flex-col w-[90%]">
                     <FilterOptionsAdoptions />
                     <MyButton
                         label="Publicar Adopción"
                         onClick={() => setIsModalOpen(true)}
-                        className="w-[300px] h-[50px] mb-10 font-inter font-bold text-black ml-[3vw]"
+                        className="w-[78vw] p-2 flex lg:w-[29.7%] lg:ml-[3.2vw] items-center mb-10 font-inter font-bold text-black "
                     />
                     {isModalOpen && (
-                        <ModalForm onClose={() => setIsModalOpen(false)} />
+                        <ModalForm
+                            onClose={handleCloseModal}
+                            formType="adoptions"
+                        />
                     )}
-                    <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+                    <div className="grid w-full grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => {
                                 const user = users.find(
@@ -112,6 +128,7 @@ const Adopciones = () => {
                                         key={adoption.id}
                                         datatype="adoptions"
                                         data={adoptionWithUserName}
+                                        onUpdate={handleCardUpdate}
                                         className="w-full"
                                     />
                                 )

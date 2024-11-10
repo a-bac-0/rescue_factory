@@ -14,34 +14,40 @@ const Noticias = () => {
     const [users, setUsers] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [postsData, usersData] = await Promise.all([
-                    getPosts(),
-                    getUsers(),
-                ])
-                setPosts(postsData)
-                setUsers(usersData)
-            } catch (error) {
-                console.error('Error fetching data:', error)
-            }
+    const fetchData = async () => {
+        try {
+            const [postsData, usersData] = await Promise.all([
+                getPosts(),
+                getUsers(),
+            ])
+            setPosts(postsData)
+            setUsers(usersData)
+        } catch (error) {
+            console.error('Error al obtener los datos:', error)
         }
+    }
 
+    useEffect(() => {
         fetchData()
     }, [])
 
-    // Abrir Modal
-    const openModal = () => {
+    const handleOpenModal = () => {
         setIsModalOpen(true)
     }
 
-    // Cerrar Modal
-    const closeModal = () => {
+    const handleCloseModal = () => {
         setIsModalOpen(false)
+        fetchData()
     }
 
-    // Filtrar posts según las opciones seleccionadas
+    const handleCardUpdate = async (updatedPost) => {
+        setPosts((currentPosts) =>
+            currentPosts.map((post) =>
+                post.id === updatedPost.id ? updatedPost : post
+            )
+        )
+    }
+
     const filteredNews = posts.filter((post) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
@@ -49,7 +55,6 @@ const Noticias = () => {
         return matchesCategory
     })
 
-    // Ordenar posts
     const sortedNews = filteredNews.sort((a, b) => {
         if (filters.date.value === 'Más recientes') {
             return new Date(b.date) - new Date(a.date)
@@ -81,14 +86,19 @@ const Noticias = () => {
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
-                    <div className="w-full flex justify-start mb-10 ml-[5.8vw]">
+                    <div className="w-full flex justify-center lg:w-[29,7%] lg:ml-[6vw] sm:justify-start mb-10 ">
                         <MyButton
                             label="Publicar Noticia"
-                            className="w-[300px] h-[50px] font-inter font-bold text-black"
-                            onClick={openModal}
+                            className="w-[78vw] p-2 flex sm:w-[30%] items-center mb-10 font-inter font-bold text-black "
+                            onClick={handleOpenModal}
                         />
                     </div>
-                    {isModalOpen && <ModalForm onClose={closeModal} />}
+                    {isModalOpen && (
+                        <ModalForm
+                            onClose={handleCloseModal}
+                            formType="posts"
+                        />
+                    )}
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(
@@ -105,6 +115,7 @@ const Noticias = () => {
                                     key={post.id}
                                     datatype="posts"
                                     data={postWithUserName}
+                                    onUpdate={handleCardUpdate}
                                 />
                             )
                         })}

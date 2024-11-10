@@ -170,7 +170,7 @@ const Carousel = ({ dataType }) => {
                         onMouseLeave={handleTouchEnd}
                     >
                         {data[currentSlide] ? (
-                            <div className="aspect-[5.4/6] xsss:aspect-[7.7/7] xss:aspect-7/5 xs:aspect-[6.4/5] sm:aspect-[7.2/5] md:aspect-[5/6] lg:aspect-[16/11.9] xl:aspect-[16/12.7] w-full">
+                            <div className="xsss:aspect-[5.5/7] xss:aspect-7/5 xs:aspect-[6.4/5] sm:aspect-[7.2/5] md:aspect-[5/6] lg:aspect-[16/11.9] xl:aspect-[16/12.7] w-full">
                                 <img
                                     className="slide-img w-full h-full object-cover rounded-lg"
                                     src={data[currentSlide].url_images}

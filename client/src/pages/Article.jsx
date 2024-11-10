@@ -9,6 +9,7 @@ import { RxUpdate } from 'react-icons/rx'
 import { MdDeleteOutline } from 'react-icons/md'
 import { deletePost } from '../services/PostsServices'
 import { deleteAdoption } from '../services/AdoptionsServices'
+import ModalForm from '../components/ModalForm'
 
 const Article = () => {
     const { id, type } = useParams()
@@ -18,39 +19,41 @@ const Article = () => {
     const [loading, setLoading] = useState(true)
     const [isLiked, setIsLiked] = useState(false)
     const [likeCount, setLikeCount] = useState(0)
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
+
+    // Mover fetchData fuera del useEffect para poder reutilizarla
+    const fetchData = async () => {
+        setLoading(true)
+        try {
+            let result
+            if (type === 'posts') {
+                result = await getPostsById(id)
+            } else if (type === 'adoptions') {
+                result = await getAdoptionsById(id)
+            }
+
+            setData(result)
+
+            const likedItems =
+                JSON.parse(localStorage.getItem('likedItems')) || {}
+            setIsLiked(likedItems[id] || false)
+            setLikeCount(result.like_count || 0)
+
+            if (result.user_id) {
+                const userResult = await getUsersById(result.user_id)
+                setUser(userResult)
+            }
+
+            setLoading(false)
+        } catch (error) {
+            console.error('Error obteniendo los datos:', error)
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true)
-            try {
-                let result
-                if (type === 'posts') {
-                    result = await getPostsById(id)
-                } else if (type === 'adoptions') {
-                    result = await getAdoptionsById(id)
-                }
-
-                setData(result)
-
-                const likedItems =
-                    JSON.parse(localStorage.getItem('likedItems')) || {}
-                setIsLiked(likedItems[id] || false)
-                setLikeCount(result.like_count || 0)
-
-                if (result.user_id) {
-                    const userResult = await getUsersById(result.user_id)
-                    setUser(userResult)
-                }
-
-                setLoading(false)
-            } catch (error) {
-                console.error('Error obteniendo los datos:', error)
-                setLoading(false)
-            }
-        }
-
         fetchData()
-    }, [id, type])
+    }, [id, type]) // Añadir fetchData a las dependencias no es necesario ya que es estable
 
     const handleLikeClick = async () => {
         const newLikeStatus = !isLiked
@@ -77,6 +80,10 @@ const Article = () => {
         }
     }
 
+    const handleUpdateClick = () => {
+        setIsUpdateModalOpen(true)
+    }
+
     const handleDeleteClick = async () => {
         const confirmation = window.confirm(
             `¿Estás seguro de eliminar esta ${
@@ -90,7 +97,6 @@ const Article = () => {
                 } else {
                     await deleteAdoption(data.id)
                 }
-                // Navegar a la página anterior después de eliminar
                 navigate(-1)
             } catch (error) {
                 console.error(
@@ -146,11 +152,24 @@ const Article = () => {
                         )}
                         <RxUpdate
                             className="text-blue-500 cursor-pointer hover:text-blue-700"
-                            size={30}
+                            size={25}
+                            onClick={handleUpdateClick}
                         />
+
+                        {isUpdateModalOpen && (
+                            <ModalForm
+                                onClose={() => {
+                                    setIsUpdateModalOpen(false)
+                                    fetchData() // Llamar a fetchData después de cerrar el modal
+                                }}
+                                formType={type}
+                                initialData={data}
+                            />
+                        )}
+
                         <MdDeleteOutline
                             className="text-red-500 cursor-pointer hover:text-red-700"
-                            size={30}
+                            size={25}
                             onClick={handleDeleteClick}
                         />
                     </div>

@@ -82,7 +82,7 @@ const BoxComments = ({ post_id }) => {
                         </p>
                         <MdDeleteOutline
                             className="text-red-500 cursor-pointer hover:text-red-700 w-7 h-7"
-                            size={30}
+                            size={25}
                             onClick={() => handleDeleteClick(comment.id)}
                         />
                     </div>
