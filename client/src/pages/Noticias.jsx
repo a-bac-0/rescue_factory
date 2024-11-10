@@ -88,9 +88,7 @@ const Noticias = () => {
                             onClick={openModal}
                         />
                     </div>
-
                     {isModalOpen && <ModalForm onClose={closeModal} />}
-
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(

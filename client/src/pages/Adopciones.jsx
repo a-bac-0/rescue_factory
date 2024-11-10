@@ -5,11 +5,14 @@ import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
 import { getAdoptions } from '../services/AdoptionsServices'
 import { getUsers } from '../services/UsersServices'
+import MyButton from '../components/Button'
+import ModalForm from '../components/ModalForm'
 
 const Adopciones = () => {
     const { filters } = useFilter()
     const [adoptions, setAdoptions] = useState([])
     const [users, setUsers] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +31,6 @@ const Adopciones = () => {
         fetchData()
     }, [])
 
-    // Filtrar adopciones según las opciones seleccionadas
     const filteredAdoptions = adoptions.filter((adoption) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
@@ -85,6 +87,14 @@ const Adopciones = () => {
             <div className="h-auto pt-10 pb-10 bg-customGreen mt-0">
                 <div className="max-w-[1400px] mx-auto w-[90%]">
                     <FilterOptionsAdoptions />
+                    <MyButton
+                        label="Publicar Adopción"
+                        onClick={() => setIsModalOpen(true)}
+                        className="w-[300px] h-[50px] mb-10 font-inter font-bold text-black ml-[3vw]"
+                    />
+                    {isModalOpen && (
+                        <ModalForm onClose={() => setIsModalOpen(false)} />
+                    )}
                     <div className="grid grid-cols-1 mb-10 gap-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
                         {filteredAdoptions.length > 0 ? (
                             filteredAdoptions.map((adoption) => {
