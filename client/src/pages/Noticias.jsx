@@ -5,11 +5,14 @@ import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
 import { getPosts } from '../services/PostsServices'
 import { getUsers } from '../services/UsersServices'
+import MyButton from '../components/Button'
+import ModalForm from '../components/ModalForm'
 
 const Noticias = () => {
     const { filters } = useFilter()
     const [posts, setPosts] = useState([])
     const [users, setUsers] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +30,16 @@ const Noticias = () => {
 
         fetchData()
     }, [])
+
+    // Abrir Modal
+    const openModal = () => {
+        setIsModalOpen(true)
+    }
+
+    // Cerrar Modal
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
 
     // Filtrar posts según las opciones seleccionadas
     const filteredNews = posts.filter((post) => {
@@ -68,6 +81,16 @@ const Noticias = () => {
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
+                    <div className="w-full flex justify-start mb-10 ml-[5.8vw]">
+                        <MyButton
+                            label="Publicar Noticia"
+                            className="w-[300px] h-[50px] font-inter font-bold text-black"
+                            onClick={openModal}
+                        />
+                    </div>
+
+                    {isModalOpen && <ModalForm onClose={closeModal} />}
+
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(
