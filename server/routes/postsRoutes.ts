@@ -2,7 +2,7 @@ import express from "express";
 import { createPost, deletePost, getPostById, getPosts, updatePost } from "../controllers/postController";
 import { verifyTokenMiddleware } from '../middleware/verifyTokenMiddleware';
 import { authorizeRole } from '../middleware/authMiddleware';
-import uploadImage from "../middleware/uploadImage";
+import  uploadImage  from "../middleware/uploadImage";
 const postRouter = express.Router();
 
 
