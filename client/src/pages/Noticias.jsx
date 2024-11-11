@@ -5,30 +5,49 @@ import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
 import { getPosts } from '../services/PostsServices'
 import { getUsers } from '../services/UsersServices'
+import MyButton from '../components/Button'
+import ModalForm from '../components/ModalForm'
 
 const Noticias = () => {
     const { filters } = useFilter()
     const [posts, setPosts] = useState([])
     const [users, setUsers] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const fetchData = async () => {
+        try {
+            const [postsData, usersData] = await Promise.all([
+                getPosts(),
+                getUsers(),
+            ])
+            setPosts(postsData)
+            setUsers(usersData)
+        } catch (error) {
+            console.error('Error al obtener los datos:', error)
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [postsData, usersData] = await Promise.all([
-                    getPosts(),
-                    getUsers(),
-                ])
-                setPosts(postsData)
-                setUsers(usersData)
-            } catch (error) {
-                console.error('Error fetching data:', error)
-            }
-        }
-
         fetchData()
     }, [])
 
-    // Filtrar posts según las opciones seleccionadas
+    const handleOpenModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        fetchData()
+    }
+
+    const handleCardUpdate = async (updatedPost) => {
+        setPosts((currentPosts) =>
+            currentPosts.map((post) =>
+                post.id === updatedPost.id ? updatedPost : post
+            )
+        )
+    }
+
     const filteredNews = posts.filter((post) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
@@ -36,7 +55,6 @@ const Noticias = () => {
         return matchesCategory
     })
 
-    // Ordenar posts
     const sortedNews = filteredNews.sort((a, b) => {
         if (filters.date.value === 'Más recientes') {
             return new Date(b.date) - new Date(a.date)
@@ -68,6 +86,19 @@ const Noticias = () => {
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
+                    <div className="w-full flex justify-center lg:w-[29,7%] lg:ml-[6vw] sm:justify-start mb-10 ">
+                        <MyButton
+                            label="Publicar Noticia"
+                            className="w-[78vw] p-2 flex sm:w-[30%] items-center mb-10 font-inter font-bold text-black "
+                            onClick={handleOpenModal}
+                        />
+                    </div>
+                    {isModalOpen && (
+                        <ModalForm
+                            onClose={handleCloseModal}
+                            formType="posts"
+                        />
+                    )}
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(
@@ -84,6 +115,7 @@ const Noticias = () => {
                                     key={post.id}
                                     datatype="posts"
                                     data={postWithUserName}
+                                    onUpdate={handleCardUpdate}
                                 />
                             )
                         })}

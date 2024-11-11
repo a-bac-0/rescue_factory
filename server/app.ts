@@ -17,7 +17,7 @@ import { verifyTokenMiddleware } from './middleware/verifyTokenMiddleware'; // A
 
 
 // Crea una instancia de la aplicación express
-export const app = express();
+export const app = express()
 
 //Middelewares
 app.use(cors())
@@ -34,41 +34,45 @@ app.use("/auth", authRouter);
 const initializeDatabase = async (): Promise<void> => {
     try {
         // Autenticación con la base de datos
-        await connection_db.authenticate();
-        console.log('The connection to the database has been successful 👍✅');
+        await connection_db.authenticate()
+        console.log('The connection to the database has been successful 👍✅')
 
         // Define los modelos en orden para manejar las dependencias
         const models = [
             { model: userModel, name: 'users' },
             { model: adoptionModel, name: 'adoptions' },
-            { model: postModel, name: 'posts' },            
+            { model: postModel, name: 'posts' },
             { model: commentModel, name: 'comments' },
             { model: contactMessageModel, name: 'contact_message' },
-            
-        ];
+        ]
 
         // Sincroniza cada modelo
         for (const { model, name } of models) {
-            await model.sync({ force: false });
-            console.log(`The ${name} table has been created successfully 👍✅`);
+            await model.sync({ force: false })
+            console.log(`The ${name} table has been created successfully 👍✅`)
         }
     } catch (error) {
         // Manejo de errores
         if (error instanceof Error) {
-            console.error('Unable to connect to the database ❌:', error.message);
+            console.error(
+                'Unable to connect to the database ❌:',
+                error.message
+            )
         } else {
-            console.error('Unable to connect to the database ❌: An unknown error occurred');
+            console.error(
+                'Unable to connect to the database ❌: An unknown error occurred'
+            )
         }
-        throw error; // Lanza el error para manejarlo más arriba si es necesario
+        throw error // Lanza el error para manejarlo más arriba si es necesario
     }
-};
+}
 
 // Ejecuta la inicialización de la base de datos
 initializeDatabase().catch((error) => {
-    console.error('Failed to initialize database:', error);
-    process.exit(1); // Sale con un código de error si la inicialización falla
-});
+    console.error('Failed to initialize database:', error)
+    process.exit(1) // Sale con un código de error si la inicialización falla
+})
 
-export const server = app.listen(8000, ()=> {
+export const server = app.listen(8000, () => {
     console.log('Server is working, nice job :) http://localhost:8000')
 })
