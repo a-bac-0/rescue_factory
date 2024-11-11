@@ -194,7 +194,7 @@ const Registro = () => {
                     </label>
                 </div>
                 
-                < className="flex items-start space-x-2">
+                <div className="flex items-start space-x-2">
                     <input
                         type="checkbox"
                         className="mt-1 border-gray-300 rounded focus:ring-[#76816A]"
@@ -202,6 +202,7 @@ const Registro = () => {
                     <label className="text-gray-600 text-sm">
                         He leído, comprendo y acepto la Política de Privacidad y los Términos y Condiciones.
                     </label>
+                </div>
             </form>
             <p>
                 ¿Ya estás registrado?<br />
