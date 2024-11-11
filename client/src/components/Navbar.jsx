@@ -4,6 +4,7 @@ import logo from '../assets/images/logo.png';
 import { DashboardContext } from '../layout/userContext';
 import LoginForm from './forms/Login';
 import Registro from './forms/Registro';
+import LogoutButton from './LogOutButton'
 
 const Navbar = () => {
     const user = useContext(DashboardContext);

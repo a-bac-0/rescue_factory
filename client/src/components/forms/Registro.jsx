@@ -87,7 +87,7 @@ useEffect(() => {
     setSuccess(true);
 };
 
-  const canSubmit = validName && validPwd && validMatch && ageConfirmed && privacyPolicyAccepted;
+ // const canSubmit = validName && validPwd && validMatch && ageConfirmed && privacyPolicyAccepted;
 
   return (
     <>
@@ -122,7 +122,7 @@ useEffect(() => {
               placeholder="Nombre"
               ref={userRef}
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setUser(e.target.value)}
               required
               aria-invalid={validName ? "false" : "true"}
               aria-describedby='uidnote'
@@ -136,7 +136,7 @@ useEffect(() => {
               placeholder="Apellido"
               autoComplete="off"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setUser(e.target.value)}
               required
               aria-invalid={validName ? "false" : "true"}
               aria-describedby='uidnote'
