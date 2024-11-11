@@ -4,10 +4,12 @@ import Adopciones from '../pages/Adopciones.jsx'
 import Home from '../pages/Home.jsx'
 import Noticias from '../pages/Noticias.jsx'
 import Contacto from '../pages/Contacto.jsx'
+import Login from '../components/Login.jsx'
 import Registro from '../pages/Registro.jsx'
 import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
+import Article from '../pages/Article.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <Registro />,
+                element: <Login />,
             },
             {
                 path: 'adopciones',
@@ -42,12 +44,17 @@ export const router = createBrowserRouter([
                 path: 'historiasDeAdopcion',
                 element: <HistoriasDeAdopciones />,
             },
-            {   path:'nav',
-                element: <Navbar/>
+            {
+                path: 'nav',
+                element: <Navbar />,
             },
             {
-                path:'footer',
-                element: <Footer/>
+                path: 'footer',
+                element: <Footer />,
+            },
+            {
+                path: ':type/:id',
+                element: <Article />,
             },
         ],
     },

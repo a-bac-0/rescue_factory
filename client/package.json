@@ -8,14 +8,23 @@
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "api": "node ../server/server.js"
+        "api": "json-server --watch db/db.json --port 8000"
     },
     "dependencies": {
+<<<<<<< HEAD
+=======
+        "@fortawesome/fontawesome-svg-core": "^6.6.0",
+        "@fortawesome/free-solid-svg-icons": "^6.6.0",
+        "@fortawesome/react-fontawesome": "^0.2.2",
+>>>>>>> 3c19f9952fb285cfebfad4e4e2df736f32a1a8f2
         "axios": "^1.7.7",
         "framer-motion": "^11.11.10",
         "gsap": "^3.12.5",
+        "lucide-react": "^0.456.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-hook-form": "^7.53.2",
+        "react-icons": "^5.3.0",
         "react-router-dom": "^6.27.0",
         "react-select": "^5.8.2"
     },

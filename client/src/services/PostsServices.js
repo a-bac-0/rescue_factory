@@ -14,7 +14,7 @@ export const getPosts = async () => {
 }
 
 // GET BY ID para obtener una noticia (posts) conreta
-export const getAPostsById = async (id) => {
+export const getPostsById = async (id) => {
     try {
         const response = await axios.get(`${BaseUrl}/${id}`)
         return response.data
@@ -66,6 +66,18 @@ export const deletePost = async (id) => {
         await axios.delete(`${BaseUrl}/${id}`)
     } catch (error) {
         console.error('Error al eliminar la noticia', error)
+        throw error
+    }
+}
+
+export const toggleLike = async (id, likeCount) => {
+    try {
+        const response = await axios.patch(`${BaseUrl}/${id}`, {
+            like_count: likeCount,
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error al actualizar el contador de likes', error)
         throw error
     }
 }
