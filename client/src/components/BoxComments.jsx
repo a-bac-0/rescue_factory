@@ -59,8 +59,9 @@ const BoxComments = ({ post_id }) => {
     return (
         <div className="w-full h-auto flex flex-col mt-7">
             {comments.length === 0 ? (
-                <p className="font-inter text-sm text-gray-600 mt-2">
-                    No hay comentarios aún.
+                <p className="font-inter text-sm text-black mt-2">
+                    No hay comentarios aún. Se el primero en comentar esta
+                    noticia
                 </p>
             ) : (
                 comments.map((comment) => (

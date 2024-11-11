@@ -1,9 +1,9 @@
-import Login from '../components/Login';
+// import Login from '../components/Login';
 
-const SigninPage = () => (
-  <Layout>
-    <SigninComponent />
-  </Layout>
-);
+// const SigninPage = () => (
+//   <Layout>
+//     <SigninComponent />
+//   </Layout>
+// );
 
-export default Login;
+// export default Login;

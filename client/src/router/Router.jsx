@@ -4,8 +4,8 @@ import Adopciones from '../pages/Adopciones.jsx'
 import Home from '../pages/Home.jsx'
 import Noticias from '../pages/Noticias.jsx'
 import Contacto from '../pages/Contacto.jsx'
-import Login from '../components/Login.jsx'
-import Registro from '../pages/Registro.jsx'
+// import Login from '../components/Login.jsx'
+// import Registro from '../pages/Registro.jsx'
 import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
@@ -20,10 +20,10 @@ export const router = createBrowserRouter([
                 index: true,
                 element: <Home />,
             },
-            {
-                path: 'login',
-                element: <Login />,
-            },
+            // {
+            //     path: 'login',
+            //     element: <Login />,
+            // },
             {
                 path: 'adopciones',
                 element: <Adopciones />,
@@ -36,10 +36,10 @@ export const router = createBrowserRouter([
                 path: 'contacto',
                 element: <Contacto />,
             },
-            {
-                path: 'registro',
-                element: <Registro />,
-            },
+            // {
+            //     path: 'registro',
+            //     element: <Registro />,
+            // },
             {
                 path: 'historiasDeAdopcion',
                 element: <HistoriasDeAdopciones />,
