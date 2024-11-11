@@ -8,37 +8,34 @@ import { tokenSign } from "../utils/handleJwt";
 dotenv.config();
 
 // LOGIN
-export const loginController = async (req: Request, res: Response) => {
+export const loginController = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
+  
     try {
-        const userEmail = req.body.email;
-        const loginPassword = req.body.password;
-
-        const user = await userModel.findOne({ where: { email: userEmail } });
-        if (!user) {
-            handleHttpError(res, "USER_NOT_EXISTS", 404);
-            return;
-        }
-        
-        const passwordHashed = user.password;
-        const checkPasswords = await compare(loginPassword, passwordHashed);
-    
-
-        if (!checkPasswords) {
-            handleHttpError(res, "PASSWORD_INVALID", 401);
-            return;
-        }
-
-        const sessionData = {
-            token: await tokenSign(user),
-            user: user
-        };
-
-        res.send({ sessionData });
+      const user = await userModel.findOne({ where: { email } });
+      if (!user) {
+        res.status(400).json({ message: 'Credenciales incorrectas' });
+        return;
+      }
+  
+      const isMatch = await compare(password, user.password); // Usamos la función compare
+      if (!isMatch) {
+        res.status(400).json({ message: 'Credenciales incorrectas' });
+        return;
+      }
+  
+      const token = tokenSign(user); // Generamos el token JWT
+      res.json({ message: 'Inicio de sesión exitoso', token });
     } catch (error) {
-        console.log(error);
-        handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
+      if (error instanceof Error) {
+        res
+          .status(500)
+          .json({ message: 'Error en el servidor', error: error.message });
+      } else {
+        res.status(500).json({ message: 'Error en el servidor', error });
+      }
     }
-};
+  };
 
 // REGISTER
 export const registerController = async (req: Request, res: Response) => {
