@@ -4,11 +4,9 @@ import Adopciones from '../pages/Adopciones.jsx'
 import Home from '../pages/Home.jsx'
 import Noticias from '../pages/Noticias.jsx'
 import Contacto from '../pages/Contacto.jsx'
-import Registro from '../pages/Registro.jsx'
-import HistoriasDeAdopciones from '../pages/HistoriasDeAdopciones.jsx'
-import Navbar from '../components/Navbar.jsx'
-import Footer from '../components/Footer.jsx'
+import Registro from '../components/forms/Registro.jsx'
 import Article from '../pages/Article.jsx'
+import LoginForm from '../components/forms/Login.jsx'
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +19,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <Registro />,
+                element: <LoginForm />,
             },
             {
                 path: 'adopciones',
@@ -38,18 +36,6 @@ export const router = createBrowserRouter([
             {
                 path: 'registro',
                 element: <Registro />,
-            },
-            {
-                path: 'historiasDeAdopcion',
-                element: <HistoriasDeAdopciones />,
-            },
-            {
-                path: 'nav',
-                element: <Navbar />,
-            },
-            {
-                path: 'footer',
-                element: <Footer />,
             },
             {
                 path: ':type/:id',
