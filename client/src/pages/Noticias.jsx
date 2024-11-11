@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import newsHeader from '../assets/images/newsHeader.svg'
+import newsHeaderDesktop from '../assets/images/newsHeaderDesktop.svg'
 import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
@@ -74,9 +75,15 @@ const Noticias = () => {
     return (
         <div className="min-h-screen w-full bg-[#76816A]">
             <img
+                src={newsHeaderDesktop}
+                alt="Header News"
+                className="w-full h-auto object-cover hidden md:block"
+            />
+
+            <img
                 src={newsHeader}
-                alt="Header Noticias"
-                className="w-full h-auto"
+                alt="Header News"
+                className="w-full h-auto object-cover block md:hidden"
             />
             <div className="flex flex-col items-center mt-6 w-full lg:mt-0">
                 <div className="w-[80%] mb-20">

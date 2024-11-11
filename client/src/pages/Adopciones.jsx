@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
+import Header_adoptions from '../assets/images/Header_adoptions.svg'
+import Header_adoptions_desktop from '../assets/images/Header_adoptions_desktop.svg'
 import Card from '../components/Card'
 import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
@@ -70,13 +71,19 @@ const Adopciones = () => {
     return (
         <div className="min-h-screen w-full object-cover m-0 bg-[#76816A]">
             <img
-                src={HeaderAdoptions}
+                src={Header_adoptions_desktop}
                 alt="Header Adoptions"
-                className="w-full h-auto"
+                className="w-full h-auto object-cover hidden md:block"
+            />
+
+            <img
+                src={Header_adoptions}
+                alt="Header Adoptions"
+                className="w-full h-auto object-cover block md:hidden"
             />
             <div className="flex items-center flex-col mb-26 mt-6 w-full lg:mt-0">
                 <div className="w-[80%] mb-28">
-                    <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
+                    <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl lg:mb-10">
                         ADOPTA
                     </h1>
                     <p className="font-inter text-lg text-white lg:text-2xl">
