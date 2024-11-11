@@ -40,10 +40,6 @@ export const router = createBrowserRouter([
                 element: <Registro />,
             },
             {
-                path: 'historiasDeAdopcion',
-                element: <HistoriasDeAdopciones />,
-            },
-            {
                 path: 'nav',
                 element: <Navbar />,
             },

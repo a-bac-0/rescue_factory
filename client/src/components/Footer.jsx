@@ -25,7 +25,7 @@ const Footer = () => {
 
   const sectionsContainerStyle = {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
     gap: '10px',
     listStyleType: 'none',
     padding: 0,
@@ -61,10 +61,8 @@ const Footer = () => {
         <ul style={sectionsContainerStyle}>
           <li style={sectionTitleStyle}>SECCIONES</li>
           <li><Link to="/adopciones">Adopciones</Link></li>
-          <li><Link to="/historiasDeAdopcion">Historias</Link></li>
           <li><Link to="/noticias">Noticias</Link></li>
           <li><Link to="/registro">Registro</Link></li>
-          <li><Link to="/voluntariado">Voluntariado</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/contacto">Contacto</Link></li>
         </ul>
