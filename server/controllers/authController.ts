@@ -48,7 +48,7 @@ export const registerController = async (req: Request, res: Response) => {
         // Verificar si el correo ya está registrado
         const existingUserByEmail = await userModel.findOne({ where: { email } });
         if (existingUserByEmail) {
-            return res.status(409).json({ message: "El email ya está registrado" });
+             res.status(409).json({ message: "El email ya está registrado" });
         }
 
         // Crear el nuevo usuario
