@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { createMessage } from "../services/Contact_messagesServices.js"
+
 
 const ContactForm = () => {
   const [formData, setFormData] = React.useState({
@@ -15,8 +17,9 @@ const ContactForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage("");
 
     if (
       !formData.first_name ||
@@ -24,24 +27,28 @@ const ContactForm = () => {
       !formData.email ||
       !formData.message
     ) {
-      setError("Por favor llenar todos los campos.");
-      setSuccessMessage("");
-      return;
+      return setError("Por favor llenar todos los campos.");
+      
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError(
+     return setError(
         "Por favor, introduzca un email válido que contenga '@' y un dominio."
       );
-      setSuccessMessage("");
-      return;
+      
     }
 
-    console.log("Data submitted:", formData);
-    setError(null);
-    setSuccessMessage("¡Se mensaje se ha enviado con éxito!");
-    setFormData({ first_name: "", last_name: "", email: "", message: "" }); // Reset form data
+    try {
+      setError(null);
+      const response = await createMessage(formData);
+      console.log("Response from server:", response);
+      setSuccessMessage("¡Se mensaje se ha enviado con éxito!");
+      setFormData({ first_name: "", last_name: "", email: "", message: "" }); // Resetea formulario
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setError("Ocurrió un error al enviar el mensaje. Por favor, intente nuevamente.");
+    }
   };
 
   return (
@@ -72,6 +79,7 @@ const ContactForm = () => {
               name="first_name"
               value={formData.first_name}
               onChange={handleChange}
+              aria-label="Nombre"
               className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -88,6 +96,7 @@ const ContactForm = () => {
               name="last_name"
               value={formData.last_name}
               onChange={handleChange}
+              aria-label="Apellido"
               className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -104,6 +113,7 @@ const ContactForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              aria-label="Email"
               className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -120,12 +130,13 @@ const ContactForm = () => {
               value={formData.message}
               onChange={handleChange}
               rows={4}
+              aria-label="Mensaje"
               className="border border-gray-300 text-black rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
           <button
             type="submit"
-            className="w-[100%] h-[48px] px-[10px] py-[17px] bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center gap-2.5 inline-flex text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] align-center"
+            className="w-full h-12 px-4 py-2 bg-[#d1b85e] rounded-lg border-2 border-neutral-100 justify-center items-center text-[#31442c] text-lg font-bold font-['Inter'] leading-normal hover:bg-[#d6c99e] transition duration-300 focus:outline-none focus:ring focus:ring-neutral-100 active:bg-[#d1b85e] text-center"
           >
             Enviar
           </button>
