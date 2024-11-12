@@ -6,7 +6,7 @@ interface AdoptionAttributes {
     id?: number; // Puede ser opcional si es auto-incremental
     name: string;
     age: number;
-    sex: string;
+    sex: 'Male' | 'Female';
     category: 'Cat' | 'Dog' | 'Other'; // Cambia las opciones según tu lógica
     content: string;
     url_images: string;
@@ -22,7 +22,7 @@ class AdoptionModel extends Model<AdoptionAttributes, AdoptionCreationAttributes
     public id!: number;
     public name!: string;
     public age!: number;
-    public sex!: string;
+    public sex!: 'Male' | 'Female';
     public category!: 'Cat' | 'Dog' | 'Other'; // Cambia las opciones según tu lógica
     public content!: string;
     public url_images!: string;
