@@ -1,16 +1,20 @@
-import express from 'express' // Importa express como un módulo
-import connection_db from './database/db' // Importación de la conexión a la base de datos
-import commentModel from './models/commentsModel' // Importaciones de modelos
-import contactMessageModel from './models/contactModel'
-import postModel from './models/postsModel'
-import userModel from './models/usersModel'
-import adoptionModel from './models/adoptionsModel'
-import userRouter from './routes/usersRoutes'
-import cors from 'cors'
-import postRouter from './routes/postsRoutes'
-import commentRouter from './routes/commentsRoutes'
-import adoptionRouter from './routes/adoptionsRoutes'
-import authRouter from './routes/authRoutes'
+/// <reference path="./types/express.d.ts" />
+
+import express from 'express'; // Importa express como un módulo
+import connection_db from './database/db'; // Importación de la conexión a la base de datos
+import commentModel from './models/commentsModel'; // Importaciones de modelos
+import contactMessageModel from "./models/contactModel";
+import postModel from "./models/postsModel";
+import userModel from "./models/usersModel";
+import adoptionModel from "./models/adoptionsModel";
+import userRouter from './routes/usersRoutes';
+import cors from 'cors';
+import postRouter from './routes/postsRoutes';
+import commentRouter from './routes/commentsRoutes';
+import adoptionRouter from './routes/adoptionsRoutes';
+import authRouter from './routes/authRoutes';
+import { verifyTokenMiddleware } from './middleware/verifyTokenMiddleware'; // Asegúrate de que la ruta sea correcta
+
 
 // Crea una instancia de la aplicación express
 export const app = express()
@@ -20,11 +24,11 @@ app.use(cors())
 app.use(express.json())
 
 //Rutas
-app.use('/users', userRouter)
-app.use('/posts', postRouter)
-app.use('/posts/:postId/comments', commentRouter)
-app.use('/adoptions', adoptionRouter)
-app.use('/auth', authRouter)
+app.use('/users', verifyTokenMiddleware, userRouter);
+app.use('/posts', postRouter);
+app.use('/posts/:postId/comments',verifyTokenMiddleware, commentRouter)
+app.use('/adoptions', adoptionRouter);
+app.use("/auth", authRouter);
 
 // Función para inicializar la base de datos
 const initializeDatabase = async (): Promise<void> => {

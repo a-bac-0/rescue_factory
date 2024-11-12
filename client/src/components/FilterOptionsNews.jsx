@@ -5,9 +5,9 @@ import { useFilter } from '../layout/FilterContext'
 // Opciones de categorías
 const categoryOptions = [
     { label: 'Todas', value: 'Todas' },
-    { label: 'Mundo animal', value: 'Mundo_animal' },
-    { label: 'Cuidado animal', value: 'Cuidado_animal' },
-    { label: 'Adopciones de éxito', value: 'Adopciones_exito' },
+    { label: 'Mundo animal', value: 'noticias' },
+    { label: 'Cuidado animal', value: 'cuidado_animal' },
+    { label: 'Adopciones de éxito', value: 'adopcion' },
 ]
 
 // Opciones de likes
