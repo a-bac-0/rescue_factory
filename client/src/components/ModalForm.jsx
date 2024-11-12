@@ -31,7 +31,6 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
 
     // Estado imagen cargada
     const [imageFile, setImageFile] = useState(null)
-
     // Estado para manejar el estado de carga
     const [loading, setLoading] = useState(false)
 
@@ -59,6 +58,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                           user_id: initialData.user_id,
                           date: initialData.date,
                       }
+
             setFormData(relevantData)
         }
     }, [initialData, formType])
@@ -118,16 +118,19 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
+
         try {
             let imageUrl = formData.url_images
             if (imageFile) {
                 imageUrl = await uploadImageToCloudinary(imageFile)
             }
+
             // Creación un objeto con los datos del formulario
             const dataToSubmit = {
                 ...formData,
                 url_images: imageUrl,
             }
+
             if (formType === 'posts') {
                 // Si es un formulario de publicación, crea o actualiza la publicación
                 const postData = {
@@ -139,6 +142,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                     like_count: dataToSubmit.like_count,
                     date: dataToSubmit.date,
                 }
+
                 if (initialData) {
                     await updatePost(initialData.id, postData) // Actualiza la publicación si existe
                 } else {
@@ -156,12 +160,14 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                     user_id: dataToSubmit.user_id,
                     date: dataToSubmit.date,
                 }
+
                 if (initialData) {
                     await updateAdoption(initialData.id, adoptionData) // Actualiza la adopción si existe
                 } else {
                     await createAdoption(adoptionData) // Crea una nueva adopción
                 }
             }
+
             onClose()
         } catch (error) {
             console.error('Error submitting form:', error)
@@ -221,6 +227,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             />
                         </div>
                     )}
+
                     <div>
                         <label className="block mb-2 font-inter font-bold">
                             Categoría
@@ -234,36 +241,17 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             {(formType === 'posts'
                                 ? postCategories
                                 : adoptionCategories
-                            ).map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
+                            ).map((category) => (
+                                <option
+                                    key={category.value}
+                                    value={category.value}
+                                >
+                                    {category.label}
                                 </option>
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <label className="block mb-2 font-inter font-bold">
-                            Imagen
-                        </label>
-                        <input
-                            type="file"
-                            onChange={handleImageChange}
-                            className="w-full p-2 border rounded bg-[#D1B85E]"
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-2 font-inter font-bold">
-                            Contenido
-                        </label>
-                        <textarea
-                            name="content"
-                            value={formData.content}
-                            onChange={handleInputChange}
-                            rows="4"
-                            className="w-full p-2 border rounded bg-[#D1B85E]"
-                            required
-                        />
-                    </div>
+
                     {formType === 'adoptions' && (
                         <>
                             <div>
@@ -271,14 +259,16 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                                     Edad
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="age"
                                     value={formData.age}
                                     onChange={handleInputChange}
                                     className="w-full p-2 border rounded bg-[#D1B85E]"
                                     required
+                                    min="0"
                                 />
                             </div>
+
                             <div>
                                 <label className="block mb-2 font-inter font-bold">
                                     Sexo
@@ -301,13 +291,54 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             </div>
                         </>
                     )}
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-2 bg-[#D1B85E] text-white rounded hover:bg-[#B4A94D] transition"
-                    >
-                        {loading ? 'Cargando...' : 'Guardar'}
-                    </button>
+
+                    <div>
+                        <label className="block mb-2 font-inter font-bold">
+                            Contenido
+                        </label>
+                        <textarea
+                            name="content"
+                            value={formData.content}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border rounded h-32 bg-[#D1B85E]"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-inter font-bold">
+                            {formData.url_images && 'Actualizar '}Imagen
+                            {formData.url_images && ' (opcional)'}
+                        </label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="w-full p-2 border rounded"
+                            required={!formData.url_images}
+                        />
+                    </div>
+
+                    <div className="flex justify-end gap-4">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="px-4 py-2 border rounded hover:bg-gray-100"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="px-4 py-2 bg-[#D1B85E] text-black rounded hover:bg-[#77633D] disabled:bg-blue-300"
+                        >
+                            {loading
+                                ? 'Guardando...'
+                                : initialData
+                                ? 'Actualizar'
+                                : 'Guardar'}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
