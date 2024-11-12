@@ -10,10 +10,13 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { deletePost } from '../services/PostsServices'
 import { deleteAdoption } from '../services/AdoptionsServices'
 import ModalForm from '../components/ModalForm'
+import SendComment from '../components/SendComment'
 
 const Article = () => {
+    //UseParams para obtener parámetros de URL: id y artículo
     const { id, type } = useParams()
     const navigate = useNavigate()
+
     const [data, setData] = useState({})
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
@@ -21,7 +24,7 @@ const Article = () => {
     const [likeCount, setLikeCount] = useState(0)
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
 
-    // Mover fetchData fuera del useEffect para poder reutilizarla
+    // Obtención de los datos del artículo (posts o adoptions) y del usuario
     const fetchData = async () => {
         setLoading(true)
         try {
@@ -31,30 +34,30 @@ const Article = () => {
             } else if (type === 'adoptions') {
                 result = await getAdoptionsById(id)
             }
-
             setData(result)
 
+            // Verificación si el artículo ya ha sido marcado con like
             const likedItems =
                 JSON.parse(localStorage.getItem('likedItems')) || {}
             setIsLiked(likedItems[id] || false)
             setLikeCount(result.like_count || 0)
 
+            // Se obtiene el user_id del artículo
             if (result.user_id) {
                 const userResult = await getUsersById(result.user_id)
                 setUser(userResult)
             }
-
             setLoading(false)
         } catch (error) {
             console.error('Error obteniendo los datos:', error)
             setLoading(false)
         }
     }
-
     useEffect(() => {
         fetchData()
-    }, [id, type]) // Añadir fetchData a las dependencias no es necesario ya que es estable
+    }, [id, type])
 
+    // Manejo de la función de click en LikeButton
     const handleLikeClick = async () => {
         const newLikeStatus = !isLiked
         const newLikeCount = newLikeStatus ? likeCount + 1 : likeCount - 1
@@ -64,9 +67,11 @@ const Article = () => {
                 await toggleLike(id, newLikeCount)
             }
 
+            // Actualización del like y el contador
             setIsLiked(newLikeStatus)
             setLikeCount(newLikeCount)
 
+            // Guardamos el estado del like en localStorage para que se guarde cuando navegamos a otra parte de la web
             const likedItems =
                 JSON.parse(localStorage.getItem('likedItems')) || {}
             if (newLikeStatus) {
@@ -80,10 +85,12 @@ const Article = () => {
         }
     }
 
+    // Función para abrir el modal de actualizar
     const handleUpdateClick = () => {
         setIsUpdateModalOpen(true)
     }
 
+    // Función para eliminar
     const handleDeleteClick = async () => {
         const confirmation = window.confirm(
             `¿Estás seguro de eliminar esta ${
@@ -97,6 +104,7 @@ const Article = () => {
                 } else {
                     await deleteAdoption(data.id)
                 }
+                // Si es eliminado dentro de article redirige un paso atrás en la navegación
                 navigate(-1)
             } catch (error) {
                 console.error(
@@ -109,6 +117,7 @@ const Article = () => {
         }
     }
 
+    // Mensaje de carga mientras los datos están siendo obtenidos
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -155,18 +164,16 @@ const Article = () => {
                             size={25}
                             onClick={handleUpdateClick}
                         />
-
                         {isUpdateModalOpen && (
                             <ModalForm
                                 onClose={() => {
                                     setIsUpdateModalOpen(false)
-                                    fetchData() // Llamar a fetchData después de cerrar el modal
+                                    fetchData()
                                 }}
                                 formType={type}
                                 initialData={data}
                             />
                         )}
-
                         <MdDeleteOutline
                             className="text-red-500 cursor-pointer hover:text-red-700"
                             size={25}
@@ -189,11 +196,15 @@ const Article = () => {
             </div>
             {type === 'posts' && (
                 <div className="flex w-full bg-customGreen pb-16 flex-col items-center justify-start">
-                    <div className="w-[80%] relative">
+                    <div className="w-[80%] relative flex flex-col">
                         <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
                             COMENTARIOS
                         </h1>
                         <BoxComments post_id={id} />
+                        <h3 className="text-[#76816A] text-2xl  font-semibold mb-2 mt-16 lg:text-3xl">
+                            Deja tu comentario
+                        </h3>
+                        <SendComment post_id={id} />
                     </div>
                 </div>
             )}
