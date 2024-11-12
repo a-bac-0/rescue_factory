@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import connection_db from "../database/db";
 
 // Definimos los valores posibles para category y status
-type Category = 'noticias' | 'cuidado_animal' | 'adopcion';
+type Category = 'noticias' | 'cuidado_animal' | 'adopciones';
 type Status = 'active' | 'inactive';
 
 // Definimos una interfaz para los atributos del modelo
@@ -62,7 +62,7 @@ const postModel = connection_db.define<PostModel>(
             },
         },
         category: {
-            type: DataTypes.ENUM('mundo_animal', 'cuidado_animal', 'adopciones'), // Define los valores posibles para el ENUM
+            type: DataTypes.ENUM('noticias', 'cuidado_animal', 'adopciones'), // Define los valores posibles para el ENUM
             allowNull: false,
         },
         status: {

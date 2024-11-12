@@ -4,6 +4,14 @@ import userModel from "../models/usersModel";
 import { encrypt } from "../utils/handlePassword";
 import { describe, beforeEach, it, expect } from "@jest/globals";
 
+// Función para crear un usuario
+const createUser = async (userData: { email: string, password: string, name: string, role: string }) => {
+  return userModel.create({
+    ...userData,
+    password: await encrypt(userData.password),
+  });
+};
+
 describe("Auth Controller", () => {
   beforeEach(async () => {
     await userModel.destroy({ where: {} }); // Limpia la BD antes de cada test
@@ -16,7 +24,7 @@ describe("Auth Controller", () => {
         name: "testuser",
         email: "test@test.com",
         password: "password123", 
-        role:"user"       
+        role: "user"       
       };
 
       const response = await request(app)
@@ -33,14 +41,11 @@ describe("Auth Controller", () => {
         name: "testuser",
         email: "test@test.com",
         password: "password123",
-        role:"user"
+        role: "user"
       };
 
       // Primer registro
-      await userModel.create({
-        ...userData,
-        password: await encrypt(userData.password),
-      });
+      await createUser(userData);
 
       // Intento de registro duplicado
       const response = await request(app)
@@ -52,13 +57,14 @@ describe("Auth Controller", () => {
     });
 
     it("debería Iniciar sesión", async () => {
-        const userData = {
-            name: "testuser",
-            email: "test@test.com",
-            password: "password123", 
-            role:"user"       
-          };
+      const userData = {
+        name: "testuser",
+        email: "test@test.com",
+        password: "password123", 
+        role: "user"       
+      };
 
+      // Registro del usuario
       const responseR = await request(app)
         .post("/auth/register")
         .send(userData)
@@ -67,6 +73,7 @@ describe("Auth Controller", () => {
       expect(responseR.body.message).toBe("Usuario creado exitosamente");
       expect(responseR.body.user.email).toBe(userData.email);
 
+      // Login del usuario
       const response = await request(app)
         .post("/auth/login")
         .send(userData)
@@ -77,17 +84,24 @@ describe("Auth Controller", () => {
 
     it("debería rechazar un inicio de sesión con credenciales incorrectas", async () => {
       const userData = {
-            name: "testuser",
-            email: "test@test.com",
-            password: "password123", 
-            role:"user"       
-          };
+        name: "testuser",
+        email: "test@test.com",
+        password: "password123", 
+        role: "user"
+      };
+
+      // Primero, registra al usuario
+      await createUser(userData);
+
+      // Intento de login con credenciales incorrectas
+      const incorrectCredentials = { ...userData, password: "wrongpassword" };
 
       const response = await request(app)
         .post("/auth/login")
-        .send(userData)
+        .send(incorrectCredentials)
         .expect(400);
+
       expect(response.body.message).toBe("Credenciales incorrectas");
-    });    
+    });
   });
 });
