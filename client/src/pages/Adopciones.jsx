@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import HeaderAdoptions from '../assets/images/Header_adoptions.svg'
+import Header_adoptions from '../assets/images/Header_adoptions.svg'
+import Header_adoptions_desktop from '../assets/images/Header_adoptions_desktop.svg'
 import Card from '../components/Card'
 import FilterOptionsAdoptions from '../components/FilterOptionsAdoptions'
 import { useFilter } from '../layout/FilterContext'
@@ -9,11 +10,15 @@ import MyButton from '../components/Button'
 import ModalForm from '../components/ModalForm'
 
 const Adopciones = () => {
+    // Contexto para acceder a los filtros
     const { filters } = useFilter()
+    // Estado para almacenar los posts y los usuarios
     const [adoptions, setAdoptions] = useState([])
     const [users, setUsers] = useState([])
+    // Control de visibilidad del modal
     const [isModalOpen, setIsModalOpen] = useState(false)
 
+    // Obtención datos de adoptions y users
     const fetchData = async () => {
         try {
             const [adoptionsData, usersData] = await Promise.all([
@@ -26,16 +31,17 @@ const Adopciones = () => {
             console.error('Error al obtener los datos:', error)
         }
     }
-
     useEffect(() => {
         fetchData()
     }, [])
 
+    // Cierre del modal al crear una adopción
     const handleCloseModal = () => {
         setIsModalOpen(false)
         fetchData()
     }
 
+    // Actualización del adoption cuando ha sido editado
     const handleCardUpdate = async (updatedAdoption) => {
         setAdoptions((currentAdoptions) =>
             currentAdoptions.map((adoption) =>
@@ -44,15 +50,18 @@ const Adopciones = () => {
         )
     }
 
+    // Fitrado de adopciones según los valores seleccionados
     const filteredAdoptions = adoptions.filter((adoption) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
             adoption.category === filters.category.value
 
+        // Verificación si el filtro sexo esta en cualquiera (todos) o si esta seleccionado alguna de las opciones
         const matchesSex =
             filters.sex.value === 'Cualquiera' ||
             adoption.sex === filters.sex.value
 
+        // Verificación si el filtro edad esta en cualquiera o esta seleccionada alguna de las opciones
         const matchesAge =
             filters.age.value === 'Cualquiera' ||
             (filters.age.value === '1 a 4 años' &&
@@ -63,20 +72,25 @@ const Adopciones = () => {
                 parseInt(adoption.age) <= 8) ||
             (filters.age.value === 'Más de 8 años' &&
                 parseInt(adoption.age) > 8)
-
         return matchesCategory && matchesSex && matchesAge
     })
 
     return (
         <div className="min-h-screen w-full object-cover m-0 bg-[#76816A]">
             <img
-                src={HeaderAdoptions}
+                src={Header_adoptions_desktop}
                 alt="Header Adoptions"
-                className="w-full h-auto"
+                className="w-full h-auto object-cover hidden md:block"
+            />
+
+            <img
+                src={Header_adoptions}
+                alt="Header Adoptions"
+                className="w-full h-auto object-cover block md:hidden"
             />
             <div className="flex items-center flex-col mb-26 mt-6 w-full lg:mt-0">
                 <div className="w-[80%] mb-28">
-                    <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl">
+                    <h1 className="font-inter text-5xl font-bold text-white mb-5 lg:text-7xl lg:mb-10">
                         ADOPTA
                     </h1>
                     <p className="font-inter text-lg text-white lg:text-2xl">
@@ -103,7 +117,7 @@ const Adopciones = () => {
                     <MyButton
                         label="Publicar Adopción"
                         onClick={() => setIsModalOpen(true)}
-                        className="w-[78vw] p-2 flex lg:w-[29.7%] lg:ml-[3.2vw] items-center mb-10 font-inter font-bold text-black "
+                        className="w-[78vw] p-2 flex lg:w-[29.7%] lg:ml-[3.2vw] items-center mb-10 font-inter font-bold text-black"
                     />
                     {isModalOpen && (
                         <ModalForm

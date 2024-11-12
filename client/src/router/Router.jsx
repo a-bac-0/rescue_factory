@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <Login />,
+                element: <LoginForm />,
             },
             {
                 path: 'adopciones',

@@ -1,4 +1,4 @@
-import userModel from "../models/usersModel";
+import userModel, {UserAttributes} from "../models/usersModel";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import { handleHttpError } from "../utils/handleError";
@@ -8,7 +8,6 @@ import { tokenSign } from "../utils/handleJwt";
 dotenv.config();
 
 // LOGIN
-
 export const loginController = async (req: Request, res: Response) => {
     try {
         const userEmail = req.body.email;
@@ -22,6 +21,7 @@ export const loginController = async (req: Request, res: Response) => {
         
         const passwordHashed = user.password;
         const checkPasswords = await compare(loginPassword, passwordHashed);
+    
 
         if (!checkPasswords) {
             handleHttpError(res, "PASSWORD_INVALID", 401);
@@ -30,11 +30,10 @@ export const loginController = async (req: Request, res: Response) => {
 
         const sessionData = {
             token: await tokenSign(user),
-            user: user,
+            user: user
         };
 
-        // Solo enviamos la respuesta una vez.
-        res.send({ sessionData }); // Respuesta final sin continuar la ejecución.
+        res.send({ sessionData });
     } catch (error) {
         console.log(error);
         handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
@@ -42,17 +41,18 @@ export const loginController = async (req: Request, res: Response) => {
 };
 
 // REGISTER
-
 export const registerController = async (req: Request, res: Response) => {
     try {
         const { name, email, password, role = "user" } = req.body;
         const passwordHash = await encrypt(password);
 
+        // Verificar si el correo ya está registrado
         const existingUserByEmail = await userModel.findOne({ where: { email } });
         if (existingUserByEmail) {
-            res.status(409).json({ message: "El email ya está registrado" });
+            return res.status(409).json({ message: "El email ya está registrado" });
         }
 
+        // Crear el nuevo usuario
         const newUser = await userModel.create({
             name,
             email,
@@ -60,17 +60,23 @@ export const registerController = async (req: Request, res: Response) => {
             role,
         });
 
-        // Generar el token para el usuario registrado
-        const sessionData = {
-            token: await tokenSign(newUser), // Generar token para el nuevo usuario
-            user: newUser,
+        // Crear un objeto sin la propiedad 'password'
+        const userWithoutPassword = {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            role: newUser.role,
         };
 
-        // Solo enviamos la respuesta una vez.
+        // Generar el token para el usuario registrado
+        const sessionData = {
+            token: await tokenSign(newUser),
+            user: userWithoutPassword,
+        };
+
         res.status(201).json({
             message: "Usuario creado exitosamente",
-            user: newUser,
-            sessionData: sessionData,
+            sessionData,
         });
     } catch (error) {
         console.error(error);
@@ -80,3 +86,4 @@ export const registerController = async (req: Request, res: Response) => {
 };
 
 // (OPCIONAL) LOGOUT - REFRESH TOKEN
+

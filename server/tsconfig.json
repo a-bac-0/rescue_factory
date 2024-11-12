@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2016", 
-    "module": "commonjs",                                
-    "esModuleInterop": true,      //para los test                       
+    "target": "es2016",
+    "module": "commonjs",                                 
+    "esModuleInterop": true,      
     "forceConsistentCasingInFileNames": true,           
     "strict": true,                                    
     "skipLibCheck": true                               
-  }
+  },
+  "include": [
+    "./**/*.ts",            // Incluye todos los archivos .ts dentro de `server`
+    "./types/**/*.d.ts"     // Incluye los archivos de declaración en `server/types`
+  ]
 }

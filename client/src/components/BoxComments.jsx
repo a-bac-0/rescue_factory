@@ -8,6 +8,7 @@ const BoxComments = ({ post_id }) => {
     const [comments, setComments] = useState([])
     const [users, setUsers] = useState({})
 
+    // Eliminación del comentario
     const handleDeleteClick = async (commentId) => {
         const confirmation = window.confirm(
             '¿Estás seguro de eliminar este comentario?'
@@ -24,15 +25,13 @@ const BoxComments = ({ post_id }) => {
         }
     }
 
+    // UseEffect para cargar los comentarios y usuarios
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const commentData = await getCommentsByPostId(post_id)
-
                 if (Array.isArray(commentData) && commentData.length > 0) {
                     setComments(commentData)
-
-                    // Obtenemos los usuarios por Id
                     const userIds = [
                         ...new Set(
                             commentData.map((comment) => comment.user_id)
@@ -41,8 +40,6 @@ const BoxComments = ({ post_id }) => {
                     const userDataArray = await Promise.all(
                         userIds.map((id) => getUsersById(id))
                     )
-
-                    // Almacenamos los datos de los usuarios por ID
                     const userData = {}
                     userDataArray.forEach((user) => {
                         userData[user.id] = user
@@ -59,8 +56,9 @@ const BoxComments = ({ post_id }) => {
     return (
         <div className="w-full h-auto flex flex-col mt-7">
             {comments.length === 0 ? (
-                <p className="font-inter text-sm text-gray-600 mt-2">
-                    No hay comentarios aún.
+                <p className="font-inter text-sm text-black mt-2">
+                    No hay comentarios aún. Se el primero en comentar esta
+                    noticia
                 </p>
             ) : (
                 comments.map((comment) => (

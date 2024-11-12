@@ -5,6 +5,7 @@ import { createPost, updatePost } from '../services/PostsServices'
 import { createAdoption, updateAdoption } from '../services/AdoptionsServices'
 
 const ModalForm = ({ onClose, formType, initialData = null }) => {
+    // Inicialización dependiendo del tipo de dato (posts o adoptions)
     const [formData, setFormData] = useState(
         formType === 'posts'
             ? {
@@ -28,12 +29,14 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
               }
     )
 
+    // Estado imagen cargada
     const [imageFile, setImageFile] = useState(null)
+    // Estado para manejar el estado de carga
     const [loading, setLoading] = useState(false)
 
+    // Inicialización con datos existentes
     useEffect(() => {
         if (initialData) {
-            // Solo copiar los campos relevantes según el tipo
             const relevantData =
                 formType === 'posts'
                     ? {
@@ -60,6 +63,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         }
     }, [initialData, formType])
 
+    // Definición de categorías para cada tipo de formulario
     const postCategories = [
         { label: 'Mundo animal', value: 'Mundo_animal' },
         { label: 'Cuidado animal', value: 'Cuidado_animal' },
@@ -71,11 +75,13 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         { label: 'Gatos', value: 'Gatos' },
     ]
 
+    // Opciones de sexo para las adopciones
     const sexOptions = [
         { label: 'Macho', value: 'Macho' },
         { label: 'Hembra', value: 'Hembra' },
     ]
 
+    // Función para manejar cambios en los campos de entrada del formulario
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData((prev) => ({
@@ -84,19 +90,21 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         }))
     }
 
+    // Función para manejar cambios en el archivo de imagen
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         setImageFile(file)
     }
 
+    // Función para cargar la imagen a Cloudinary
     const uploadImageToCloudinary = async (file) => {
         const formData = new FormData()
         formData.append('file', file)
-        formData.append('upload_preset', 'your_upload_preset')
+        formData.append('upload_preset', 'your_upload_preset') // Modificar para conectar a cloudinary
 
         try {
             const response = await axios.post(
-                'https://api.cloudinary.com/v1_1/your_cloud_name/image/upload',
+                'https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', // Modificar con enlace a cloudinary
                 formData
             )
             return response.data.secure_url
@@ -106,6 +114,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         }
     }
 
+    // Función para el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -116,13 +125,14 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 imageUrl = await uploadImageToCloudinary(imageFile)
             }
 
+            // Creación un objeto con los datos del formulario
             const dataToSubmit = {
                 ...formData,
                 url_images: imageUrl,
             }
 
             if (formType === 'posts') {
-                // Asegurarse de que solo se envíen campos relevantes para posts
+                // Si es un formulario de publicación, crea o actualiza la publicación
                 const postData = {
                     title: dataToSubmit.title,
                     content: dataToSubmit.content,
@@ -134,12 +144,12 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updatePost(initialData.id, postData)
+                    await updatePost(initialData.id, postData) // Actualiza la publicación si existe
                 } else {
-                    await createPost(postData)
+                    await createPost(postData) // Crea una nueva publicación
                 }
             } else {
-                // Asegurarse de que solo se envíen campos relevantes para adoptions
+                // Si es un formulario de adopción, crea o actualiza la adopción
                 const adoptionData = {
                     name: dataToSubmit.name,
                     content: dataToSubmit.content,
@@ -152,9 +162,9 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updateAdoption(initialData.id, adoptionData)
+                    await updateAdoption(initialData.id, adoptionData) // Actualiza la adopción si existe
                 } else {
-                    await createAdoption(adoptionData)
+                    await createAdoption(adoptionData) // Crea una nueva adopción
                 }
             }
 
