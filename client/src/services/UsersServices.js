@@ -55,3 +55,13 @@ export const deleteUser = async (id) => {
         throw error
     }
 }
+
+export const loginUser = async (email, password) => {
+    try {
+        const response = await axios.post(`${BaseUrl}/login`, { email, password });
+        return response.data;
+    } catch (error) {
+        console.error("Error al autenticar el usuario", error);
+        throw error;
+    }
+};
