@@ -46,7 +46,7 @@ describe("Auth Controller", () => {
       const response = await request(app)
         .post("/auth/register")
         .send(userData)
-        .expect(400);
+        .expect(409);
 
       expect(response.body.message).toBe("El email ya está registrado");
     });

@@ -66,16 +66,15 @@ export const registerController = async (req: Request, res: Response) => {
             role: newUser.role,
         };
 
-        // Generar el token para el usuario registrado
-        const sessionData = {
-            token: await tokenSign(newUser),
-            user: userWithoutPassword,
-        };
+         // Generar el token para el usuario registrado
+         const token = await tokenSign(newUser);
 
-        res.status(201).json({
-            message: "Usuario creado exitosamente",
-            sessionData,
-        });
+         // Cambiar la estructura de la respuesta para el test
+         res.status(201).json({
+             message: "Usuario creado exitosamente",
+             user: userWithoutPassword, // Ahora `user` está directamente en el nivel superior
+             token, // Incluir el token en el nivel superior también
+         });
     } catch (error) {
         console.error(error);
         // En caso de error, enviamos el mensaje correspondiente.
