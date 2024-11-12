@@ -9,7 +9,7 @@ import { deletePost } from '../services/PostsServices'
 import { deleteAdoption } from '../services/AdoptionsServices'
 import ModalForm from '../components/ModalForm'
 
-// Constantes para límites de caracteres
+// Limite de carácteres dependiendo del tamaño de la pantalla
 const CHAR_LIMIT_SMALL = 70
 const CHAR_LIMIT_MEDIUM = 200
 const CHAR_LIMIT_LARGE = 320
@@ -22,6 +22,7 @@ const Card = ({ datatype, data, onUpdate }) => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
     const [cardData, setCardData] = useState(data)
 
+    // Establecemos los tamaños de pantalla ligados al límite de carácteres
     useEffect(() => {
         const updateCharLimit = () => {
             if (window.innerWidth >= 1024) {
@@ -37,6 +38,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         return () => window.removeEventListener('resize', updateCharLimit)
     }, [])
 
+    // UseEffect para mostrar el estado inicial del like (activado o no) y el contador
     useEffect(() => {
         if (datatype === 'posts') {
             const likedItems = JSON.parse(
@@ -47,6 +49,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         setLikeCount(cardData.like_count)
     }, [cardData.id, cardData.like_count, datatype])
 
+    // Obtención del user_id del post o el adoption
     useEffect(() => {
         const fetchUser = async () => {
             if (cardData.user_id) {
@@ -57,6 +60,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         fetchUser()
     }, [cardData.user_id])
 
+    // Función para limitar el texto mostrado en la card. Limite a través de palabras completas
     const truncateContent = (text) => {
         const limit = datatype === 'adoptions' ? CHAR_LIMIT_SMALL : charLimit
         const words = text.split(' ')
@@ -68,6 +72,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         return truncatedText.trim() + ' (...)'
     }
 
+    // Manejo de los clics en el LikeButton y su actualización en la base de datos
     const handleLikeClick = async (e) => {
         e.stopPropagation()
         if (datatype !== 'posts') return
@@ -91,11 +96,13 @@ const Card = ({ datatype, data, onUpdate }) => {
         }
     }
 
+    // Apertura del modal
     const handleUpdateClick = (e) => {
         e.stopPropagation()
         setIsUpdateModalOpen(true)
     }
 
+    // Cierre del modal y actualización de los datos, si la ha habido
     const handleModalClose = async (updatedData) => {
         setIsUpdateModalOpen(false)
         if (updatedData) {
@@ -106,6 +113,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         }
     }
 
+    // Eliminación del artículo y actualización
     const handleDeleteClick = async (e) => {
         e.stopPropagation()
         const confirmation = window.confirm(
@@ -132,7 +140,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         }
     }
 
-    // Estilos para los componentes de adopciones
+    // Estilos para adoptions
     const adoptionsStyles = {
         cardContainer:
             'bg-white items-center w-[330px] h-[auto] pb-5 flex flex-col shadow-md cursor-pointer hover:scale-102 transition-transform duration-300',
@@ -147,7 +155,7 @@ const Card = ({ datatype, data, onUpdate }) => {
         iconContainer: 'flex justify-center mt-2 gap-4',
     }
 
-    // Estilos vinculados al tipo de datos "posts"
+    // Estilos para posts
     const postsStyles = {
         cardContainer:
             'bg-white shadow-lg w-[90vw] h-[auto] lg:w-full -center flex flex-row hover:scale-102 transition-transform duration-300',
