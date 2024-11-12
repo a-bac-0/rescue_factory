@@ -1,34 +1,61 @@
 import React, { useEffect, useState } from 'react'
 import newsHeader from '../assets/images/newsHeader.svg'
+import newsHeaderDesktop from '../assets/images/newsHeaderDesktop.svg'
 import Card from '../components/Card'
 import FilterOptionsNews from '../components/FilterOptionsNews'
 import { useFilter } from '../layout/FilterContext'
 import { getPosts } from '../services/PostsServices'
 import { getUsers } from '../services/UsersServices'
+import MyButton from '../components/Button'
+import ModalForm from '../components/ModalForm'
 
 const Noticias = () => {
+    // Contexto para acceder a los filtros
     const { filters } = useFilter()
+    // Estado para almacenar los posts y los usuarios
     const [posts, setPosts] = useState([])
     const [users, setUsers] = useState([])
+    // Control de visibilidad del modal
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [postsData, usersData] = await Promise.all([
-                    getPosts(),
-                    getUsers(),
-                ])
-                setPosts(postsData)
-                setUsers(usersData)
-            } catch (error) {
-                console.error('Error fetching data:', error)
-            }
+    // Obtención datos de posts y users
+    const fetchData = async () => {
+        try {
+            const [postsData, usersData] = await Promise.all([
+                getPosts(),
+                getUsers(),
+            ])
+            setPosts(postsData)
+            setUsers(usersData)
+        } catch (error) {
+            console.error('Error al obtener los datos:', error)
         }
-
+    }
+    useEffect(() => {
         fetchData()
     }, [])
 
-    // Filtrar posts según las opciones seleccionadas
+    // Apertura del modal
+    const handleOpenModal = () => {
+        setIsModalOpen(true)
+    }
+
+    // Cierre del modal después de crear una nueva noticia
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        fetchData()
+    }
+
+    // Actualización del post cuando ha sido editado
+    const handleCardUpdate = async (updatedPost) => {
+        setPosts((currentPosts) =>
+            currentPosts.map((post) =>
+                post.id === updatedPost.id ? updatedPost : post
+            )
+        )
+    }
+
+    // Filtrado de noticias por categoría seleccionada
     const filteredNews = posts.filter((post) => {
         const matchesCategory =
             filters.category.value === 'Todas' ||
@@ -36,29 +63,34 @@ const Noticias = () => {
         return matchesCategory
     })
 
-    // Ordenar posts
+    // Orden de noticias según likes y fechas
     const sortedNews = filteredNews.sort((a, b) => {
         if (filters.date.value === 'Más recientes') {
             return new Date(b.date) - new Date(a.date)
         } else if (filters.date.value === 'Menos recientes') {
             return new Date(a.date) - new Date(b.date)
         }
-
+        // Orden de noticias según likes, descendiente o ascendiente
         if (filters.like_count.value === 'des') {
             return b.like_count - a.like_count
         } else if (filters.like_count.value === 'asc') {
             return a.like_count - b.like_count
         }
-
         return 0
     })
 
     return (
         <div className="min-h-screen w-full bg-[#76816A]">
             <img
+                src={newsHeaderDesktop}
+                alt="Header News"
+                className="w-full h-auto object-cover hidden md:block"
+            />
+
+            <img
                 src={newsHeader}
-                alt="Header Noticias"
-                className="w-full h-auto"
+                alt="Header News"
+                className="w-full h-auto object-cover block md:hidden"
             />
             <div className="flex flex-col items-center mt-6 w-full lg:mt-0">
                 <div className="w-[80%] mb-20">
@@ -68,6 +100,19 @@ const Noticias = () => {
                 </div>
                 <div className="max-w-[1400px] flex flex-col items-center w-[90%] mx-auto">
                     <FilterOptionsNews />
+                    <div className="w-full flex justify-center lg:w-[29,7%] lg:ml-[6vw] sm:justify-start mb-10 ">
+                        <MyButton
+                            label="Publicar Noticia"
+                            className="w-[78vw] p-2 flex sm:w-[30%] items-center mb-10 font-inter font-bold text-black "
+                            onClick={handleOpenModal}
+                        />
+                    </div>
+                    {isModalOpen && (
+                        <ModalForm
+                            onClose={handleCloseModal}
+                            formType="posts"
+                        />
+                    )}
                     <div className="gap-20 grid grid-cols-1 mb-20 w-[93%] justify-items-center">
                         {sortedNews.map((post) => {
                             const user = users.find(
@@ -84,6 +129,7 @@ const Noticias = () => {
                                     key={post.id}
                                     datatype="posts"
                                     data={postWithUserName}
+                                    onUpdate={handleCardUpdate}
                                 />
                             )
                         })}
