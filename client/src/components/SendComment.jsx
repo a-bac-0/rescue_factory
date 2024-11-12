@@ -7,23 +7,27 @@ const SendComment = () => {
     const [content, setContent] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [showWarning, setShowWarning] = useState(false)
+
+    // Extracción del post_id desde la url
     const { id: post_id } = useParams()
 
+    // Función manejo de envío del formulario
     const handleSubmit = async (e) => {
-        e.preventDefault()
-
-        // Verifica si el contenido cumple con los requisitos de longitud
+        // Verificación de longitud minima y máxima
         if (content.trim().length < 40 || content.trim().length > 150) {
-            setShowWarning(true) // Muestra la advertencia
+            setShowWarning(true)
             return
         }
 
+        // Si el contenido es válido, comienza el proceso de envío
         setIsSubmitting(true)
-        setShowWarning(false) // Oculta la advertencia si el envío es exitoso
+        setShowWarning(false)
 
         try {
+            // Obtiene el id del usuario desde localStorage
             const user_id = localStorage.getItem('userId')
 
+            // Crea del objeto con los valores marcados en la base de datos
             const commentData = {
                 content: content.trim(),
                 post_id: parseInt(post_id),
@@ -31,8 +35,8 @@ const SendComment = () => {
                 date: new Date().toISOString().split('T')[0],
             }
 
+            // Función para crear un comentario
             await createComment(commentData)
-
             setContent('')
         } catch (error) {
             console.error('Error al enviar el comentario:', error)
@@ -44,11 +48,12 @@ const SendComment = () => {
         }
     }
 
+    // Función que maneja el cambio en el campo de texto del comentario
     const handleContentChange = (e) => {
         if (e.target.value.length <= 150) {
             setContent(e.target.value)
         }
-        setShowWarning(false) // Oculta la advertencia cuando el usuario está escribiendo
+        setShowWarning(false)
     }
 
     return (
