@@ -8,36 +8,40 @@ import { tokenSign } from "../utils/handleJwt";
 dotenv.config();
 
 // LOGIN
-export const loginController = async (req: Request, res: Response) => {
-    try {
-        const userEmail = req.body.email;
-        const loginPassword = req.body.password;
+export const loginController = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
 
-        const user = await userModel.findOne({ where: { email: userEmail } });
-        if (!user) {
-            handleHttpError(res, "USER_NOT_EXISTS", 404);
-            return;
-        }
-        
-        const passwordHashed = user.password;
-        const checkPasswords = await compare(loginPassword, passwordHashed);
-    
+  try {
+      const user = await userModel.findOne({ where: { email } });
+      if (!user) {
+          res.status(400).json({ message: 'Credenciales incorrectas' });
+          return;
+      }
 
-        if (!checkPasswords) {
-            handleHttpError(res, "PASSWORD_INVALID", 401);
-            return;
-        }
+      const isMatch = await compare(password, user.password); // Usamos la función compare
+      if (!isMatch) {
+          res.status(400).json({ message: 'Credenciales incorrectas' });
+          return;
+      }
 
-        const sessionData = {
-            token: await tokenSign(user),
-            user: user
-        };
+      const token = tokenSign(user); // Generamos el token JWT
 
-        res.send({ sessionData });
-    } catch (error) {
-        console.log(error);
-        handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
-    }
+      // Crear un objeto sin la propiedad 'password' para incluir en la respuesta
+      const userWithoutPassword = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+      };
+
+      res.json({ message: 'Inicio de sesión exitoso', token, user: userWithoutPassword });
+  } catch (error) {
+      if (error instanceof Error) {
+          res.status(500).json({ message: 'Error en el servidor', error: error.message });
+      } else {
+          res.status(500).json({ message: 'Error en el servidor', error });
+      }
+  }
 };
 
 // REGISTER
@@ -49,7 +53,8 @@ export const registerController = async (req: Request, res: Response) => {
         // Verificar si el correo ya está registrado
         const existingUserByEmail = await userModel.findOne({ where: { email } });
         if (existingUserByEmail) {
-            return res.status(409).json({ message: "El email ya está registrado" });
+            res.status(409).json({ message: "El email ya está registrado" });
+            return;
         }
 
         // Crear el nuevo usuario
@@ -68,16 +73,15 @@ export const registerController = async (req: Request, res: Response) => {
             role: newUser.role,
         };
 
-        // Generar el token para el usuario registrado
-        const sessionData = {
-            token: await tokenSign(newUser),
-            user: userWithoutPassword,
-        };
+         // Generar el token para el usuario registrado
+         const token = await tokenSign(newUser);
 
-        res.status(201).json({
-            message: "Usuario creado exitosamente",
-            sessionData,
-        });
+         // Cambiar la estructura de la respuesta para el test
+         res.status(201).json({
+             message: "Usuario creado exitosamente",
+             user: userWithoutPassword, // Ahora `user` está directamente en el nivel superior
+             token, // Incluir el token en el nivel superior también
+         });
     } catch (error) {
         console.error(error);
         // En caso de error, enviamos el mensaje correspondiente.
