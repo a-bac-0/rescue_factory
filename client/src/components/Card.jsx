@@ -72,27 +72,33 @@ const Card = ({ datatype, data, onUpdate }) => {
         return truncatedText.trim() + ' (...)'
     }
 
-    // Manejo de los clics en el LikeButton y su actualización en la base de datos
     const handleLikeClick = async (e) => {
         e.stopPropagation()
         if (datatype !== 'posts') return
-        const newLikeStatus = !isLiked
-        const newLikeCount = newLikeStatus ? likeCount + 1 : likeCount - 1
+
         try {
-            await toggleLike(cardData.id, newLikeCount)
-            setLikeCount(newLikeCount)
-            setIsLiked(newLikeStatus)
-            const likedItems = JSON.parse(
-                localStorage.getItem('likedItems') || '{}'
+            // Existing like update logic
+            const updatedPost = await toggleLike(
+                cardData.id,
+                isLiked ? likeCount - 1 : likeCount + 1
             )
-            if (newLikeStatus) {
-                likedItems[cardData.id] = true
-            } else {
+            setIsLiked(!isLiked)
+            setLikeCount(updatedPost.like_count)
+
+            // Update localStorage
+            const likedItems =
+                JSON.parse(localStorage.getItem('likedItems')) || {}
+            if (isLiked) {
                 delete likedItems[cardData.id]
+            } else {
+                likedItems[cardData.id] = true
             }
             localStorage.setItem('likedItems', JSON.stringify(likedItems))
         } catch (error) {
-            console.error('Error al actualizar el "like"', error)
+            console.error('Error updating the like:', error)
+            alert(
+                'There was an error updating the like. Please try again later.'
+            )
         }
     }
 
