@@ -25,6 +25,7 @@ app.use(express.json())
 //Rutas
 app.use('/users', userRouter)
 app.use('/posts', postRouter)
+app.use('/comments', commentRouter)
 app.use('/posts/:postId/comments', commentRouter)
 app.use('/adoptions', adoptionRouter)
 app.use('/auth', authRouter)

@@ -13,7 +13,6 @@ import ModalForm from '../components/ModalForm'
 import SendComment from '../components/SendComment'
 
 const Article = () => {
-    //UseParams para obtener parámetros de URL: id y artículo
     const { id, type } = useParams()
     const navigate = useNavigate()
 
@@ -24,7 +23,6 @@ const Article = () => {
     const [likeCount, setLikeCount] = useState(0)
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
 
-    // Obtención de los datos del artículo (posts o adoptions) y del usuario
     const fetchData = async () => {
         setLoading(true)
         try {
@@ -36,28 +34,25 @@ const Article = () => {
             }
             setData(result)
 
-            // Verificación si el artículo ya ha sido marcado con like
             const likedItems =
                 JSON.parse(localStorage.getItem('likedItems')) || {}
             setIsLiked(likedItems[id] || false)
             setLikeCount(result.like_count || 0)
 
-            // Se obtiene el user_id del artículo
             if (result.user_id) {
                 const userResult = await getUsersById(result.user_id)
                 setUser(userResult)
             }
-            setLoading(false)
         } catch (error) {
             console.error('Error obteniendo los datos:', error)
-            setLoading(false)
         }
+        setLoading(false)
     }
+
     useEffect(() => {
         fetchData()
     }, [id, type])
 
-    // Manejo de la función de click en LikeButton
     const handleLikeClick = async () => {
         const newLikeStatus = !isLiked
         const newLikeCount = newLikeStatus ? likeCount + 1 : likeCount - 1
@@ -67,11 +62,9 @@ const Article = () => {
                 await toggleLike(id, newLikeCount)
             }
 
-            // Actualización del like y el contador
             setIsLiked(newLikeStatus)
             setLikeCount(newLikeCount)
 
-            // Guardamos el estado del like en localStorage para que se guarde cuando navegamos a otra parte de la web
             const likedItems =
                 JSON.parse(localStorage.getItem('likedItems')) || {}
             if (newLikeStatus) {
@@ -85,12 +78,10 @@ const Article = () => {
         }
     }
 
-    // Función para abrir el modal de actualizar
     const handleUpdateClick = () => {
         setIsUpdateModalOpen(true)
     }
 
-    // Función para eliminar
     const handleDeleteClick = async () => {
         const confirmation = window.confirm(
             `¿Estás seguro de eliminar esta ${
@@ -104,7 +95,6 @@ const Article = () => {
                 } else {
                     await deleteAdoption(data.id)
                 }
-                // Si es eliminado dentro de article redirige un paso atrás en la navegación
                 navigate(-1)
             } catch (error) {
                 console.error(
@@ -117,7 +107,6 @@ const Article = () => {
         }
     }
 
-    // Mensaje de carga mientras los datos están siendo obtenidos
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -127,9 +116,9 @@ const Article = () => {
     }
 
     return (
-        <div className="width-full mt- flex flex-col h-auto items-center bg-[#76816A]">
+        <div className="w-full mt-4 flex flex-col h-auto items-center bg-[#76816A]">
             <div className="mt-28 lg:gap-5 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
-                <div className="w-[80%] h-[auto] sm:w-[70%] flex flex-col justify-center">
+                <div className="w-[80%] h-auto sm:w-[70%] flex flex-col justify-center">
                     <h1 className="font-inter sm:w-[50%] text-3xl sm:text-5xl font-bold flex text-[#222f1e] mb-3 lg:text-7xl">
                         {type === 'adoptions' ? data.name : data.title}
                     </h1>
@@ -181,7 +170,7 @@ const Article = () => {
                         />
                     </div>
                 </div>
-                <div className="flex mt-5 justify-center w-[80%] h-[auto] sm:mt-0 sm:h-[80%]">
+                <div className="flex mt-5 justify-center w-[80%] h-auto sm:mt-0 sm:h-[80%]">
                     <img
                         src={data.url_images}
                         alt="Imagen Artículo"
@@ -201,7 +190,7 @@ const Article = () => {
                             COMENTARIOS
                         </h1>
                         <BoxComments post_id={id} />
-                        <h3 className="text-[#76816A] text-2xl  font-semibold mb-2 mt-16 lg:text-3xl">
+                        <h3 className="text-[#76816A] text-2xl font-semibold mb-2 mt-16 lg:text-3xl">
                             Deja tu comentario
                         </h3>
                         <SendComment post_id={id} />
