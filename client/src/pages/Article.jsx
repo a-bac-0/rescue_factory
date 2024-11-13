@@ -11,6 +11,7 @@ import { deletePost } from '../services/PostsServices'
 import { deleteAdoption } from '../services/AdoptionsServices'
 import ModalForm from '../components/ModalForm'
 import SendComment from '../components/SendComment'
+import Alert from '../components/Alert'
 
 const Article = () => {
     const { id, type } = useParams()
@@ -22,6 +23,7 @@ const Article = () => {
     const [isLiked, setIsLiked] = useState(false)
     const [likeCount, setLikeCount] = useState(0)
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
 
     const fetchData = async () => {
         setLoading(true)
@@ -82,29 +84,33 @@ const Article = () => {
         setIsUpdateModalOpen(true)
     }
 
-    const handleDeleteClick = async () => {
-        const confirmation = window.confirm(
-            `¿Estás seguro de eliminar esta ${
-                type === 'posts' ? 'noticia' : 'adopción'
-            }?`
-        )
-        if (confirmation) {
-            try {
-                if (type === 'posts') {
-                    await deletePost(data.id)
-                } else {
-                    await deleteAdoption(data.id)
-                }
-                navigate(-1)
-            } catch (error) {
-                console.error(
-                    `Error al eliminar la ${
-                        type === 'posts' ? 'noticia' : 'adopción'
-                    }`,
-                    error
-                )
+    // Acción de eliminar
+    const handleDeleteClick = () => {
+        setShowDeleteAlert(true)
+    }
+
+    // Cofirmación de eliminación
+    const handleDeleteConfirm = async () => {
+        try {
+            if (type === 'posts') {
+                await deletePost(data.id)
+            } else {
+                await deleteAdoption(data.id)
             }
+            navigate(-1)
+        } catch (error) {
+            console.error(
+                `Error al eliminar la ${
+                    type === 'posts' ? 'noticia' : 'adopción'
+                }`,
+                error
+            )
         }
+    }
+
+    // Función para la cancelación
+    const handleDeleteCancel = () => {
+        setShowDeleteAlert(false)
     }
 
     if (loading) {
@@ -116,88 +122,100 @@ const Article = () => {
     }
 
     return (
-        <div className="w-full mt-4 flex flex-col h-auto items-center bg-[#76816A]">
-            <div className="mt-28 lg:gap-5 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
-                <div className="w-[80%] h-auto sm:w-[70%] flex flex-col justify-center">
-                    <h1 className="font-inter sm:w-[50%] text-3xl sm:text-5xl font-bold flex text-[#222f1e] mb-3 lg:text-7xl">
-                        {type === 'adoptions' ? data.name : data.title}
-                    </h1>
-                    {type === 'adoptions' && (
-                        <>
-                            <p className="font-inter text-lg flex text-[#222f1e] mb-1 lg:text-3xl">
-                                {data.age} años
-                            </p>
-                            <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
-                                {data.sex}
-                            </p>
-                        </>
-                    )}
-                    <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
-                        {data.date ? data.date : 'No disponible'}
-                    </p>
-                    <p className="font-inter text-lg text-[#222f1e] mb-2 lg:text-2xl">
-                        Usuario:{' '}
-                        {user.name ? user.name : 'Usuario no encontrado'}
-                    </p>
-                    <div className="flex items-center gap-4">
-                        {type === 'posts' && (
-                            <LikeButton
-                                className="w-5 h-5 mr-5"
-                                isLiked={isLiked}
-                                likeCount={likeCount}
-                                handleLikeClick={handleLikeClick}
-                            />
-                        )}
-                        <RxUpdate
-                            className="text-blue-500 cursor-pointer hover:text-blue-700"
-                            size={25}
-                            onClick={handleUpdateClick}
-                        />
-                        {isUpdateModalOpen && (
-                            <ModalForm
-                                onClose={() => {
-                                    setIsUpdateModalOpen(false)
-                                    fetchData()
-                                }}
-                                formType={type}
-                                initialData={data}
-                            />
-                        )}
-                        <MdDeleteOutline
-                            className="text-red-500 cursor-pointer hover:text-red-700"
-                            size={25}
-                            onClick={handleDeleteClick}
-                        />
-                    </div>
-                </div>
-                <div className="flex mt-5 justify-center w-[80%] h-auto sm:mt-0 sm:h-[80%]">
-                    <img
-                        src={data.url_images}
-                        alt="Imagen Artículo"
-                        className="h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px]"
-                    />
-                </div>
-            </div>
-            <div className="w-[80%] mb-10 mt-2 lg:mt-9 flex flex-col items-center">
-                <p className="font-inter text-lg text-[#222f1e] mb-20 sm:mb-40 lg:text-2xl">
-                    {data.content}
-                </p>
-            </div>
-            {type === 'posts' && (
-                <div className="flex w-full bg-customGreen pb-16 flex-col items-center justify-start">
-                    <div className="w-[80%] relative flex flex-col">
-                        <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
-                            COMENTARIOS
+        <>
+            <div className="w-full mt-4 flex flex-col h-auto items-center bg-[#76816A]">
+                <div className="mt-28 lg:gap-5 w-full flex flex-col items-center sm:flex-row sm:w-[80%]">
+                    <div className="w-[80%] h-auto sm:w-[70%] flex flex-col justify-center">
+                        <h1 className="font-inter sm:w-[50%] text-3xl sm:text-5xl font-bold flex text-[#222f1e] mb-3 lg:text-7xl">
+                            {type === 'adoptions' ? data.name : data.title}
                         </h1>
-                        <BoxComments post_id={id} />
-                        <h3 className="text-[#76816A] text-2xl font-semibold mb-2 mt-16 lg:text-3xl">
-                            Deja tu comentario
-                        </h3>
-                        <SendComment post_id={id} />
+                        {type === 'adoptions' && (
+                            <>
+                                <p className="font-inter text-lg flex text-[#222f1e] mb-1 lg:text-3xl">
+                                    {data.age} años
+                                </p>
+                                <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
+                                    {data.sex}
+                                </p>
+                            </>
+                        )}
+                        <p className="font-inter text-lg text-[#222f1e] mb-1 lg:text-2xl">
+                            {data.date ? data.date : 'No disponible'}
+                        </p>
+                        <p className="font-inter text-lg text-[#222f1e] mb-2 lg:text-2xl">
+                            Usuario:{' '}
+                            {user.name ? user.name : 'Usuario no encontrado'}
+                        </p>
+                        <div className="flex items-center gap-4">
+                            {type === 'posts' && (
+                                <LikeButton
+                                    className="w-5 h-5 mr-5"
+                                    isLiked={isLiked}
+                                    likeCount={likeCount}
+                                    handleLikeClick={handleLikeClick}
+                                />
+                            )}
+                            <RxUpdate
+                                className="text-blue-500 cursor-pointer hover:text-blue-700"
+                                size={25}
+                                onClick={handleUpdateClick}
+                            />
+                            {isUpdateModalOpen && (
+                                <ModalForm
+                                    onClose={() => {
+                                        setIsUpdateModalOpen(false)
+                                        fetchData()
+                                    }}
+                                    formType={type}
+                                    initialData={data}
+                                />
+                            )}
+                            <MdDeleteOutline
+                                className="text-red-500 cursor-pointer hover:text-red-700"
+                                size={25}
+                                onClick={handleDeleteClick}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mt-5 justify-center w-[80%] h-auto sm:mt-0 sm:h-[80%]">
+                        <img
+                            src={data.url_images}
+                            alt="Imagen Artículo"
+                            className="h-[47%] sm:w-[42vw] sm:h-[45vw] object-cover mb-5 lg:h-[500px]"
+                        />
                     </div>
                 </div>
+                <div className="w-[80%] mb-10 mt-2 lg:mt-9 flex flex-col items-center">
+                    <p className="font-inter text-lg text-[#222f1e] mb-20 sm:mb-40 lg:text-2xl">
+                        {data.content}
+                    </p>
+                </div>
+                {type === 'posts' && (
+                    <div className="flex w-full bg-customGreen pb-16 flex-col items-center justify-start">
+                        <div className="w-[80%] relative flex flex-col">
+                            <h1 className="absolute top-[-6.3vh] lg:top-[-7.5vh] text-6xl font-bold text-left text-customGreen mb-0 lg:text-7xl">
+                                COMENTARIOS
+                            </h1>
+                            <BoxComments post_id={id} />
+                            <h3 className="text-[#76816A] text-2xl font-semibold mb-2 mt-16 lg:text-3xl">
+                                Deja tu comentario
+                            </h3>
+                            <SendComment post_id={id} />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {showDeleteAlert && (
+                <Alert
+                    message={`¿Estás seguro de eliminar esta ${
+                        type === 'posts' ? 'noticia' : 'adopción'
+                    }?`}
+                    onConfirm={handleDeleteConfirm}
+                    onCancel={handleDeleteCancel}
+                />
             )}
-        </div>
+        </>
     )
 }
 
