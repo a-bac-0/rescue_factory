@@ -11,12 +11,12 @@
         "api": "json-server --watch db/db.json --port 8000"
     },
     "dependencies": {
-
-
+<<<<<<<<< Temporary merge branch 1
+=========
         "@fortawesome/fontawesome-svg-core": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
         "@fortawesome/react-fontawesome": "^0.2.2",
-
+>>>>>>>>> Temporary merge branch 2
         "axios": "^1.7.7",
         "framer-motion": "^11.11.10",
         "gsap": "^3.12.5",

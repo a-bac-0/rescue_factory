@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const BaseUrl = 'http://localhost:8000/users'
-const API_URL = 'http://localhost:8000'
 
 // GET para obtener todos los usuarios
 export const getUsers = async () => {
@@ -59,22 +58,10 @@ export const deleteUser = async (id) => {
 
 export const loginUser = async (email, password) => {
     try {
-        const response = await axios.post(`${API_URL}/auth/login`,  {email, password });
-        console.log ("Este es el" + email, password)
-        return response;
+        const response = await axios.post(`${BaseUrl}/login`, { email, password });
+        return response.data;
     } catch (error) {
         console.error("Error al autenticar el usuario", error);
         throw error;
     }
-    }
-    export const registerUser = async (data) => {
-        try {
-            console.log(data)
-            const response = await axios.post(`${API_URL}/auth/register`, data);
-            return response;
-        } catch (error) {
-            console.error("Error al registrar el usuario", error);
-            throw error;
-        }
-}
-
+};

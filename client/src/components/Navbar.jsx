@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { useUserContext } from '../context/UserContext';
 import LoginForm from './forms/Login';
-import Register from './forms/Register';
-import LogoutButton from './LogoutButton';
+import Registro from './forms/Registro';
+import LogoutButton from './LogOutButton';
 
 const Navbar = () => {
   const { user, isAuthenticated } = useUserContext();
@@ -81,31 +81,30 @@ const Navbar = () => {
         <div className={`fixed top-16 left-0 h-[calc(100%-4rem)] w-full bg-[#31442C]/90 text-[#D1B85E] ${isOpen ? 'block' : 'hidden'} sm:hidden`}>
           <button onClick={toggleMenu} className="absolute top-5 right-5 text-[#D1B85E] text-5xl font-bold z-50">×</button>
           <ul className="flex flex-col items-center justify-center h-full space-y-6 text-lg">
-            {["Home", "Noticias", "Contacto", "Adopciones", "Login", "Registro", "Logout"].map((item, idx) => (
+            {["Home", "Noticias", "Contacto", "Adopciones", "Login", "Registro"].map((item, idx) => (
               <li key={idx} className="transition-transform duration-200 ease-in-out hover:underline origin-center">
                 <Link to={item === "Home" ? "/" : `/${item.toLowerCase()}`} onClick={toggleMenu}>{item}</Link>
               </li>
             ))}
           </ul>
         </div>
-      
-        {showLogin && (
+      </nav>
+      {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="relative w-full max-w-sm p-6 bg-white rounded shadow-lg">
+          <div className="relative w-full max-w-sm p-6 bg-white rounded shadow-lg">
             <button onClick={toggleLogin} className="absolute top-2 right-2 text-gray-600 text-xl">&times;</button>
-            <LoginForm onCloseLogin={() => setShowLogin(false)} />
-            </div>
+            <LoginForm />
+          </div>
         </div>
-        )}
+      )}
       {showRegistro && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="relative w-full max-w-sm p-6 bg-white rounded shadow-lg">
             <button onClick={toggleRegistro} className="absolute top-2 right-2 text-gray-600 text-xl">&times;</button>
-            <Register />
+            <Registro />
           </div>
         </div>
       )}
-      </nav>
     </header>
   );
 };
