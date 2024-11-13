@@ -60,7 +60,7 @@ export const deleteUser = async (id) => {
 export const loginUser = async (email, password) => {
     try {
         const response = await axios.post(`${API_URL}/auth/login`,  {email, password });
-        console.log ("Este es el" + email, password)
+        console.log (`AQUIIIIIIIIII EMAAILLLLLL Y PASSSS: ${email}, ${password}`)
         return response;
     } catch (error) {
         console.error("Error al autenticar el usuario", error);

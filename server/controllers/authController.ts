@@ -8,39 +8,35 @@ import { tokenSign } from "../utils/handleJwt";
 dotenv.config();
 
 // LOGIN
-export const loginController = async (req: Request, res: Response): Promise<void> => {
-  const { email, password } = req.body;
-
+export const loginController = async (req: Request, res: Response) => {
   try {
-    const user = await userModel.findOne({ where: { email } });
-    if (!user) {
-      res.status(400).json({ message: 'Incorrect credentials' });
-      return;
-    }
+      const userEmail = req.body.email;
+      const loginPassword = req.body.password;
 
-    const isMatch = await compare(password, user.password); // Usamos la función compare
-    if (!isMatch) {
-      res.status(400).json({ message: 'Incorrect credentials' });
-      return;
-    }
+      const user = await userModel.findOne({ where: { email: userEmail } });
+      if (!user) {
+          handleHttpError(res, "USER_NOT_EXISTS", 404);
+          return;
+      }
 
-    const token = tokenSign(user); // Generate the JWT token
+      const passwordHashed = user.password;
+      const checkPasswords = await compare(loginPassword, passwordHashed);
 
-    // Create an object without the 'password' property for the response
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    };
 
-    res.json({ message: 'Login successful', token, user: userWithoutPassword });
+      if (!checkPasswords) {
+          handleHttpError(res, "PASSWORD_INVALID", 401);
+          return;
+      }
+
+      const sessionData = {
+          token: await tokenSign(user),
+          user: user
+      };
+
+      res.send({ sessionData });
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ message: 'Server error', error: error.message });
-    } else {
-      res.status(500).json({ message: 'Server error', error });
-    }
+      console.log(error);
+      handleHttpError(res, "ERROR_LOGIN_USER"); // En caso de error, envía la respuesta.
   }
 };
 

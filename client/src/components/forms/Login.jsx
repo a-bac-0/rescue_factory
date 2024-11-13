@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import {loginUser} from '../../services/UsersServices';
 import { useUserContext } from '../../context/UserContext';
-import {useNavigate} from 'react-router-dom';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const { loginUser } = useUserContext();
-  const navigate=useNavigate()
+  const { setUser, setIsAuthenticated } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +17,9 @@ const Login = () => {
 
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
+        console.log('Este es el token'+token)
         setUser(response.data.user);
         setIsAuthenticated(true);
-        navigate(0)
-
-        if (onCloseLogin) onCloseLogin();
-        navigate(0);
-
       } else {
         setErrMsg(response.data.message || "Autenticación fallida");
       }
