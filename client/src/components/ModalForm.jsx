@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { X } from 'lucide-react'
 import { createPost, updatePost } from '../services/PostsServices'
 import { createAdoption, updateAdoption } from '../services/AdoptionsServices'
 
 const ModalForm = ({ onClose, formType, initialData = null }) => {
-    // Inicialización dependiendo del tipo de dato (posts o adoptions)
     const [formData, setFormData] = useState(
         formType === 'posts'
             ? {
@@ -29,12 +27,12 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
               }
     )
 
-    // Estado imagen cargada
     const [imageFile, setImageFile] = useState(null)
-    // Estado para manejar el estado de carga
     const [loading, setLoading] = useState(false)
+    const [validationError, setValidationError] = useState('')
+    const [charCount, setCharCount] = useState(0)
+    const [showValidation, setShowValidation] = useState(false)
 
-    // Inicialización con datos existentes
     useEffect(() => {
         if (initialData) {
             const relevantData =
@@ -60,10 +58,28 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                       }
 
             setFormData(relevantData)
+            setCharCount(relevantData.content.length)
+            validateContent(relevantData.content)
         }
     }, [initialData, formType])
 
-    // Definición de categorías para cada tipo de formulario
+    const validateContent = (content) => {
+        if (content.length < 300) {
+            setValidationError(
+                'El contenido debe tener al menos 300 caracteres'
+            )
+            return false
+        } else if (content.length > 700) {
+            setValidationError(
+                'El contenido no puede exceder los 700 caracteres'
+            )
+            return false
+        } else {
+            setValidationError('')
+            return true
+        }
+    }
+
     const postCategories = [
         { label: 'Mundo animal', value: 'Mundo_animal' },
         { label: 'Cuidado animal', value: 'Cuidado_animal' },
@@ -75,36 +91,40 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         { label: 'Gatos', value: 'Gatos' },
     ]
 
-    // Opciones de sexo para las adopciones
     const sexOptions = [
         { label: 'Macho', value: 'Macho' },
         { label: 'Hembra', value: 'Hembra' },
     ]
 
-    // Función para manejar cambios en los campos de entrada del formulario
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }))
+
+        if (name === 'content') {
+            setCharCount(value.length)
+            setValidationError('')
+            if (showValidation) {
+                validateContent(value)
+            }
+        }
     }
 
-    // Función para manejar cambios en el archivo de imagen
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         setImageFile(file)
     }
 
-    // Función para cargar la imagen a Cloudinary
     const uploadImageToCloudinary = async (file) => {
         const formData = new FormData()
         formData.append('file', file)
-        formData.append('upload_preset', 'your_upload_preset') // Modificar para conectar a cloudinary
+        formData.append('upload_preset', 'your_upload_preset')
 
         try {
             const response = await axios.post(
-                'https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', // Modificar con enlace a cloudinary
+                'https://api.cloudinary.com/v1_1/your_cloud_name/image/upload',
                 formData
             )
             return response.data.secure_url
@@ -114,9 +134,14 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
         }
     }
 
-    // Función para el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setShowValidation(true)
+
+        if (!validateContent(formData.content)) {
+            return
+        }
+
         setLoading(true)
 
         try {
@@ -125,14 +150,13 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 imageUrl = await uploadImageToCloudinary(imageFile)
             }
 
-            // Creación un objeto con los datos del formulario
             const dataToSubmit = {
                 ...formData,
                 url_images: imageUrl,
             }
 
+            let updatedData
             if (formType === 'posts') {
-                // Si es un formulario de publicación, crea o actualiza la publicación
                 const postData = {
                     title: dataToSubmit.title,
                     content: dataToSubmit.content,
@@ -144,12 +168,11 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updatePost(initialData.id, postData) // Actualiza la publicación si existe
+                    updatedData = await updatePost(initialData.id, postData)
                 } else {
-                    await createPost(postData) // Crea una nueva publicación
+                    updatedData = await createPost(postData)
                 }
             } else {
-                // Si es un formulario de adopción, crea o actualiza la adopción
                 const adoptionData = {
                     name: dataToSubmit.name,
                     content: dataToSubmit.content,
@@ -162,13 +185,16 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updateAdoption(initialData.id, adoptionData) // Actualiza la adopción si existe
+                    updatedData = await updateAdoption(
+                        initialData.id,
+                        adoptionData
+                    )
                 } else {
-                    await createAdoption(adoptionData) // Crea una nueva adopción
+                    updatedData = await createAdoption(adoptionData)
                 }
             }
 
-            onClose()
+            onClose(updatedData)
         } catch (error) {
             console.error('Error submitting form:', error)
         } finally {
@@ -178,9 +204,9 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-[#76816A] rounded-lg p-6 w-full max-w-2xl">
+            <div className="bg-[#76816A] border rounded-lg p-6 w-full max-w-2xl">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-2xl font-bold text-black">
                         {initialData
                             ? formType === 'posts'
                                 ? 'Actualizar Noticia'
@@ -189,18 +215,11 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             ? 'Nueva Noticia'
                             : 'Nueva Adopción'}
                     </h2>
-                    <button
-                        onClick={onClose}
-                        className="p-2 hover:bg-gray-100 rounded-full"
-                    >
-                        <X className="w-6 h-6" />
-                    </button>
                 </div>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {formType === 'posts' ? (
                         <div>
-                            <label className="block mb-2 font-inter font-bold">
+                            <label className="block mb-2 font-inter font-bold text-black">
                                 Título
                             </label>
                             <input
@@ -214,7 +233,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                         </div>
                     ) : (
                         <div>
-                            <label className="block mb-2 font-inter font-bold">
+                            <label className="block mb-2 font-inter font-bold text-black">
                                 Nombre del animal
                             </label>
                             <input
@@ -229,7 +248,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                     )}
 
                     <div>
-                        <label className="block mb-2 font-inter font-bold">
+                        <label className="block mb-2 font-inter font-bold text-black">
                             Categoría
                         </label>
                         <select
@@ -255,7 +274,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                     {formType === 'adoptions' && (
                         <>
                             <div>
-                                <label className="block mb-2 font-inter font-bold">
+                                <label className="block mb-2 font-inter font-bold text-black">
                                     Edad
                                 </label>
                                 <input
@@ -270,7 +289,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             </div>
 
                             <div>
-                                <label className="block mb-2 font-inter font-bold">
+                                <label className="block mb-2 font-inter font-bold text-black">
                                     Sexo
                                 </label>
                                 <select
@@ -292,45 +311,61 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                         </>
                     )}
 
-                    <div>
-                        <label className="block mb-2 font-inter font-bold">
+                    <div className="space-y-1">
+                        <label className="block mb-2 font-inter font-bold text-black">
                             Contenido
                         </label>
                         <textarea
                             name="content"
                             value={formData.content}
                             onChange={handleInputChange}
-                            className="w-full p-2 border rounded h-32 bg-[#D1B85E]"
+                            className={`w-full p-2 border rounded bg-[#D1B85E] ${
+                                showValidation && validationError
+                                    ? 'border-red-500'
+                                    : ''
+                            }`}
+                            rows="6"
                             required
-                        />
+                        ></textarea>
+                        <div className="flex justify-between items-center mt-1">
+                            {showValidation && validationError && (
+                                <p className="text-sm text-red-500">
+                                    {validationError}
+                                </p>
+                            )}
+                            <div className="ml-auto text-sm text-black">
+                                {charCount} / 700
+                            </div>
+                        </div>
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-inter font-bold">
-                            {formData.url_images && 'Actualizar '}Imagen
-                            {formData.url_images && ' (opcional)'}
+                        <label className="block mb-2 font-inter font-bold text-black">
+                            Imagen
                         </label>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="w-full p-2 border rounded"
-                            required={!formData.url_images}
+                            className="w-full p-2 border rounded bg-[#D1B85E]"
                         />
                     </div>
 
-                    <div className="flex justify-end gap-4">
+                    <div className="flex justify-end gap-4 mt-6">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 border rounded hover:bg-gray-100"
+                            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 transition-colors"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            disabled={loading}
-                            className="px-4 py-2 bg-[#D1B85E] text-black rounded hover:bg-[#77633D] disabled:bg-blue-300"
+                            disabled={
+                                loading ||
+                                (showValidation && validationError !== '')
+                            }
+                            className="px-4 py-2 bg-[#D1B85E] text-black rounded hover:bg-[#77633D] disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
                         >
                             {loading
                                 ? 'Guardando...'
