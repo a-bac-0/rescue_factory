@@ -1,4 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import { Request, Response, NextFunction } from "express";
 import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } from '../config';
 
@@ -9,35 +11,28 @@ cloudinary.config({
     secure: true
 });
 
-const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        console.log("Body recibido:", req.body);
-        const url_image  = req.body.url_images;
-        
-        if (!url_image) {
-            console.log("No se encontró url_image en el body");
-            res.status(400).json({ message: 'No se proporcionó una imagen' });
-            return;
-        }
-        
 
-        console.log("Intentando subir imagen:", url_image);
-        const result = await cloudinary.uploader.upload(url_image, {
-            folder: "pets_images",
-            allowed_formats: ["jpg", "png"],
-            transformation: [
-                { width: 1000, height: 1000, crop: "limit" }
-            ]
-        });
 
-        console.log("Imagen subida exitosamente:", result.secure_url);
-        req.body.url_images = result.secure_url;
-        next();
-
-    } catch (error) {
-        console.log('Error detallado:', error);
-       
-    }
+const fileFilter = (req: any, file: Express.Multer.File, cb: Function) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+  if (!allowedTypes.includes(file.mimetype)) {
+    req.fileValidationError = 'No se acepta este tipo. Solo JPG, PNG, y WEBP son permitidos.';
+    return cb(null, false);
+  }
+  cb(null, true);
 };
 
-export default uploadImage;
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: (req, file) => {
+    return {
+      folder: 'uploads', // carpeta en Cloudinary para almacenar imágenes
+      format: 'webp',
+      public_id: file.originalname.split('.')[0], // Genera un nombre único para la imagen
+    };
+  }
+});
+
+const upload = multer({ storage, fileFilter });
+
+export default upload;

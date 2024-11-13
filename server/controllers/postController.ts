@@ -60,7 +60,9 @@ export const deletePost = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-       const { title, content, user_id, category, status, like_count, url_images, date } = req.body;
+       const { title, content, user_id, category, status, like_count, date } = req.body;
+       const url_images: any = req.file?.path;
+       console.log(url_images);
        const post = await postModel.create({
          title, content, user_id, category, status, like_count, url_images, date
        });
