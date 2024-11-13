@@ -24,19 +24,21 @@ export const tokenSign = async (user: User): Promise<string> => {
   return sign;
 };
 
-// Esta es la parte modificada
+
 export const verifyToken = async (token: string): Promise<User | null> => {
   try {
     const decoded = jwt.verify(token, JWT as jwt.Secret); // Verificar el token
 
     // Hacemos un "casting" a User, porque sabemos que el payload tiene las propiedades `id` y `role`
+    // Verificamos que el `decoded` tenga las propiedades esperadas
     if (typeof decoded === 'object' && 'id' in decoded && 'role' in decoded) {
-      return decoded as User; // Retornamos como un objeto de tipo User
+      return decoded as User; // Retornamos el usuario decodificado
+    } else {
+      console.error('Token decodificado no tiene la estructura esperada');
+      return null;  // Si no tiene la estructura esperada, devolver null
     }
-
-    return null;
   } catch (error) {
-    console.error('Error verificando el token:', error);
-    return null;
+    console.error('Error al verificar el token:', error);
+    return null;  // Si ocurre algún error, retornar null
   }
 };
