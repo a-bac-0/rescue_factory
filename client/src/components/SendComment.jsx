@@ -3,31 +3,35 @@ import { createComment } from '../services/CommentsServices'
 import { useParams } from 'react-router-dom'
 import MyButton from '../components/Button'
 
-const SendComment = () => {
+const SendComment = ({ onCommentCreated }) => {
     const [content, setContent] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [showWarning, setShowWarning] = useState(false)
+    const [error, setError] = useState('')
 
-    // Extracción del post_id desde la url
     const { id: post_id } = useParams()
 
-    // Función manejo de envío del formulario
     const handleSubmit = async (e) => {
-        // Verificación de longitud minima y máxima
+        e.preventDefault()
+
         if (content.trim().length < 40 || content.trim().length > 150) {
             setShowWarning(true)
             return
         }
 
-        // Si el contenido es válido, comienza el proceso de envío
+        const user_id = localStorage.getItem('userId')
+
+        // Verificar que tengamos todos los datos necesarios
+        if (!user_id || !post_id) {
+            setError('Falta información necesaria para crear el comentario')
+            return
+        }
+
         setIsSubmitting(true)
         setShowWarning(false)
+        setError('')
 
         try {
-            // Obtiene el id del usuario desde localStorage
-            const user_id = localStorage.getItem('userId')
-
-            // Crea del objeto con los valores marcados en la base de datos
             const commentData = {
                 content: content.trim(),
                 post_id: parseInt(post_id),
@@ -35,25 +39,34 @@ const SendComment = () => {
                 date: new Date().toISOString().split('T')[0],
             }
 
-            // Función para crear un comentario
-            await createComment(commentData)
+            const newComment = await createComment(commentData)
+
             setContent('')
+            setShowWarning(false)
+
+            if (onCommentCreated) {
+                onCommentCreated(newComment)
+            }
         } catch (error) {
-            console.error('Error al enviar el comentario:', error)
-            alert(
-                'No se pudo enviar el comentario. Por favor, intenta de nuevo.'
+            console.error(
+                'Error detallado:',
+                error.response?.data || error.message
+            )
+            setError(
+                error.response?.data?.message ||
+                    'No se pudo enviar el comentario. Por favor, intenta de nuevo.'
             )
         } finally {
             setIsSubmitting(false)
         }
     }
 
-    // Función que maneja el cambio en el campo de texto del comentario
     const handleContentChange = (e) => {
         if (e.target.value.length <= 150) {
             setContent(e.target.value)
         }
         setShowWarning(false)
+        setError('')
     }
 
     return (
@@ -74,14 +87,18 @@ const SendComment = () => {
                     {content.length}/150
                 </span>
             </div>
+
             {showWarning && (
                 <p className="text-sm text-red-500 mt-1">
                     El comentario debe tener entre 40 y 150 caracteres.
                 </p>
             )}
+
+            {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+
             <div className="mt-2 lg:w-[30%]">
                 <MyButton
-                    label="Enviar Comentario"
+                    label={isSubmitting ? 'Enviando...' : 'Enviar Comentario'}
                     type="submit"
                     className="w-full p-2 flex lg:w-[full] items-center mb-10 font-inter font-bold text-black"
                     disabled={isSubmitting}

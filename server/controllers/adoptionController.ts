@@ -1,92 +1,86 @@
 import adoptionModel from "../models/adoptionsModel";
-import { Response, Request} from "express"
+import { Response, Request } from "express";
 
-// Get de las adopciones 
-
+// Get all adoptions
 export const getAdoptions = async (req: Request, res: Response) => {
     try {
         const adoption = await adoptionModel.findAll();
         res.json(adoption);
     } catch (error) {
-        res.json({message: "No se pudo cargar las adopciones"});
+        res.json({ message: "Could not load adoptions" });
     }
 }
 
-// Get one de una adopcion
-
+// Get one adoption by ID
 export const getOneAdoption = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params
-        const adoptionOne = await adoptionModel.findByPk(id)
+        const { id } = req.params;
+        const adoptionOne = await adoptionModel.findByPk(id);
 
         if (adoptionOne) {
-            res.json(adoptionOne)
+            res.json(adoptionOne);
         }
-        
+
     } catch (error) {
-        console.log('No se pudo obtener la informacion de esta adopcion', error)
-        
+        console.log('Could not retrieve the adoption information', error);
     }
 }
 
-// Creacion de una adopcion 
-
+// Create an adoption
 export const createAdoption = async (req: Request, res: Response) => {
     try {
-        const {name, age, sex, category, content, url_images, user_id, date} = req.body;
+        const { name, age, sex, category, content, url_images, user_id, date } = req.body;
         const adoption = await adoptionModel.create({
             name,
-            age, 
+            age,
             sex,
             category,
             content,
             url_images,
             user_id,
             date
-        })
-            res.json(adoption)
+        });
+        res.json(adoption);
 
     } catch (error) {
-            console.log('Erro al subir la adopcion', error)
+        console.log('Error while uploading the adoption', error);
     }
 }
 
-// Delete de una adopcion
-
-export const deleteAdoption = async (req:Request, res: Response) => {
+// Delete an adoption
+export const deleteAdoption = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const adoption = await adoptionModel.findByPk(id);
 
-        await adoption?.destroy()
-        res.json({ message: "Adoption  eliminado correctamente" });
+        await adoption?.destroy();
+        res.json({ message: "Adoption deleted successfully" });
 
     } catch (error) {
-        console.log('No se pudo eliminar la adopcion', error)
+        console.log('Could not delete the adoption', error);
     }
- };
+};
 
-// Update de una adopcion
-
-export const updateAdoption = async (req:Request, res:Response) => {
+// Update an adoption
+export const updateAdoption = async (req: Request, res: Response) => {
     try {
-        const {id} = req.params;
-        const {name, age, sex, category, content, url_images, user_id, date} = req.body;
-        const updateAdoption = await adoptionModel.findByPk(id)
+        const { id } = req.params;
+        const { name, age, sex, category, content, url_images, user_id, date } = req.body;
+        const updateAdoption = await adoptionModel.findByPk(id);
 
         await updateAdoption?.update({
             name,
-            age, 
+            age,
             sex,
             category,
             content,
             url_images,
             user_id,
             date
-        })
-            res.json(updateAdoption);
+        });
+        res.json(updateAdoption);
 
     } catch (error) {
-        
+        console.log('Error while updating the adoption', error);
     }
 };

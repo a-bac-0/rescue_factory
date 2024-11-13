@@ -70,14 +70,20 @@ export const deletePost = async (id) => {
     }
 }
 
-export const toggleLike = async (id, likeCount) => {
+export const toggleLike = async (postId, newLikeCount) => {
     try {
-        const response = await axios.patch(`${BaseUrl}/${id}`, {
-            like_count: likeCount,
+        const response = await axios.put(`${BaseUrl}/${postId}/like`, {
+            like_count: newLikeCount,
         })
         return response.data
     } catch (error) {
-        console.error('Error al actualizar el contador de likes', error)
+        if (error.response && error.response.status === 404) {
+            console.error(
+                'Error: The API endpoint for updating likes was not found.'
+            )
+        } else {
+            console.error('Error updating the like count:', error)
+        }
         throw error
     }
 }

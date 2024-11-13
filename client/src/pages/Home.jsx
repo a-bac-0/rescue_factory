@@ -41,7 +41,7 @@ const Home = () => {
         className="w-full h-auto object-cover block md:hidden"
       />
 
-      <section className="w-[80%] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
+      <section className="w-[95%] mx-auto px-8 sm:px-4 md:px-14 lg:px-20 mb-36 text-[#F5F5F5]">
         <h1 className="font-bold mt-10 mb-8 sm:my-6 md:my-10 text-5xl lg:text-7xl">
           EL REFUGIO
         </h1>
@@ -86,6 +86,7 @@ const Home = () => {
           <MyButton
             label="¡HAZTE SOCIO!"
             onClick={() => navigate("/Registro")}
+            className={`w-[350px] h-[70px]`}
           />
         </section>
       </section>
@@ -103,6 +104,7 @@ const Home = () => {
             <MyButton
               label="MÁS ADOPCIONES"
               onClick={() => navigate("/Adopciones")}
+              className={`w-[300px] h-[70px]`}
             />
           </section>
         </section>
@@ -125,6 +127,7 @@ const Home = () => {
           <MyButton
             label="MÁS NOTICIAS"
             onClick={() => navigate("/Noticias")}
+            className={`w-[300px] h-[70px]`}
           />
         </section>
       </section>

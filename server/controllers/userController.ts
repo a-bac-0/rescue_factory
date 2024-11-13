@@ -73,7 +73,7 @@ export const createUser = async (req: Request, res: Response) => {
        res.json(user) // Y LE ENVIAMOS LA RESPUETA EN FORMATO JSON
 
      } catch(error) { 
-         console.log('No se ha podido crear el usuario', error)
+         console.log('Failed to create user', error)
   }
 }
 

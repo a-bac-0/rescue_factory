@@ -7,7 +7,7 @@ const categoryOptions = [
     { label: 'Todas', value: 'Todas' },
     { label: 'Mundo animal', value: 'noticias' },
     { label: 'Cuidado animal', value: 'cuidado_animal' },
-    { label: 'Adopciones de éxito', value: 'adopcion' },
+    { label: 'Adopciones de éxito', value: 'adopciones' },
 ]
 
 // Opciones de likes
