@@ -49,32 +49,22 @@ export const deleteComment = async (req: Request, res: Response) => {
 
 // Post de un comentario
 
-export const createComment = async (req: Request, res: Response) => {
-    try {
-        const { content, user_id, date } = req.body
-        const post_id = parseInt(req.params.postId) // Convertir a número
+export const createComment = async (req:Request, res:Response) => {
+  try {
+     
+      const { content, post_id, user_id, date } = req.body;
+      const comment = await commentModel.create({
+          content,
+          post_id,
+          user_id,         
+          date,
 
-        if (!content || !post_id || !user_id || !date) {
-            return res.status(400).json({
-                error: 'Faltan datos requeridos para crear el comentario',
-            })
-        }
+      });
+          res.json(comment)
 
-        const comment = await commentModel.create({
-            content,
-            post_id: post_id, // Asignado el número parseado
-            user_id: parseInt(user_id), // Asegurar que user_id también sea número
-            date,
-        })
-
-        res.status(201).json(comment)
-    } catch (error: any) {
-        console.error('Error al crear el comentario:', error)
-        res.status(500).json({
-            error: 'No se pudo publicar el comentario',
-            details: error?.message || 'Error desconocido',
-        })
-    }
+   } catch (error) {
+      console.log('No se pudo publicar el comentario', error)
+  }
 }
 
 // Put de un comentario
