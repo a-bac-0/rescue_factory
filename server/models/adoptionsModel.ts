@@ -49,11 +49,11 @@ const adoptionModel = connection_db.define<AdoptionModel>(
             allowNull: false,
         },
         sex: {
-            type: DataTypes.STRING, // Cambiar a enum con Machos y Hembras
+            type: DataTypes.ENUM('Machos','Hembras'), // Cambiar a enum con Machos y Hembras
             allowNull: false,
         },
         category: {
-            type: DataTypes.ENUM('Cat', 'Dog', 'Other'), // Cambiar a español Gatos, Perros y Otros
+            type: DataTypes.ENUM('Gatos', 'Perros', 'Otros'), // Cambiar a español Gatos, Perros y Otros
             allowNull: false,
         },
         content: {
