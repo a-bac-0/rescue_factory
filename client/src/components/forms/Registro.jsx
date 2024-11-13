@@ -94,13 +94,13 @@ const Registro = () => {
     <>
       {success ? (
         <section>
-          <h1>¡Registro Exitoso!</h1>
+          <h1>¡Registro Aprobado!</h1>
           <p>
             <a href="/login">Inicia sesión</a>
           </p>
         </section>
       ) : (
-        <section className="flex flex-col items-center bg-[#76816A] min-h-screen">
+        <section className="flex flex-col items-center bg-[#76816A] max-h-screen w-full min-w-s mx-auto">
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <div className="p-6 w-full max-w-md bg-[#e1d9b7] rounded-md shadow-lg mt-6">
             <h2 className="text-center text-2xl font-bold text-[#31442C] mb-6">¡Hazte Socio!</h2>
@@ -259,7 +259,7 @@ const Registro = () => {
                   required
                   className="rounded"
                 />
-                <label>He leído y acepto la <a href="#" className="text-yellow-600">Política de privacidad</a>. *</label>
+                <label>He leído y acepto la <a href="privacypolicy" className="text-yellow-600">Política de privacidad</a>. *</label>
               </div>
 
               <div className="flex items-center space-x-2">

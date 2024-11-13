@@ -78,6 +78,16 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+        <div className={`fixed top-16 left-0 h-[calc(100%-4rem)] w-full bg-[#31442C]/90 text-[#D1B85E] ${isOpen ? 'block' : 'hidden'} sm:hidden`}>
+          <button onClick={toggleMenu} className="absolute top-5 right-5 text-[#D1B85E] text-5xl font-bold z-50">×</button>
+          <ul className="flex flex-col items-center justify-center h-full space-y-6 text-lg">
+            {["Home", "Noticias", "Contacto", "Adopciones", "Login", "Registro"].map((item, idx) => (
+              <li key={idx} className="transition-transform duration-200 ease-in-out hover:underline origin-center">
+                <Link to={item === "Home" ? "/" : `/${item.toLowerCase()}`} onClick={toggleMenu}>{item}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
