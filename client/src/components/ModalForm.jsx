@@ -9,7 +9,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
             ? {
                   title: '',
                   content: '',
-                  category: 'Mundo_animal',
+                  category: 'noticias',
                   url_images: '',
                   user_id: 1,
                   like_count: 0,
@@ -92,8 +92,8 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
     ]
 
     const sexOptions = [
-        { label: 'Macho', value: 'Machos' },
-        { label: 'Hembra', value: 'Hembras' },
+        { label: 'Macho', value: 'Macho' },
+        { label: 'Hembra', value: 'Hembra' },
     ]
 
     const handleInputChange = (e) => {
