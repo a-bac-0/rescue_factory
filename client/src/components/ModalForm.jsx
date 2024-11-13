@@ -13,7 +13,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                   url_images: '',
                   user_id: 1,
                   like_count: 0,
-                  date: new Date().toISOString().split('T')[0],
+                  date: new Date(),
               }
             : {
                   name: '',
@@ -23,7 +23,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                   age: '',
                   sex: 'Macho',
                   user_id: 1,
-                  date: new Date().toISOString().split('T')[0],
+                  date: new Date(),
               }
     )
 
@@ -81,9 +81,9 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
     }
 
     const postCategories = [
-        { label: 'Mundo animal', value: 'Mundo_animal' },
-        { label: 'Cuidado animal', value: 'Cuidado_animal' },
-        { label: 'Adopciones de éxito', value: 'Adopciones_exito' },
+        { label: 'Mundo animal', value: 'noticias' },
+        { label: 'Cuidado animal', value: 'cuidado_animal' },
+        { label: 'Adopciones de éxito', value: 'adopciones' },
     ]
 
     const adoptionCategories = [
@@ -92,8 +92,8 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
     ]
 
     const sexOptions = [
-        { label: 'Macho', value: 'Macho' },
-        { label: 'Hembra', value: 'Hembra' },
+        { label: 'Macho', value: 'Machos' },
+        { label: 'Hembra', value: 'Hembras' },
     ]
 
     const handleInputChange = (e) => {
