@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { X } from 'lucide-react'
 import { createPost, updatePost } from '../services/PostsServices'
 import { createAdoption, updateAdoption } from '../services/AdoptionsServices'
 
