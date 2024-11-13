@@ -7,6 +7,7 @@ const categoryOptions = [
     { label: 'Todas', value: 'Todas' },
     { label: 'Perros', value: 'Perros' },
     { label: 'Gatos', value: 'Gatos' },
+    { label: 'Otros', value: 'Otros' },
 ]
 
 // Opciones de edad

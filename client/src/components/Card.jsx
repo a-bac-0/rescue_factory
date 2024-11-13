@@ -111,14 +111,17 @@ const Card = ({ datatype, data, onUpdate }) => {
     // Cierre del modal y actualización de los datos, si la ha habido
     const handleModalClose = async (updatedData) => {
         setIsUpdateModalOpen(false)
-        if (updatedData) {
+        // Solo actualizamos si hay datos nuevos y son diferentes a los actuales
+        if (
+            updatedData &&
+            JSON.stringify(updatedData) !== JSON.stringify(cardData)
+        ) {
             setCardData(updatedData)
             if (onUpdate) {
                 onUpdate(updatedData)
             }
         }
     }
-
     // Eliminación del artículo y actualización
     const handleDeleteClick = async (e) => {
         e.stopPropagation()
