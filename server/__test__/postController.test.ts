@@ -11,8 +11,8 @@ describe("CRUD posts with models and token", () => {
   // Crear un usuario y obtener su ID y token
   beforeAll(async () => {
     const userData = {
-      name: "Test User 38",
-      email: "testuser38@example.com",
+      name: "Test User 41",
+      email: "testuser41@example.com",
       password: "password123",
       role: "user",
     };

@@ -13,7 +13,7 @@ export const getPosts = async (req: Request, res: Response) => { // EN ESTA LINE
       res.json(posts); 
 
     } catch (error) {
-      res.status(500).json({ error: "Error al obtener los posts" });
+      res.status(500).json({ error: "Error getting posts" });
     }
 };
 
@@ -25,13 +25,13 @@ export const getPostById = async (req: Request, res: Response) => {
     const post = await postModel.findByPk(id);
 
     if (!post) {
-      res.status(404).json({ message: "Post no encontrado" }); // Respuesta 404 si no existe
+      res.status(404).json({ message: "Post not found" }); // Respuesta 404 si no existe
       return;
     }
 
     res.status(200).json(post); // Código 200 explícito en caso de éxito
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener el post" });
+    res.status(500).json({ error: "Error getting post" });
   }
 };
 
@@ -44,14 +44,14 @@ export const deletePost = async (req: Request, res: Response) => {
       const post = await postModel.findByPk(id);
 
       if (!post) {
-        res.status(404).json({ message: "Post no encontrado" }); // Si no se encuentra
+        res.status(404).json({ message: "Post not found" }); // Si no se encuentra
         return;
       }
 
       await post.destroy();
-      res.status(200).json({ message: "Post eliminado correctamente" }); // Código 200 explícito
+      res.status(200).json({ message: "Post deleted successfully" }); // Código 200 explícito
   } catch (error) {
-      res.status(500).json({ error: "Error al eliminar el post" });
+      res.status(500).json({ error: "Error deleting post" });
   }
 };
 
@@ -66,8 +66,8 @@ export const createPost = async (req: Request, res: Response) => {
        });
        res.status(201).json(post); // Código 201 para creación exitosa
      } catch(error) {
-         console.error('No se ha subir la publicacion', error);
-         res.status(500).json({ message: "Error al crear el post" }); // Respuesta de error
+         console.error('The post could not be uploaded', error);
+         res.status(500).json({ message: "Error creating post" }); // Respuesta de error
   }
 }
 
@@ -81,14 +81,14 @@ export const updatePost = async( req: Request, res: Response ) => {
     const post = await postModel.findByPk(id);
 
     if (!post) {
-      res.status(404).json({ message: "Post no encontrado" }); // Si no se encuentra
+      res.status(404).json({ message: "Post not found" }); // Si no se encuentra
       return;
     }
 
     await post.update({ title, content, user_id, category, status, like_count, url_images, date });
     res.status(200).json(post); // Código 200 explícito para actualización
   } catch(error) {
-      console.error('No se ha podido actualizar', error);
-      res.status(500).json({ message: "Error al actualizar el post" });
+      console.error('Failed to update', error);
+      res.status(500).json({ message: "Error updating post" });
   }
 }

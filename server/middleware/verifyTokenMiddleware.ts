@@ -6,7 +6,7 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
   const token = req.headers.authorization?.split(' ')[1]; // Extrae el token del encabezado 'Bearer'
 
   if (!token) {
-    res.status(401).json({ message: 'No se proporcionó el token' });
+    res.status(401).json({ message: 'Token not provided' });
     return;
   }
 
@@ -14,7 +14,7 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
     const decoded = await verifyToken(token);
 
     if (!decoded) {
-      res.status(401).json({ message: 'Token inválido o expirado' });
+      res.status(401).json({ message: 'Invalid or expired token' });
       return;
     }
 
@@ -22,7 +22,7 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
     req.user = decoded as User;
     next();
   } catch (error) {
-    console.error('Error al verificar el token:', error);
-    res.status(401).json({ message: 'Token inválido o expirado' });
+    console.error('Error verifying the token:', error);
+    res.status(401).json({ message: 'Invalid or expired token' });
   }
 };

@@ -7,7 +7,7 @@ export const getContacts = async (req: Request, res: Response) => {
     const contacts = await contactMessageModel.findAll(); // Obtiene todos los mensajes de contacto de la base de datos
     res.json(contacts);
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener los mensajes de contacto" });
+    res.status(500).json({ error: "Error retrieving contact messages" });
   }
 };
 
@@ -20,10 +20,10 @@ export const getContactById = async (req: Request, res: Response) => {
     if (contact) { // Si el mensaje de contacto se encuentra, lo devuelve en formato JSON
       res.json(contact);
     } else {
-      res.status(404).json({ error: "Mensaje de contacto no encontrado" });
+      res.status(404).json({ error: "Contact message not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener el mensaje de contacto" });
+    res.status(500).json({ error: "Error retrieving the contact message" });
   }
 };
 
@@ -35,12 +35,12 @@ export const deleteContact = async (req: Request, res: Response) => {
 
     if (contact) {
       await contact.destroy(); // Si existe, elimina el mensaje de contacto
-      res.json({ message: "Mensaje de contacto eliminado correctamente" });
+      res.json({ message: "Contact message successfully deleted" });
     } else {
-      res.status(404).json({ error: "Mensaje de contacto no encontrado" });
+      res.status(404).json({ error: "Contact message not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: "Error al eliminar el mensaje de contacto" });
+    res.status(500).json({ error: "Error deleting the contact message" });
   }
 };
 
@@ -58,7 +58,7 @@ export const createContact = async (req: Request, res: Response) => {
 
     res.json(contact); // Envía la respuesta en formato JSON
   } catch (error) {
-    res.status(500).json({ error: "Error al crear el mensaje de contacto" });
+    res.status(500).json({ error: "Error creating the contact message" });
   }
 };
 
@@ -79,9 +79,9 @@ export const updateContact = async (req: Request, res: Response) => {
       }); // Actualiza los campos del mensaje de contacto
       res.json(contact);
     } else {
-      res.status(404).json({ error: "Mensaje de contacto no encontrado" });
+      res.status(404).json({ error: "Contact message not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: "Error al actualizar el mensaje de contacto" });
+    res.status(500).json({ error: "Error updating the contact message" });
   }
 };
