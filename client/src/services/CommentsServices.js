@@ -29,10 +29,13 @@ export const getCommentsByPostId = async (post_id) => {
 // POST un nuevo comentario
 export const createComment = async (commentsData) => {
     try {
-        const response = await axios.post(BaseUrl + '/comments', commentsData) // URL corregida
+        const response = await axios.post(
+            `${BaseUrl}/posts/${commentsData.post_id}/comments`,
+            commentsData
+        )
         return response.data
     } catch (error) {
-        console.error('Error al crear el comentario', error)
+        console.error('Error al crear el comentario:', error)
         throw error
     }
 }

@@ -121,7 +121,7 @@ export const updatePost = async (req: Request, res: Response) => {
     }
 }
 
-// Put de like
+// Put
 export const updateLike = async (req: Request, res: Response) => {
     try {
         const { id } = req.params

@@ -64,7 +64,7 @@ export const updatePost = async (id, updatedPostData) => {
 // DELETE una noticia (posts) por ID
 export const deletePost = async (id) => {
     try {
-        await axios.delete(`${BaseUrl}/posts/${id}`)
+        await axios.delete(`${BaseUrl}/${id}`)
     } catch (error) {
         console.error('Error al eliminar la noticia', error)
         throw error
