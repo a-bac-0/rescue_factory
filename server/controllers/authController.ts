@@ -85,7 +85,7 @@ export const registerController = async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         // En caso de error, enviamos el mensaje correspondiente.
-        res.status(500).json({ message: "Error al registrar el usuario" });
+        res.status(500).json({ message: "Error al registrar el usuario soy backend" + error });
     }
 };
 
