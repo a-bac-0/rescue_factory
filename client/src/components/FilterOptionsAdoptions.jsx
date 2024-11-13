@@ -21,8 +21,8 @@ const ageOptions = [
 // Opciones de sexo
 const sexOptions = [
     { label: 'Cualquiera', value: 'Cualquiera' },
-    { label: 'Hembra', value: 'Hembras' },
-    { label: 'Macho', value: 'Machos' },
+    { label: 'Hembra', value: 'Hembra' },
+    { label: 'Macho', value: 'Macho' },
 ]
 
 const FilterOptions = () => {
