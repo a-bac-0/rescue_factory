@@ -16,6 +16,7 @@ const Login = () => {
         const response = await loginUser(email, password);
 
       if (response.data.success) {
+       
         localStorage.setItem('token', response.data.token);
         console.log('Este es el token'+token)
         setUser(response.data.user);
