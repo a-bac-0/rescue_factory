@@ -8,7 +8,7 @@ const postRouter = express.Router();
 
 postRouter.get('/', getPosts);          
 postRouter.get('/:id', verifyTokenMiddleware, getPostById);    
-postRouter.post('/',uploadImage, verifyTokenMiddleware, createPost);  
+postRouter.post('/',verifyTokenMiddleware,uploadImage, createPost);  
 postRouter.delete('/:id', verifyTokenMiddleware, authorizeRole(['admin']), deletePost); 
 postRouter.put('/:id', verifyTokenMiddleware, authorizeRole(['admin']), updatePost);    
 
