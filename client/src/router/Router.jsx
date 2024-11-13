@@ -4,10 +4,11 @@ import Adopciones from '../pages/Adopciones';
 import Home from '../pages/Home';
 import Noticias from '../pages/Noticias';
 import Contacto from '../pages/Contacto';
-import Registro from '../components/forms/Registro';
+import Register from '../components/forms/Register';
 import Login from '../components/forms/Login';
 import Article from '../pages/Article';
 import PrivacyPolicy from '../pages/Privacidad';
+
 
 export const router = createBrowserRouter([
     {
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'registro',
-                element: <Registro />,
+                element: <Register />,
             },
             {
                 path: 'login',
