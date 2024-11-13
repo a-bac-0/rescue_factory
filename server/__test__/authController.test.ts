@@ -19,7 +19,7 @@ describe("Auth Controller", () => {
 
   // Aquí irán todos los grupos de tests
   describe("Testeo de endpoints", () => {
-    it("debería registrar un nuevo usuario exitosamente", async () => {
+    it("should register a new user successfully", async () => {
       const userData = {
         name: "testuser",
         email: "test@test.com",
@@ -32,11 +32,11 @@ describe("Auth Controller", () => {
         .send(userData)
         .expect(201);
 
-      expect(response.body.message).toBe("Usuario creado exitosamente");
+      expect(response.body.message).toBe("User created successfully");
       expect(response.body.user.email).toBe(userData.email);
     });
 
-    it("debería rechazar un registro con email duplicado", async () => {
+    it("should reject a registration with a duplicate email", async () => {
       const userData = {
         name: "testuser",
         email: "test@test.com",
@@ -53,10 +53,10 @@ describe("Auth Controller", () => {
         .send(userData)
         .expect(409);
 
-      expect(response.body.message).toBe("El email ya está registrado");
+      expect(response.body.message).toBe("Email is already registered");
     });
 
-    it("debería Iniciar sesión", async () => {
+    it("should log in successfully", async () => {
       const userData = {
         name: "testuser",
         email: "test@test.com",
@@ -70,7 +70,7 @@ describe("Auth Controller", () => {
         .send(userData)
         .expect(201);
 
-      expect(responseR.body.message).toBe("Usuario creado exitosamente");
+      expect(responseR.body.message).toBe("User created successfully");
       expect(responseR.body.user.email).toBe(userData.email);
 
       // Login del usuario
@@ -79,10 +79,10 @@ describe("Auth Controller", () => {
         .send(userData)
         .expect(200);
 
-      expect(response.body.message).toBe("Inicio de sesión exitoso");
+      expect(response.body.message).toBe("Login successful");
     });
 
-    it("debería rechazar un inicio de sesión con credenciales incorrectas", async () => {
+    it("should reject login with incorrect credentials", async () => {
       const userData = {
         name: "testuser",
         email: "test@test.com",
@@ -94,14 +94,14 @@ describe("Auth Controller", () => {
       await createUser(userData);
 
       // Intento de login con credenciales incorrectas
-      const incorrectCredentials = { ...userData, password: "wrongpassword" };
+      const incorrectCredentials = { ...userData, password: "Incorrect credentials" };
 
       const response = await request(app)
         .post("/auth/login")
         .send(incorrectCredentials)
         .expect(400);
 
-      expect(response.body.message).toBe("Credenciales incorrectas");
+      expect(response.body.message).toBe("Incorrect credentials");
     });
   });
 });

@@ -1,12 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom'
-import Layout from '../layout/Layout'
-import Adopciones from '../pages/Adopciones.jsx'
-import Home from '../pages/Home.jsx'
-import Noticias from '../pages/Noticias.jsx'
-import Contacto from '../pages/Contacto.jsx'
-import Registro from '../components/forms/Registro.jsx'
-import Article from '../pages/Article.jsx'
-import LoginForm from '../components/forms/Login.jsx'
+import { createBrowserRouter } from 'react-router-dom';
+import Layout from '../layout/Layout';
+import Adopciones from '../pages/Adopciones';
+import Home from '../pages/Home';
+import Noticias from '../pages/Noticias';
+import Contacto from '../pages/Contacto';
+import Register from '../components/forms/Register';
+import Login from '../components/forms/Login';
+import Article from '../pages/Article';
+import PrivacyPolicy from '../pages/Privacidad';
+
 
 export const router = createBrowserRouter([
     {
@@ -19,7 +21,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'login',
-                element: <LoginForm />,
+                element: <Login />,
             },
             {
                 path: 'adopciones',
@@ -35,7 +37,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'registro',
-                element: <Registro />,
+                element: <Register />,
+            },
+            {
+                path: 'login',
+                element: <Login/>,
+            },
+            {
+                path: 'privacypolicy',
+                element: <PrivacyPolicy />,
             },
             {
                 path: ':type/:id',
@@ -43,4 +53,4 @@ export const router = createBrowserRouter([
             },
         ],
     },
-])
+]);

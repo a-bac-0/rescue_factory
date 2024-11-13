@@ -8,6 +8,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { deletePost } from '../services/PostsServices'
 import { deleteAdoption } from '../services/AdoptionsServices'
 import ModalForm from '../components/ModalForm'
+import Alert from './Alert'
 
 // Limite de carácteres dependiendo del tamaño de la pantalla
 const CHAR_LIMIT_SMALL = 70
@@ -21,6 +22,7 @@ const Card = ({ datatype, data, onUpdate }) => {
     const [user, setUser] = useState({})
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
     const [cardData, setCardData] = useState(data)
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
 
     // Establecemos los tamaños de pantalla ligados al límite de carácteres
     useEffect(() => {
@@ -72,27 +74,33 @@ const Card = ({ datatype, data, onUpdate }) => {
         return truncatedText.trim() + ' (...)'
     }
 
-    // Manejo de los clics en el LikeButton y su actualización en la base de datos
     const handleLikeClick = async (e) => {
         e.stopPropagation()
         if (datatype !== 'posts') return
-        const newLikeStatus = !isLiked
-        const newLikeCount = newLikeStatus ? likeCount + 1 : likeCount - 1
+
         try {
-            await toggleLike(cardData.id, newLikeCount)
-            setLikeCount(newLikeCount)
-            setIsLiked(newLikeStatus)
-            const likedItems = JSON.parse(
-                localStorage.getItem('likedItems') || '{}'
+            // Lógica de update de posts
+            const updatedPost = await toggleLike(
+                cardData.id,
+                isLiked ? likeCount - 1 : likeCount + 1
             )
-            if (newLikeStatus) {
-                likedItems[cardData.id] = true
-            } else {
+            setIsLiked(!isLiked)
+            setLikeCount(updatedPost.like_count)
+
+            // Update en el localStorage
+            const likedItems =
+                JSON.parse(localStorage.getItem('likedItems')) || {}
+            if (isLiked) {
                 delete likedItems[cardData.id]
+            } else {
+                likedItems[cardData.id] = true
             }
             localStorage.setItem('likedItems', JSON.stringify(likedItems))
         } catch (error) {
-            console.error('Error al actualizar el "like"', error)
+            console.error('Error updating the like:', error)
+            alert(
+                'There was an error updating the like. Please try again later.'
+            )
         }
     }
 
@@ -105,39 +113,45 @@ const Card = ({ datatype, data, onUpdate }) => {
     // Cierre del modal y actualización de los datos, si la ha habido
     const handleModalClose = async (updatedData) => {
         setIsUpdateModalOpen(false)
-        if (updatedData) {
+        // Se actualiza si hay datos nuevos y diferentes a los existentes
+        if (
+            updatedData &&
+            JSON.stringify(updatedData) !== JSON.stringify(cardData)
+        ) {
             setCardData(updatedData)
             if (onUpdate) {
                 onUpdate(updatedData)
             }
         }
     }
-
     // Eliminación del artículo y actualización
-    const handleDeleteClick = async (e) => {
+    const handleDeleteClick = (e) => {
         e.stopPropagation()
-        const confirmation = window.confirm(
-            `¿Estás seguro de eliminar esta ${
-                datatype === 'posts' ? 'noticia' : 'adopción'
-            }?`
-        )
-        if (confirmation) {
-            try {
-                if (datatype === 'posts') {
-                    await deletePost(cardData.id)
-                } else {
-                    await deleteAdoption(cardData.id)
-                }
-                window.location.reload()
-            } catch (error) {
-                console.error(
-                    `Error al eliminar la ${
-                        datatype === 'posts' ? 'noticia' : 'adopción'
-                    }`,
-                    error
-                )
+        setShowDeleteAlert(true)
+    }
+
+    // Función para confirmar el delete
+    const handleDeleteConfirm = async () => {
+        try {
+            if (datatype === 'posts') {
+                await deletePost(cardData.id)
+            } else {
+                await deleteAdoption(cardData.id)
             }
+            window.location.reload()
+        } catch (error) {
+            console.error(
+                `Error al eliminar la ${
+                    datatype === 'posts' ? 'noticia' : 'adopción'
+                }`,
+                error
+            )
         }
+    }
+
+    // Función para la cancelación
+    const handleDeleteCancel = () => {
+        setShowDeleteAlert(false)
     }
 
     // Estilos para adoptions
@@ -176,77 +190,96 @@ const Card = ({ datatype, data, onUpdate }) => {
     const styles = datatype === 'adoptions' ? adoptionsStyles : postsStyles
 
     return (
-        <div className={`${styles.cardContainer}`}>
-            <div className={`${styles.contentContainer}`}>
-                <h1 className={`${styles.title}`}>
-                    {datatype === 'adoptions' ? cardData.name : cardData.title}
-                </h1>
-                <h2 className={`${styles.subtitle}`}>
-                    {datatype === 'adoptions'
-                        ? `${cardData.age} años`
-                        : cardData.date}
-                </h2>
-                {datatype === 'adoptions' && (
-                    <h2 className={`${styles.additionalInfo}`}>
-                        {cardData.sex}
+        <>
+            <div className={`${styles.cardContainer}`}>
+                <div className={`${styles.contentContainer}`}>
+                    <h1 className={`${styles.title}`}>
+                        {datatype === 'adoptions'
+                            ? cardData.name
+                            : cardData.title}
+                    </h1>
+                    <h2 className={`${styles.subtitle}`}>
+                        {datatype === 'adoptions'
+                            ? `${cardData.age} años`
+                            : cardData.date}
                     </h2>
-                )}
-                <p className={`${styles.adoptionsAuthor}`}>
-                    Usuario: {user.name ? user.name : 'Usuario no encontrado'}
-                </p>
-                <p className={`${styles.content}`}>
-                    {truncateContent(cardData.content)}
-                </p>
-                <MyButton
-                    label="Seguir leyendo"
-                    className={`${styles.showMoreButton}`}
-                    onClick={() =>
-                        (window.location.href = `/${datatype}/${cardData.id}`)
-                    }
-                />
-                <div className={`${styles.iconContainer}`}>
-                    {datatype === 'posts' && (
-                        <>
-                            <LikeButton
-                                className="w-4 h-4 mr-5"
-                                isLiked={isLiked}
-                                likeCount={likeCount}
-                                handleLikeClick={handleLikeClick}
-                            />
-                            <button onClick={handleUpdateClick}>
-                                <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
-                            </button>
-                            <button onClick={handleDeleteClick}>
-                                <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
-                            </button>
-                        </>
+                    {datatype === 'adoptions' && (
+                        <h2 className={`${styles.additionalInfo}`}>
+                            {cardData.sex}
+                        </h2>
                     )}
+                    <p className={`${styles.adoptionsAuthor}`}>
+                        Usuario:{' '}
+                        {user.name ? user.name : 'Usuario no encontrado'}
+                    </p>
+                    <p className={`${styles.content}`}>
+                        {truncateContent(cardData.content)}
+                    </p>
+                    <MyButton
+                        label="Seguir leyendo"
+                        className={`${styles.showMoreButton}`}
+                        onClick={() =>
+                            (window.location.href = `/${datatype}/${cardData.id}`)
+                        }
+                    />
+                    <div className={`${styles.iconContainer}`}>
+                        {datatype === 'posts' && (
+                            <>
+                                <LikeButton
+                                    className="w-4 h-4 mr-5"
+                                    isLiked={isLiked}
+                                    likeCount={likeCount}
+                                    handleLikeClick={handleLikeClick}
+                                />
+                                <button onClick={handleUpdateClick}>
+                                    <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
+                                </button>
+                                <button onClick={handleDeleteClick}>
+                                    <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <img
-                src={cardData.url_images}
-                alt={datatype === 'adoptions' ? cardData.name : cardData.title}
-                className={`${styles.image}`}
-            />
-            {datatype === 'adoptions' && (
-                <div className={`${styles.iconContainer}`}>
-                    <button onClick={handleUpdateClick}>
-                        <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
-                    </button>
-                    <button onClick={handleDeleteClick}>
-                        <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
-                    </button>
-                </div>
-            )}
+                <img
+                    src={cardData.url_images}
+                    alt={
+                        datatype === 'adoptions'
+                            ? cardData.name
+                            : cardData.title
+                    }
+                    className={`${styles.image}`}
+                />
+                {datatype === 'adoptions' && (
+                    <div className={`${styles.iconContainer}`}>
+                        <button onClick={handleUpdateClick}>
+                            <RxUpdate className="text-xl text-blue-500 hover:text-blue-700" />
+                        </button>
+                        <button onClick={handleDeleteClick}>
+                            <MdDeleteOutline className="text-xl text-red-500 hover:text-red-700" />
+                        </button>
+                    </div>
+                )}
 
-            {isUpdateModalOpen && (
-                <ModalForm
-                    onClose={handleModalClose}
-                    formType={datatype}
-                    initialData={cardData}
+                {isUpdateModalOpen && (
+                    <ModalForm
+                        onClose={handleModalClose}
+                        formType={datatype}
+                        initialData={cardData}
+                    />
+                )}
+            </div>
+
+            {showDeleteAlert && (
+                <Alert
+                    message={`¿Estás seguro de eliminar esta ${
+                        datatype === 'posts' ? 'noticia' : 'adopción'
+                    }?`}
+                    onConfirm={handleDeleteConfirm}
+                    onCancel={handleDeleteCancel}
                 />
             )}
-        </div>
+        </>
     )
 }
 

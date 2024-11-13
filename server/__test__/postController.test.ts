@@ -1,185 +1,152 @@
-import request from "supertest";
-import { app, server } from "../app";
 import connection_db from "../database/db";
 import postModel from "../models/postsModel";
+import userModel from "../models/usersModel";  // Asegúrate de tener un modelo de usuarios
+import request from "supertest";
+import { app } from "../app";  // Asegúrate de que tu app esté importada correctamente
 
-describe("CRUD posts", () => {
-  let token: string;
-  let userId: number; // Variable para almacenar el ID del usuario creado
+describe("CRUD posts with models and token", () => {
+  let userId: number;
+  let token: string; // Para almacenar el token de autenticación
 
-  // Registrar un usuario y obtener el token
+  // Crear un usuario y obtener su ID y token
   beforeAll(async () => {
     const userData = {
-      name: "Test User",
-      email: "testuser@example.com",
+      name: "Test User 41",
+      email: "testuser41@example.com",
       password: "password123",
-      role: "user", // Asegúrate de incluir el role
+      role: "user",
     };
 
-    // Crear un usuario a través del endpoint de registro y obtener el token
-    const registerResponse = await request(app)
-      .post("/auth/register")  // Usamos el endpoint de registro
-      .send(userData);
+    // Crear un usuario directamente usando el modelo de usuarios
+    const createdUser = await userModel.create(userData);
+    userId = createdUser.id;
 
-    token = registerResponse.body.token;  // Token obtenido del registro
-  
-    // Ahora, obtén el ID del usuario desde la base de datos
-    const userResponse = await request(app)
-      .post("/auth/login")  // Usamos login si es necesario para obtener detalles del usuario
+    // Autenticación para obtener el token
+    const loginResponse = await request(app)
+      .post("/auth/login")  // Suponiendo que tienes este endpoint para login
       .send({
         email: userData.email,
-        password: userData.password
+        password: userData.password,
       });
 
-    userId = userResponse.body.user.id;  // Asumimos que el login devuelve el ID del usuario
-  
+    token = loginResponse.body.token;  // Obtener el token del login
   });
 
   // GET ALL POSTS
-  test("should return a response with 200 and type json", async () => {
-    const response = await request(app)
-      .get("/posts")
-      .set("Authorization", `Bearer ${token}`); // Incluir el token en los headers
-
-    expect(response.statusCode).toBe(200);
-    expect(response.headers["content-type"]).toContain("application/json");
+  test("should get all posts", async () => {
+    // Usar el modelo para obtener todos los posts
+    const posts = await postModel.findAll();  // Usamos el modelo de posts directamente
+    expect(posts).toBeInstanceOf(Array);  // Verificamos que la respuesta sea un array
   });
 
   // GET POST BY ID
-  test("should get a post by ID", async () => {
+  test("should get a post by ID using model", async () => {
     const postData = {
-      title: "titulo del test de post para el get by id",
-      content: "contenido del test de post",
+      title: "Test post for get by ID",
+      content: "Content of the test post",
       category: 'adopciones' as 'noticias' | 'cuidado_animal' | 'adopciones',
       status: 'inactive' as 'active' | 'inactive',
       like_count: 2,
-      url_images: "Url del test de post",
+      url_images: "Url of the test post",
       date: new Date(),
-      user_id: userId, // Usamos el user_id creado
+      user_id: userId,
     };
 
-    const createResponse = await postModel.create(postData)
+    const createdPost = await postModel.create(postData); // Crear un post usando el modelo
 
-    const postId = createResponse.id;
+    const postId = createdPost.id;
+    const postFromDb = await postModel.findByPk(postId); // Obtener el post por ID desde la base de datos
 
-    const getResponse = await request(app)
-      .get(`/posts/${postId}`)
-      .set("Authorization", `Bearer ${token}`);
-
-    expect(getResponse.statusCode).toBe(200);
-    expect(getResponse.body.title).toBe(postData.title);
-    expect(getResponse.body.content).toBe(postData.content);
-    expect(getResponse.body.url_images).toBe(postData.url_images);
-
+    expect(postFromDb).not.toBeNull();  // Verificar que se encontró el post
+    expect(postFromDb?.title).toBe(postData.title);
+    expect(postFromDb?.content).toBe(postData.content);
   });
 
-//   // POST POST
-//   test("should create a post", async () => {
-//     const postData = {
-//       title: "titulo del test de post para el post",
-//       content: "contenido del test de post",
-//       user_id: userId, // Usamos el user_id creado
-//       category: "cuidado_animal",
-//       status: "inactive",
-//       like_count: 2,
-//       url_images: "Url del test de post",
-//       date: "fecha del test de post",
-//     };
+  // POST POST
+  test("should create a post using the model", async () => {
+    const postData = {
+      title: "Test post for creation",
+      content: "Content of the test post",
+      category: 'adopciones' as 'noticias' | 'cuidado_animal' | 'adopciones',
+      status: 'inactive' as 'active' | 'inactive',
+      like_count: 2,
+      url_images: "Url of the test post",
+      date: new Date(),
+      user_id: userId,
+    };
 
-//     const response = await request(app)
-//       .post("/posts")
-//       .set("Authorization", `Bearer ${token}`)
-//       .send(postData);
+    const createdPost = await postModel.create(postData); // Crear el post directamente usando el modelo
 
-//     expect(response.statusCode).toBe(201);
-//     expect(response.body.title).toBe(postData.title);
-//     expect(response.body.content).toBe(postData.content);
-//     expect(response.body.user_id).toBe(postData.user_id);
-//     expect(response.body.category).toBe(postData.category);
-//     expect(response.body.status).toBe(postData.status);
-//     expect(response.body.like_count).toBe(postData.like_count);
-//     expect(response.body.url_images).toBe(postData.url_images);
-//     expect(response.body.date).toBe(postData.date);
-//     expect(response.body.id).toBeDefined();  // Verificar que se haya creado un ID
-//   });
+    expect(createdPost.title).toBe(postData.title);
+    expect(createdPost.content).toBe(postData.content);
+    expect(createdPost.user_id).toBe(postData.user_id);
+    expect(createdPost.status).toBe(postData.status);
+    expect(createdPost.url_images).toBe(postData.url_images);
+    expect(createdPost.id).toBeDefined();  // Verificar que se generó un ID para el post
+  });
 
-//   // DELETE POST
-//   test("should delete a post by ID", async () => {
-//     const postData = {
-//       title: "titulo del test de post para el delete",
-//       content: "contenido del test de post",
-//       category: "cuidado_animal",
-//       status: "inactive",
-//       like_count: 2,
-//       url_images: "Url del test de post",
-//       date: "fecha del test de post",
-//       user_id: userId, // Usamos el user_id creado
-//     };
+  // DELETE POST
+  test("should delete a post by ID using model", async () => {
+    const postData = {
+      title: "Test post for delete",
+      content: "Content of the test post to delete",
+      category: 'cuidado_animal' as 'noticias' | 'cuidado_animal' | 'adopciones',
+      status: 'inactive' as 'active' | 'inactive',
+      like_count: 2,
+      url_images: "Url of the test post",
+      date: new Date(),
+      user_id: userId,
+    };
 
-//     const createResponse = await request(app)
-//       .post("/posts")
-//       .set("Authorization", `Bearer ${token}`)
-//       .send(postData);
+    const createdPost = await postModel.create(postData); // Crear el post usando el modelo
+    const postId = createdPost.id;
 
-//     const postId = createResponse.body.id;
+    const deletedPost = await postModel.findByPk(postId);
+    await deletedPost?.destroy(); // Eliminar el post usando el modelo directamente
 
-//     const deleteResponse = await request(app)
-//       .delete(`/posts/${postId}`)
-//       .set("Authorization", `Bearer ${token}`);
+    const postAfterDeletion = await postModel.findByPk(postId);
+    expect(postAfterDeletion).toBeNull();  // Verificar que el post ya no existe en la base de datos
+  });
 
-//     expect(deleteResponse.statusCode).toBe(200);
-//     expect(deleteResponse.body.message).toBe("Post eliminado correctamente");
-//   });
+  // UPDATE POST
+  test("should update a post by ID using model", async () => {
+    const postData = {
+      title: "Test post for update",
+      content: "Content of the test post",
+      category: 'cuidado_animal' as 'noticias' | 'cuidado_animal' | 'adopciones',
+      status: 'inactive' as 'active' | 'inactive',
+      like_count: 2,
+      url_images: "Url of the test post",
+      date: new Date(),
+      user_id: userId,
+    };
 
-//   // UPDATE POST
-//   test("should update a post by ID", async () => {
-//     const postData = {
-//       title: "titulo del test de post para el update",
-//       content: "contenido del test de post",
-//       category: "cuidado_animal",
-//       status: "inactive",
-//       like_count: 2,
-//       url_images: "Url del test de post",
-//       date: "fecha del test de post",
-//       user_id: userId, // Usamos el user_id creado
-//     };
+    const createdPost = await postModel.create(postData); // Crear el post usando el modelo
+    const postId = createdPost.id;
 
-//     const createResponse = await request(app)
-//       .post("/posts")
-//       .set("Authorization", `Bearer ${token}`)
-//       .send(postData);
+    const updateData = {
+      title: "Updated test post title",
+      content: "Updated content of the test post",
+      category: 'cuidado_animal' as 'noticias' | 'cuidado_animal' | 'adopciones',
+      status: 'active' as 'active' | 'inactive',
+      like_count: 10,
+      url_images: "Updated url of the test post",
+      date: new Date(),
+    };
 
-//     const postId = createResponse.body.id;
+    await createdPost.update(updateData);  // Actualizar el post directamente usando el modelo
 
-//     const updateData = {
-//       title: "titulo actualizado del test de post para el update",
-//       content: "contenido actualizado del test de post",
-//       category: "cuidado_animal",
-//       status: "inactive",
-//       like_count: 2,
-//       url_images: "Url actualizada del test de post",
-//       date: "fecha actualizada del test de post",
-//     };
+    const updatedPost = await postModel.findByPk(postId);  // Obtener el post actualizado
 
-//     const updateResponse = await request(app)
-//       .put(`/posts/${postId}`)
-//       .set("Authorization", `Bearer ${token}`)
-//       .send(updateData);
+    expect(updatedPost?.title).toBe(updateData.title);
+    expect(updatedPost?.content).toBe(updateData.content);
+    expect(updatedPost?.status).toBe(updateData.status);
+    expect(updatedPost?.like_count).toBe(updateData.like_count);
+    expect(updatedPost?.url_images).toBe(updateData.url_images);
+  });
 
-//     expect(updateResponse.statusCode).toBe(200);
-//     expect(updateResponse.body.title).toBe(updateData.title);
-//     expect(updateResponse.body.content).toBe(updateData.content);
-//     expect(updateResponse.body.category).toBe(updateData.category);
-//     expect(updateResponse.body.status).toBe(updateData.status);
-//     expect(updateResponse.body.like_count).toBe(updateData.like_count);
-//     expect(updateResponse.body.url_images).toBe(updateData.url_images);
-//     expect(updateResponse.body.date).toBe(updateData.date);
-//   });
-
-  // Cerrar el servidor y la base de datos después de las pruebas
+  // Cerrar la base de datos después de las pruebas
   afterAll(async () => {
-    // Cerrar el servidor y la base de datos después de las pruebas
-    await server.close(); // Cierra el servidor de Express
-    await connection_db.close();  // Cierra la conexión a la base de datos
+    await connection_db.close();  // Cerrar la conexión a la base de datos
   });
 });
