@@ -1,5 +1,4 @@
 import axios from 'axios'
-import PetServices from './PetServices'
 
 const BaseUrl = 'http://localhost:8000/posts'
 
