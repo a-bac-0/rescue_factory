@@ -131,8 +131,8 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 url_images: imageUrl,
             }
 
+            let updatedData
             if (formType === 'posts') {
-                // Si es un formulario de publicación, crea o actualiza la publicación
                 const postData = {
                     title: dataToSubmit.title,
                     content: dataToSubmit.content,
@@ -144,12 +144,11 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updatePost(initialData.id, postData) // Actualiza la publicación si existe
+                    updatedData = await updatePost(initialData.id, postData)
                 } else {
-                    await createPost(postData) // Crea una nueva publicación
+                    updatedData = await createPost(postData)
                 }
             } else {
-                // Si es un formulario de adopción, crea o actualiza la adopción
                 const adoptionData = {
                     name: dataToSubmit.name,
                     content: dataToSubmit.content,
@@ -162,13 +161,16 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                 }
 
                 if (initialData) {
-                    await updateAdoption(initialData.id, adoptionData) // Actualiza la adopción si existe
+                    updatedData = await updateAdoption(
+                        initialData.id,
+                        adoptionData
+                    )
                 } else {
-                    await createAdoption(adoptionData) // Crea una nueva adopción
+                    updatedData = await createAdoption(adoptionData)
                 }
             }
 
-            onClose()
+            onClose(updatedData) // Pasa los datos actualizados al cerrar
         } catch (error) {
             console.error('Error submitting form:', error)
         } finally {
@@ -178,7 +180,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-[#76816A] rounded-lg p-6 w-full max-w-2xl">
+            <div className="bg-[#76816A] border rounded-lg p-6 w-full max-w-2xl">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold">
                         {initialData
@@ -189,14 +191,7 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             ? 'Nueva Noticia'
                             : 'Nueva Adopción'}
                     </h2>
-                    <button
-                        onClick={onClose}
-                        className="p-2 hover:bg-gray-100 rounded-full"
-                    >
-                        <X className="w-6 h-6" />
-                    </button>
                 </div>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {formType === 'posts' ? (
                         <div>
@@ -300,25 +295,22 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
                             name="content"
                             value={formData.content}
                             onChange={handleInputChange}
-                            className="w-full p-2 border rounded h-32 bg-[#D1B85E]"
+                            className="w-full p-2 border rounded bg-[#D1B85E]"
                             required
-                        />
+                        ></textarea>
                     </div>
 
                     <div>
                         <label className="block mb-2 font-inter font-bold">
-                            {formData.url_images && 'Actualizar '}Imagen
-                            {formData.url_images && ' (opcional)'}
+                            Imagen
                         </label>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="w-full p-2 border rounded"
-                            required={!formData.url_images}
+                            className="w-full p-2 border rounded bg-[#D1B85E]"
                         />
                     </div>
-
                     <div className="flex justify-end gap-4">
                         <button
                             type="button"

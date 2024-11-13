@@ -19,9 +19,11 @@ const BoxComments = ({ post_id }) => {
         if (confirmation) {
             try {
                 await deleteComment(commentId)
+                // Actualiza el estado local de los comentarios
                 setComments((prevComments) =>
                     prevComments.filter((comment) => comment.id !== commentId)
                 )
+                // No es necesario recargar la página
             } catch (error) {
                 console.error('Error al eliminar el comentario', error)
                 setError('Error al eliminar el comentario')
