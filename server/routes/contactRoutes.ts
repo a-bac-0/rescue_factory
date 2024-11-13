@@ -6,10 +6,10 @@ import contactMessageModel from '../models/contactModel';
 
 const contactRouter = express.Router();
 
-contactRouter.get('/', getContacts);  
-contactRouter.get('/:id', verifyTokenMiddleware, getContactById);    
-contactRouter.post('/', verifyTokenMiddleware, createContact);
-contactRouter.delete('/:id', verifyTokenMiddleware, authorizeRole(['admin']), deleteContact);
-contactRouter.put('/:id', verifyTokenMiddleware, authorizeRole(['admin']), updateContact);   
+contactRouter.get('/', getContacts); 
+contactRouter.get('/:id', getContactById);    
+contactRouter.post('/', createContact);
+contactRouter.delete('/:id', deleteContact)
+contactRouter.put('/:id', updateContact);   
 
 export default contactRouter;
