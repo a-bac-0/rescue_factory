@@ -13,7 +13,7 @@ const commentRouter = express.Router()
 
 commentRouter.get('/', getAllComments)
 commentRouter.get('/:id', getOneComment)
-commentRouter.post('/', createComment)
+// commentRouter.post('/', createComment)
 commentRouter.delete('/:id', deleteComment)
 commentRouter.put('/:id', updateComment)
 
