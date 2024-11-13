@@ -20,6 +20,8 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
 
     // Definir el tipo de `decoded` explícitamente como `User`
     req.user = decoded as User;
+    req.body.user_id= decoded.id
+    
     next();
   } catch (error) {
     console.error('Error verifying the token:', error);
