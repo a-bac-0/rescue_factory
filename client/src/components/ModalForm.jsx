@@ -120,11 +120,12 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
     const uploadImageToCloudinary = async (file) => {
         const formData = new FormData()
         formData.append('file', file)
-        formData.append('upload_preset', 'your_upload_preset')
+        formData.append('upload_preset', 'ml_default')
+        formData.append('cloud_name', 'dri2o7vsv')
 
         try {
             const response = await axios.post(
-                'https://api.cloudinary.com/v1_1/your_cloud_name/image/upload',
+                'https://api.cloudinary.com/v1_1/dri2o7vsv/image/upload',
                 formData
             )
             return response.data.secure_url
@@ -196,7 +197,23 @@ const ModalForm = ({ onClose, formType, initialData = null }) => {
 
             onClose(updatedData)
         } catch (error) {
-            console.error('Error submitting form:', error)
+            if (error.response) {
+                // La solicitud se hizo y el servidor respondió con un código de estado fuera del rango 2xx
+                console.error('Error uploading image:', error.response.data)
+                alert(
+                    `Error al subir la imagen: ${error.response.data.error.message}`
+                )
+            } else if (error.request) {
+                console.error('Error uploading image:', error.request)
+                alert(
+                    'Hubo un problema de conexión al subir la imagen. Inténtalo de nuevo.'
+                )
+            } else {
+                console.error('Error uploading image:', error.message)
+                alert(
+                    'Hubo un error desconocido al subir la imagen. Inténtalo de nuevo más tarde.'
+                )
+            }
         } finally {
             setLoading(false)
         }
