@@ -2,7 +2,8 @@
 
 En el corazón de nuestra comunidad, **Rescue Factory** se alza como un faro de esperanza para aquellos amigos de cuatro patas que más lo necesitan. Somos más que un simple refugio; somos una familia dedicada a transformar vidas, tanto de animales como de personas, a través del amor incondicional y el compromiso inquebrantable.
 
-![Home Rescue Factory](.client\src\assets\images\homeRescueFactory.jpg)
+![Home Rescue Factory](./client/src/assets/images/homeRescueFactory.jpg)
+
 ---
 
 ## Índice 📑
