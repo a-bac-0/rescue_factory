@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { UserProvider } from '../context/UserContext'
 import { FilterProvider } from './FilterContext'
-
 const Layout = () => {
     return (
         <UserProvider>

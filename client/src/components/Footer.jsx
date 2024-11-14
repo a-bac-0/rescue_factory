@@ -3,18 +3,63 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 
 const Footer = () => {
+  const footerContainerStyle = {
+    width: '100%',
+    backgroundColor: '#D1B85E',
+    padding: '15px',
+    boxSizing: 'border-box',
+    color: '#31442C',
+  };
+
+  const footerContentStyle = {
+    display: 'grid',
+    gap: '15px',
+    alignItems: 'flex-start',
+    gridTemplateColumns: '1fr',
+  };
+
+  const logoStyle = {
+    width: '200px',
+    height: 'auto',
+  };
+
+  const sectionsContainerStyle = {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '10px',
+    listStyleType: 'none',
+    padding: 0,
+    margin: 0,
+    textAlign: 'left',
+  };
+
+  const sectionTitleStyle = {
+    gridColumn: '1 / -1',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+    color: '#31442C'
+  };
+
+  const copyRightTextStyle = {
+    color: '#31442C',
+    fontSize: '0.9rem',
+    textAlign: 'center',
+    gridColumn: '1 / -1',
+    marginTop: '20px',
+  };
+
   return (
-    <footer className="bg-[#D1B85E] text-[#31442C] p-4">
-      <div className="container mx-auto flex flex-col items-center gap-4 md:grid md:grid-cols-3">
+    <footer style={footerContainerStyle}>
+      <div style={{ ...footerContentStyle, ...(window.innerWidth >= 768 && { gridTemplateColumns: 'auto 1fr auto' }) }}>
         
-        {/* Logo - siempre a la izquierda en móviles, centrado en desktop */}
-        <div className="flex w-full justify-center md:justify-start md:col-span-1">
-          <img src={logo} alt="Logo" className="w-48 h-auto" />
+        
+        <div>
+          <img src={logo} alt="Logo" style={logoStyle} />
         </div>
 
-        {/* Secciones - a la derecha del logo en móviles, debajo en desktop */}
-        <ul className="grid grid-cols-2 gap-y-2 md:grid-cols-1 text-left w-full md:col-span-1 md:text-center">
-          <li className="font-bold col-span-2 mb-2 text-[#31442C] text-center">SECCIONES</li>
+       
+        <ul style={sectionsContainerStyle}>
+          <li style={sectionTitleStyle}>SECCIONES</li>
           <li><Link to="/adopciones">Adopciones</Link></li>
           <li><Link to="/historiasDeAdopcion">Historias</Link></li>
           <li><Link to="/noticias">Noticias</Link></li>
@@ -23,10 +68,10 @@ const Footer = () => {
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/contacto">Contacto</Link></li>
         </ul>
-
-        {/* Copyright - centrado y debajo en todas las pantallas */}
-        <p className="text-center text-sm w-full mt-4 md:mt-0 md:col-span-3 text-[#31442C]">© 2024 Rescue Factory</p>
       </div>
+
+     
+      <p style={copyRightTextStyle}>Copyright © 2024 Rescue Factory</p>
     </footer>
   );
 };
