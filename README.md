@@ -122,7 +122,7 @@ Sigue estos pasos para instalar y configurar el proyecto:
 
 La estructura del proyecto es la siguiente:
 
-![Estructura del Proyecto](link_a_imagen_de_estructura_proyecto)
+![Estructura del proyecto](./client/src/assets/images/estructura.jpg)
 
 ---
 
