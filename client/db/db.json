@@ -1,0 +1,81 @@
+{
+  "posts": [
+    {
+      "title": "Consejos para el cuidado de mascotas pepe",
+      "content": "El cuidado de las mascotas es una responsabilidad que todos los dueños deben tomar en serio. Para asegurar que nuestros amigos peludos vivan felices y saludables, es fundamental proporcionarles una dieta balanceada, ejercicio regular y atención veterinaria. Es esencial conocer las necesidades nutricionales específicas de cada especie y raza, ya que lo que es bueno para un perro podría no serlo para un gato. El ejercicio es igualmente importante; los perros necesitan paseos diarios y los gatos se benefician de juguetes que estimulan su instinto cazador. Además, mantener un ambiente limpio y seguro es crucial para la salud de nuestras mascotas. También es importante prestar atención a su comportamiento, ya que cambios en su rutina pueden ser indicativos de problemas de salud. La socialización es otra parte vital del cuidado de las mascotas; esto implica exponer a los animales a diferentes situaciones, personas y otros animales desde una edad temprana. Esto no solo ayuda a prevenir problemas de comportamiento, sino que también les permite desarrollar confianza y adaptabilidad. Finalmente, recordar que las mascotas son seres vivos que requieren amor y atención constantes. La conexión emocional que se forma con ellos es invaluable, y cuidar de su bienestar es una inversión en una relación duradera y significativa. Con el tiempo, el esfuerzo que pongas en el cuidado de tu mascota se verá recompensado con lealtad y amor incondicional.",
+      "category": "Cuidado_animal",
+      "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg",
+      "user_id": 3,
+      "like_count": 43,
+      "date": "2023-11-03",
+      "id": "3"
+    }
+  ],
+  "comments": [
+    {
+      "id": "101",
+      "postId": null,
+      "user_id": 2,
+      "content": "Este artículo es muy inspirador, ¡gracias por compartir!",
+      "date": "2023-11-02"
+    },
+    {
+      "id": "102",
+      "postId": null,
+      "user_id": 3,
+      "content": "Adopté a mi perrito hace un año y fue la mejor decisión.",
+      "date": "2023-11-03"
+    }
+  ],
+  "adoptions": [
+    {
+      "id": "3",
+      "date": "2023-11-01",
+      "name": "Luna",
+      "age": "1",
+      "sex": "Hembra",
+      "user_id": 3,
+      "category": "Gatos",
+      "content": "Luna es una gatita juguetona y llena de energía. A sus tan solo un año, le encanta explorar y jugar con todo tipo de juguetes. Aunque es muy activa, también disfruta de largas siestas en el regazo de quien le dé cariño. Es ideal para una familia que quiera una compañera activa y cariñosa. Luna está esterilizada y tiene todas sus vacunas al día.",
+      "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
+    },
+    {
+      "id": "3",
+      "date": "2023-11-01",
+      "name": "Luna",
+      "age": "1",
+      "sex": "Hembra",
+      "user_id": 3,
+      "category": "Gatos",
+      "content": "Luna es una gatita juguetona y llena de energía. A sus tan solo un año, le encanta explorar y jugar con todo tipo de juguetes. Aunque es muy activa, también disfruta de largas siestas en el regazo de quien le dé cariño. Es ideal para una familia que quiera una compañera activa y cariñosa. Luna está esterilizada y tiene todas sus vacunas al día.",
+      "url_images": "https://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Juan",
+      "email": "juan@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Maria",
+      "email": "maria@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Pedro",
+      "email": "pedro@example.com"
+    },
+    {
+      "id": "4",
+      "name": "Ana",
+      "email": "ana@example.com"
+    },
+    {
+      "id": "5",
+      "name": "Luis",
+      "email": "luis@example.com"
+    }
+  ]
+}
