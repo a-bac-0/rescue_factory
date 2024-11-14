@@ -18,6 +18,3 @@ export { DB_USERNAME, DB_DATABASE, DB_PASSWORD, DB_HOST, DB_PORT, NODE_ENV, TEST
 
 // Exportar JWT_SECRET
 export const JWT = process.env.JWT_SECRET;
-export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
-export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
