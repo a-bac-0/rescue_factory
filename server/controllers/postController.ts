@@ -55,9 +55,16 @@ export const deletePost = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
     try {
-        const { title, content, user_id, category, status, like_count, date } =
-            req.body
-        const url_images = req.file?.path || '' // Utiliza una cadena vacía si req.file es undefined
+        const {
+            title,
+            content,
+            user_id,
+            category,
+            status,
+            like_count,
+            url_images,
+            date,
+        } = req.body
         const post = await postModel.create({
             title,
             content,
@@ -68,10 +75,10 @@ export const createPost = async (req: Request, res: Response) => {
             url_images,
             date,
         })
-        res.status(201).json(post)
+        res.status(201).json(post) // Código 201 para creación exitosa
     } catch (error) {
         console.error('The post could not be uploaded', error)
-        res.status(500).json({ message: 'Error creating post' })
+        res.status(500).json({ message: 'Error creating post' }) // Respuesta de error
     }
 }
 

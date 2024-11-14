@@ -49,7 +49,7 @@ const adoptionModel = connection_db.define<AdoptionModel>(
             allowNull: false,
         },
         sex: {
-            type: DataTypes.ENUM('Macho','Hembra'), // Cambiar a enum con Machos y Hembras
+            type: DataTypes.ENUM('Machos','Hembras'), // Cambiar a enum con Machos y Hembras
             allowNull: false,
         },
         category: {
