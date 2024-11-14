@@ -13,6 +13,7 @@ import postRouter from './routes/postsRoutes'
 import commentRouter from './routes/commentsRoutes'
 import adoptionRouter from './routes/adoptionsRoutes'
 import authRouter from './routes/authRoutes'
+import contactRouter from './routes/contactRoutes';
 import { verifyTokenMiddleware } from './middleware/verifyTokenMiddleware' // Asegúrate de que la ruta sea correcta
 
 // Crea una instancia de la aplicación express
@@ -29,6 +30,7 @@ app.use('/comments', commentRouter)
 app.use('/posts/:postId/comments', commentRouter)
 app.use('/adoptions', adoptionRouter)
 app.use('/auth', authRouter)
+app.use('/contact_messages', contactRouter);
 
 // Función para inicializar la base de datos
 const initializeDatabase = async (): Promise<void> => {

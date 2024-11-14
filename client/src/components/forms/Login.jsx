@@ -1,21 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { loginUser } from '../../services/UsersServices'
+import { useUserContext } from '../../context/UserContext'
 
-const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [errMsg, setErrMsg] = useState('')
+    const { setUser, setIsAuthenticated } = useUserContext()
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Lógica de autenticación aquí
-        console.log('Login:', { email, password });
-    };
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const response = await loginUser(email, password)
+
+            if (response.data.success) {
+                localStorage.setItem('token', response.data.token)
+                console.log('Este es el token' + token)
+                setUser(response.data.user)
+                setIsAuthenticated(true)
+            } else {
+                setErrMsg(response.data.message || 'Autenticación fallida')
+            }
+        } catch (err) {
+            setErrMsg('Error de conexión')
+        }
+    }
 
     return (
         <div className="w-full max-w-xs mx-auto">
-            <h2 className="text-2xl font-bold text-center mb-4">Iniciar Sesión</h2>
-            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 className="text-2xl font-bold text-center mb-4">
+                Iniciar Sesión
+            </h2>
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+            >
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="email"
+                    >
                         Correo Electrónico
                     </label>
                     <input
@@ -29,7 +54,10 @@ const LoginForm = () => {
                     />
                 </div>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="password"
+                    >
                         Contraseña
                     </label>
                     <input
@@ -52,7 +80,7 @@ const LoginForm = () => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default LoginForm;
+export default Login
