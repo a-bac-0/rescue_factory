@@ -122,7 +122,7 @@ Sigue estos pasos para instalar y configurar el proyecto:
 
 La estructura del proyecto es la siguiente:
 
-![Estructura del Proyecto](link_a_imagen_de_estructura_proyecto)
+![estructura](https://github.com/user-attachments/assets/146bbe59-c17b-4182-99e7-368d0ceff512)
 
 ---
 
