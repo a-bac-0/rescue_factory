@@ -130,6 +130,7 @@ La estructura del proyecto es la siguiente:
 
 - Panel para administradores con permisos y gestión de usuarios.
 - Configuración del validador del token en el frontend para mejorar la seguridad.
+- Implementar un sistema de estados en las publicaciones, para que al crear una publicación su estado por defecto sea inactiva y que el admin sea quien revise la publicación y la active para mostrar en el Front
 
 ---
 
